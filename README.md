@@ -7,5 +7,5 @@
 * Demo goals: show pet with all possible states, create (non-functional) menus and welcome screens.
 
 Screenshots:
-![Main screen](screenshots/3_28_16_main.png)
-![Settings menu](screenshots/3_28_16_settings.png)
+![Main screen](screenshots/3_28_16_main.png =250x)
+![Settings menu](screenshots/3_28_16_settings.png =250x)
