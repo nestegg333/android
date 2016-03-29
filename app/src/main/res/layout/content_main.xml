@@ -15,14 +15,15 @@
     tools:showIn="@layout/app_bar_main">
 
     <TextView
+        android:id="@+id/pet_state_title"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="0.1"
         android:textSize="40sp"
-        android:layout_gravity="center"
-        android:text="Jimmy is hungry!" />
+        android:layout_gravity="center" />
 
     <ImageView
+        android:id="@+id/pet_state_image"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="0.8"
@@ -35,11 +36,11 @@
         android:gravity="center">
 
         <Button
+            android:id="@+id/pet_state_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="25sp"
-            android:text="Feed Jimmy!"/>
+            android:textSize="25sp" />
 
     </LinearLayout>
 

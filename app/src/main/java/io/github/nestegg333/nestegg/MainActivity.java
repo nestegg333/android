@@ -12,9 +12,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private PetState[] states;
+    private int currentState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +29,12 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+        states = new PetState[] {
+            new PetState("Hi username123!", "Neato!", R.drawable.restingdragon),
+            new PetState("Oh no! Jimmy is hungry!", "Feed Jimmy! - $3", R.drawable.hungrydragon),
+            new PetState("Uh oh, Jimmy looks bored...", "Give Jimmy a toy! - $9", R.drawable.boreddragon),
+            new PetState("Ahh! Jimmy is sick!", "Take Jimmy to the vet! - $18", R.drawable.sickdragon),
+        };
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -38,8 +42,24 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        /*NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);*/
+        currentState = -1;
+        stateChange();
+    }
+
+    private void stateChange() {
+        PetState newState = states[++currentState % 4];
+
+        ((TextView) findViewById(R.id.pet_state_title)).setText(newState.getTitle());
+        ((ImageView) findViewById(R.id.pet_state_image)).setImageDrawable(getDrawable(newState.getImageId()));
+
+        Button actionButton = (Button) findViewById(R.id.pet_state_action);
+        actionButton.setText(newState.getAction());
+        actionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stateChange();
+            }
+        });
     }
 
     @Override
@@ -50,28 +70,6 @@ public class MainActivity extends AppCompatActivity
         } else {
             // super.onBackPressed(); // TODO: this is so we don't go back to the account creation screen
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        /*getMenuInflater().inflate(R.menu.main, menu);*/
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        /*int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }*/
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
