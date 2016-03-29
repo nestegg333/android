@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Quick Info">
+        <menu>
+            <item
+                android:id="@+id/progress_bar_item"
+                android:title="Progress towards monthly goal" />
+            <ProgressBar
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:id="@+id/progress_bar_widget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:max="100"
+                android:progress="69" />
+            <item
+                android:id="@+id/pets_raised_detail"
+                android:title="Pets raised so far: 4" />
+            <item
+                android:id="@+id/payment_history"
+                android:title="Full payment history" />
+        </menu>
+    </item>
+
+    <item android:title="Settings">
+        <menu>
+            <item
+                android:id="@+id/user_settings_option"
+                android:title="User settings" />
+            <item
+                android:id="@+id/logout_option"
+                android:title="Logout" />
+        </menu>
+    </item>
+
+</menu>
