@@ -5,7 +5,8 @@
         <menu>
             <item
                 android:id="@+id/progress_bar_item"
-                android:title="Progress towards monthly goal" />
+                android:title="Progress towards monthly goal: $49/$100" />
+            <!-- TODO: embed ProgressBar
             <ProgressBar
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:id="@+id/progress_bar_widget"
@@ -13,7 +14,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:max="100"
-                android:progress="69" />
+                android:progress="69" />-->
+
+            <!-- TODO: put little egg icons for each pet raised -->
             <item
                 android:id="@+id/pets_raised_detail"
                 android:title="Pets raised so far: 4" />
