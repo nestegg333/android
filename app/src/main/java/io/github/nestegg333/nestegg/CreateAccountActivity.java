@@ -87,7 +87,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         intent.putExtra("USERNAME", username);
         intent.putExtra("PETNAME", "Jethro");
         intent.putExtra("PROGRESS", 50);
-        intent.putExtra("GOAL", 110);
+        intent.putExtra("GOAL", 100);
         intent.putExtra("EGGS_RAISED", 5);
         startActivity(intent);
     }

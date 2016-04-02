@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity
                     ((TextView) findViewById(R.id.drawer_username)).setText(username);
                     ((TextView) findViewById(R.id.drawer_eggs_raised)).setText("x " + eggsRaised);
                     ((TextView) findViewById(R.id.drawer_progress_status)).setText("$" + goalProgress + " saved");
-                    findViewById(R.id.drawer_progress_status).invalidate();
                     ((TextView) findViewById(R.id.drawer_goal_status)).setText("$" + goalTotal + " goal");
                     ((ProgressBar) findViewById(R.id.drawer_progress_bar)).setMax(goalTotal);
                     ((ProgressBar) findViewById(R.id.drawer_progress_bar)).setProgress(goalProgress);
@@ -77,8 +76,18 @@ public class MainActivity extends AppCompatActivity
         };
 
         // TODO: Will need to read today's activity and cost from storage:
+        calculateMonthlyPayments();
         currentState = 0;
         stateChange();
+    }
+
+    private void calculateMonthlyPayments() {
+        int days = 30, vetDays = 1, toyDays = 4, foodDays = 25, vFactor = 10, tFactor = 3, fFactor = 1;
+        int totalFactor = foodDays * fFactor + toyDays * tFactor + vetDays * vFactor;
+        int goal = goalTotal * 100;
+        int remainder = goal % totalFactor;
+        int baseCost = (goal - remainder) / totalFactor;
+        Log.v(TAG, "Base cost: " + (float) baseCost / 100);
     }
 
     private void stateChange() {
