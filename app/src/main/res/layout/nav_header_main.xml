@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:id="@+id/nav_bar_layout"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <LinearLayout
@@ -42,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_vertical_margin"
-        android:gravity="left"
+        android:gravity="start"
         android:textSize="15sp"
         android:textColor="#FF000000"
         android:text="Monthly progress" />
@@ -58,18 +60,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:gravity="left"
+            android:gravity="start"
             android:textSize="15sp"
-            android:text="$70 saved" />
+            android:textColor="#FF000000"/>
 
         <TextView
             android:id="@+id/drawer_goal_status"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:gravity="right"
+            android:gravity="end"
             android:textSize="15sp"
-            android:text="$100 goal"/>
+            android:textColor="#FF000000"/>
     </LinearLayout>
 
     <ProgressBar
@@ -86,7 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_vertical_margin"
-        android:gravity="left"
+        android:gravity="start"
         android:textSize="15sp"
         android:textColor="#FF000000"
         android:text="Pets raised" />
@@ -97,7 +99,8 @@
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_marginBottom="0dp"
-        android:layout_gravity="left">
+        android:orientation="horizontal"
+        android:layout_gravity="start">
         
         <ImageView
             android:layout_width="0dp"
@@ -109,8 +112,8 @@
             android:id="@+id/drawer_eggs_raised"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="x 5"
-            android:textSize="10sp"/>
+            android:textColor="#FF000000"
+            android:textSize="15sp" />
         
     </LinearLayout>
 

@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity
                     ((TextView) findViewById(R.id.drawer_username)).setText(username);
                     ((TextView) findViewById(R.id.drawer_eggs_raised)).setText("x " + eggsRaised);
                     ((TextView) findViewById(R.id.drawer_progress_status)).setText("$" + goalProgress + " saved");
+                    findViewById(R.id.drawer_progress_status).invalidate();
                     ((TextView) findViewById(R.id.drawer_goal_status)).setText("$" + goalTotal + " goal");
                     ((ProgressBar) findViewById(R.id.drawer_progress_bar)).setMax(goalTotal);
                     ((ProgressBar) findViewById(R.id.drawer_progress_bar)).setProgress(goalProgress);
