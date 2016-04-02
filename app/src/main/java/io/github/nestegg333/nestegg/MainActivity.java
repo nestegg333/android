@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity
 
     private PetState[] states;
     private int currentState;
+    private DrawerLayout drawer;
+    private int goalTotal, goalProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +30,26 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().hide();
 
         states = new PetState[] {
-            new PetState("Hi username123!", "Neato!", R.drawable.restingdragon),
-            new PetState("Oh no! Jimmy is hungry!", "Feed Jimmy! - $3", R.drawable.hungrydragon),
-            new PetState("Uh oh, Jimmy looks bored...", "Give Jimmy a toy! - $9", R.drawable.boreddragon),
-            new PetState("Ahh! Jimmy is sick!", "Take Jimmy to the vet! - $18", R.drawable.sickdragon),
+            new PetState("Hi username123!", "Neato!", R.drawable.restingdragon, "Resting"),
+            new PetState("Oh no! Jimmy is hungry!", "Feed Jimmy! - $3", R.drawable.hungrydragon, "Hungry"),
+            new PetState("Uh oh, Jimmy looks bored...", "Give Jimmy a toy! - $9", R.drawable.boreddragon, "Bored"),
+            new PetState("Ahh! Jimmy is sick!", "Take Jimmy to the vet! - $18", R.drawable.sickdragon, "Sick"),
         };
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        findViewById(R.id.drawer_opener).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drawer.isDrawerOpen(GravityCompat.START)) {
+                    drawer.closeDrawer(GravityCompat.START);
+                } else {
+                    drawer.openDrawer(GravityCompat.START);
+                }
+            }
+        });
 
         currentState = -1;
         stateChange();
@@ -52,14 +61,21 @@ public class MainActivity extends AppCompatActivity
         ((TextView) findViewById(R.id.pet_state_title)).setText(newState.getTitle());
         ((ImageView) findViewById(R.id.pet_state_image)).setImageDrawable(getDrawable(newState.getImageId()));
 
-        Button actionButton = (Button) findViewById(R.id.pet_state_action);
-        actionButton.setText(newState.getAction());
-        actionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stateChange();
-            }
-        });
+        if (newState.getLabel().equals("Resting")) {
+            findViewById(R.id.no_action).setVisibility(View.VISIBLE);
+            findViewById(R.id.action_container).setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.no_action).setVisibility(View.GONE);
+            findViewById(R.id.action_container).setVisibility(View.VISIBLE);
+            Button actionButton = (Button) findViewById(R.id.pet_state_action);
+            actionButton.setText(newState.getAction());
+            actionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    stateChange();
+                }
+            });
+        }
     }
 
     @Override
