@@ -3,10 +3,7 @@ package io.github.nestegg333.nestegg;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
@@ -14,23 +11,36 @@ import android.widget.EditText;
  * Created by aqeelp on 3/29/16.
  */
 public class CreateAccountActivity extends AppCompatActivity {
-    private EditText emailAddressEntry, passwordEntry, checkingAccountEntry,
+    private EditText usernameAddressEntry, passwordEntry, checkingAccountEntry,
             savingsAccountEntry, firstGoalEntry;
+    private String username;
+    private int goal, progress, eggs_raised;
     private Context context;
+
+    // TODO input validation throughout
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_account);
+        setContentView(R.layout.activity_account);
         context = this;
 
-        emailAddressEntry = (EditText) findViewById(R.id.new_email_address_input);
+        usernameAddressEntry = (EditText) findViewById(R.id.new_username_address_input);
         passwordEntry = (EditText) findViewById(R.id.new_password_input);
 
-        findViewById(R.id.create_account_continue).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.account_register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                username = usernameAddressEntry.getText().toString();
                 initBankInfoEntry();
+            }
+        });
+
+        findViewById(R.id.account_login).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                username = usernameAddressEntry.getText().toString();
+                validate(passwordEntry.getText().toString());
             }
         });
     }
@@ -59,9 +69,26 @@ public class CreateAccountActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Do something with the value of @firstGoalEntry
                 Intent intent = new Intent(context, MainActivity.class);
-                // TODO: Bundle something to the intent
+                intent.putExtra("USERNAME", username);
+                intent.putExtra("PETNAME", "Jethro");
+                intent.putExtra("PROGRESS", 0);
+                intent.putExtra("GOAL", Integer.parseInt(firstGoalEntry.getText().toString()));
+                intent.putExtra("EGGS_RAISED", 0);
                 startActivity(intent);
             }
         });
+    }
+
+    private void validate(String password) {
+        // TODO: Issue some request to log in
+        // TODO: Request should return USERNAME, PROGRESS, GOAL, EGGS RAISED
+
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("USERNAME", username);
+        intent.putExtra("PETNAME", "Jethro");
+        intent.putExtra("PROGRESS", 50);
+        intent.putExtra("GOAL", 110);
+        intent.putExtra("EGGS_RAISED", 5);
+        startActivity(intent);
     }
 }

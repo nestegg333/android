@@ -32,14 +32,14 @@
         android:layout_weight="0.05"/>
 
     <EditText
-        android:id="@+id/new_email_address_input"
+        android:id="@+id/new_username_address_input"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"
         android:textSize="15sp"
         android:background="#22000000"
         android:padding="10dp"
-        android:hint="Email address"
+        android:hint="Username"
         android:inputType="textEmailAddress"/>
 
     <View
@@ -64,11 +64,19 @@
         android:layout_weight="0.05"/>
 
     <Button
-        android:id="@+id/create_account_continue"
+        android:id="@+id/account_login"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="0.1"
         android:layout_gravity="center"
-        android:text="Continue"/>
+        android:text="login"/>
+
+    <Button
+        android:id="@+id/account_register"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:layout_gravity="center"
+        android:text="register"/>
 
 </LinearLayout>

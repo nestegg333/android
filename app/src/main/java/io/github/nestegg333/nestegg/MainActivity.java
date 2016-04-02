@@ -1,8 +1,11 @@
 package io.github.nestegg333.nestegg;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.Layout;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,32 +17,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private final static String TAG = "NestEgg";
     private PetState[] states;
     private int currentState;
     private DrawerLayout drawer;
-    private int goalTotal, goalProgress;
+    private int goalTotal, goalProgress, eggsRaised;
+    private String username, petname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Activity and view init:
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().hide();
 
-        states = new PetState[] {
-            new PetState("Hi username123!", "Neato!", R.drawable.restingdragon, "Resting"),
-            new PetState("Oh no! Jimmy is hungry!", "Feed Jimmy! - $3", R.drawable.hungrydragon, "Hungry"),
-            new PetState("Uh oh, Jimmy looks bored...", "Give Jimmy a toy! - $9", R.drawable.boreddragon, "Bored"),
-            new PetState("Ahh! Jimmy is sick!", "Take Jimmy to the vet! - $18", R.drawable.sickdragon, "Sick"),
-        };
-
+        // Setup navigation drawer
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         findViewById(R.id.drawer_opener).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,15 +49,39 @@ public class MainActivity extends AppCompatActivity
                     drawer.closeDrawer(GravityCompat.START);
                 } else {
                     drawer.openDrawer(GravityCompat.START);
+                    ((TextView) findViewById(R.id.drawer_username)).setText(username);
+                    ((TextView) findViewById(R.id.drawer_eggs_raised)).setText("x " + eggsRaised);
+                    ((TextView) findViewById(R.id.drawer_progress_status)).setText("$" + goalProgress + " saved");
+                    ((TextView) findViewById(R.id.drawer_goal_status)).setText("$" + goalTotal + " goal");
+                    ((ProgressBar) findViewById(R.id.drawer_progress_bar)).setMax(goalTotal);
+                    ((ProgressBar) findViewById(R.id.drawer_progress_bar)).setProgress(goalProgress);
                 }
             }
         });
 
-        currentState = -1;
+        // Receive the account information:
+        Intent intent = getIntent();
+        username = intent.getStringExtra("USERNAME");
+        petname = intent.getStringExtra("PETNAME");
+        goalTotal = intent.getIntExtra("GOAL", 100);
+        goalProgress = intent.getIntExtra("PROGRESS", 0);
+        eggsRaised = intent.getIntExtra("EGGS_RAISED", 0);
+
+        // Initialize the pet states:
+        states = new PetState[] {
+                new PetState("Hi " + username + "!", "Neato!", R.drawable.restingdragon, "Resting"),
+                new PetState("Oh no! " + petname + " is hungry!", "Feed " + petname + "! - $3", R.drawable.hungrydragon, "Hungry"),
+                new PetState("Uh oh, " + petname + " looks bored...", "Give " + petname + " a toy! - $9", R.drawable.boreddragon, "Bored"),
+                new PetState("Ahh! " + petname + " is sick!", "Take " + petname + " to the vet! - $18", R.drawable.sickdragon, "Sick"),
+        };
+
+        // TODO: Will need to read today's activity and cost from storage:
+        currentState = 0;
         stateChange();
     }
 
     private void stateChange() {
+        // TODO: Just for the purposes of demo:
         PetState newState = states[++currentState % 4];
 
         ((TextView) findViewById(R.id.pet_state_title)).setText(newState.getTitle());
@@ -84,7 +110,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            // super.onBackPressed(); // TODO: this is so we don't go back to the account creation screen
+            // super.onBackPressed(); // this is so we don't go back to the account creation screen
         }
     }
 
