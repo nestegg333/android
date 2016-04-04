@@ -29,4 +29,4 @@
 ### 4/3/16 (Aqeel):
 * Created simple internal plumbing in the application (passing values from activity to activity without hard coding). Began work on implementing design paradigms.
 <img src="screenshots/4_3_16_base.png" width="100px" />
-<img src="screenshots/4_3_16_sidebar.png” width="100px" />
+<img src="screenshots/4_3_16_sidebar.png" width="100px" />
