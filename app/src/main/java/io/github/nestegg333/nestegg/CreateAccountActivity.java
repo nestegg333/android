@@ -4,13 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+
+import java.io.IOException;
 
 /**
  * Created by aqeelp on 3/29/16.
  */
 public class CreateAccountActivity extends AppCompatActivity {
+    private final static String TAG = "NestEgg";
     private EditText usernameAddressEntry, passwordEntry, checkingAccountEntry,
             savingsAccountEntry, firstGoalEntry;
     private String username;
@@ -22,6 +26,8 @@ public class CreateAccountActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // OVERRIDE activity-wide font to custom font:
+        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/Arciform.ttf");
         setContentView(R.layout.activity_account);
         context = this;
 
