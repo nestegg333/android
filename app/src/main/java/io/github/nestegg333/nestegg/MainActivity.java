@@ -2,27 +2,16 @@ package io.github.nestegg333.nestegg;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.text.Layout;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -133,16 +122,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void parseIntent(Intent intent) {
-        token = intent.getStringExtra("TOKEN");
-        username = intent.getStringExtra("USERNAME");
-        petname = intent.getStringExtra("PETNAME");
-        goalTotal = intent.getIntExtra("GOAL", 100);
-        goalProgress = intent.getIntExtra("PROGRESS", 0);
-        eggsRaised = intent.getIntExtra("EGGS_RAISED", 0);
-        interactionSequence = intent.getStringExtra("INTERACTION_SEQUENCE");
-        baselineCost = intent.getIntExtra("BASELINE_COST", 0);
-        transactionsMade = intent.getIntExtra("TRANSACTIONS", 0);
-        lastPaymentDate = intent.getStringExtra("LAST_PAYMENT");
+        token = intent.getStringExtra(Utils.TOKEN);
+        username = intent.getStringExtra(Utils.USERNAME);
+        petname = intent.getStringExtra(Utils.PETNAME);
+        goalTotal = intent.getIntExtra(Utils.GOAL, 100);
+        goalProgress = intent.getIntExtra(Utils.PROGRESS, 0);
+        eggsRaised = intent.getIntExtra(Utils.PETS, 0);
+        interactionSequence = intent.getStringExtra(Utils.INTERACTIONS);
+        baselineCost = intent.getIntExtra(Utils.COST, 0);
+        transactionsMade = intent.getIntExtra(Utils.TRANSACTIONS, 0);
+        lastPaymentDate = intent.getStringExtra(Utils.LAST_PAYMENT);
     }
 
     @Override

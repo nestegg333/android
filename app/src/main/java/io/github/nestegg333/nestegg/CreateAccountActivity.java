@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -92,16 +90,16 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         // TODO please PLEASE set up constants for all of these
         Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra("TOKEN", "1a2b3c");
-        intent.putExtra("USERNAME", username);
-        intent.putExtra("PETNAME", "Jimanji");
-        intent.putExtra("INTERACTION_SEQUENCE", "FTVFF");
-        intent.putExtra("BASELINE_COST", 500);
-        intent.putExtra("TRANSACTIONS", 0);
-        intent.putExtra("LAST_PAYMENT", (new Date()).toString());
-        intent.putExtra("PROGRESS", 50);
-        intent.putExtra("GOAL", 100);
-        intent.putExtra("EGGS_RAISED", 5);
+        intent.putExtra(Utils.TOKEN, "1a2b3c");
+        intent.putExtra(Utils.USERNAME, username);
+        intent.putExtra(Utils.PETNAME, "Jimanji");
+        intent.putExtra(Utils.INTERACTIONS, "FTVFF");
+        intent.putExtra(Utils.COST, 500);
+        intent.putExtra(Utils.TRANSACTIONS, 0);
+        intent.putExtra(Utils.LAST_PAYMENT, (new Date()).toString());
+        intent.putExtra(Utils.PROGRESS, 50);
+        intent.putExtra(Utils.GOAL, 100);
+        intent.putExtra(Utils.PETS, 5);
         startActivity(intent);
     }
 }
