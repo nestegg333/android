@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity
     private final static String TAG = "NestEgg";
     private PetState[] states;
     private DrawerLayout drawer;
-    private int goalTotal, goalProgress, eggsRaised;
-    private String username, petname;
+    private int goalTotal, goalProgress, eggsRaised, baselineCost, transactionsMade;
+    private String username, petname, token, interactionSequence, lastPaymentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +47,7 @@ public class MainActivity extends AppCompatActivity
         initNavigationDrawer();
 
         // Receive the account information:
-        Intent intent = getIntent();
-        username = intent.getStringExtra("USERNAME");
-        petname = intent.getStringExtra("PETNAME");
-        goalTotal = intent.getIntExtra("GOAL", 100);
-        goalProgress = intent.getIntExtra("PROGRESS", 0);
-        eggsRaised = intent.getIntExtra("EGGS_RAISED", 0);
+        parseIntent(getIntent());
 
         // Initialize the pet states:
         states = new PetState[] {
@@ -136,6 +131,19 @@ public class MainActivity extends AppCompatActivity
 
     private void issuePayment(int amount) {
         // TODO: hit api. Note: amount will be 100x value expected
+    }
+
+    private void parseIntent(Intent intent) {
+        token = intent.getStringExtra("TOKEN");
+        username = intent.getStringExtra("USERNAME");
+        petname = intent.getStringExtra("PETNAME");
+        goalTotal = intent.getIntExtra("GOAL", 100);
+        goalProgress = intent.getIntExtra("PROGRESS", 0);
+        eggsRaised = intent.getIntExtra("EGGS_RAISED", 0);
+        interactionSequence = intent.getStringExtra("INTERACTION_SEQUENCE");
+        baselineCost = intent.getIntExtra("BASELINE_COST", 0);
+        transactionsMade = intent.getIntExtra("TRANSACTIONS", 0);
+        lastPaymentDate = intent.getStringExtra("LAST_PAYMENT");
     }
 
     @Override
