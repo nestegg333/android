@@ -20,12 +20,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private final static String TAG = "NestEgg";
     private PetState[] states;
-    private int currentState;
     private DrawerLayout drawer;
     private int goalTotal, goalProgress, eggsRaised;
     private String username, petname;
@@ -40,6 +42,30 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().hide();
 
+        // Setup navigation drawer
+        initNavigationDrawer();
+
+        // Receive the account information:
+        Intent intent = getIntent();
+        username = intent.getStringExtra("USERNAME");
+        petname = intent.getStringExtra("PETNAME");
+        goalTotal = intent.getIntExtra("GOAL", 100);
+        goalProgress = intent.getIntExtra("PROGRESS", 0);
+        eggsRaised = intent.getIntExtra("EGGS_RAISED", 0);
+
+        // Initialize the pet states:
+        states = new PetState[] {
+                new PetState("Hi " + username + "!", "Neato!", R.drawable.restingdragon, "Resting"),
+                new PetState("Oh no! " + petname + " is hungry!", "Feed " + petname + "! - $%d", R.drawable.hungrydragon, "Hungry"),
+                new PetState("Uh oh, " + petname + " looks bored...", "Give " + petname + " a toy! - $%d", R.drawable.boreddragon, "Bored"),
+                new PetState("Ahh! " + petname + " is sick!", "Take " + petname + " to the vet! - $1%d", R.drawable.sickdragon, "Sick"),
+        };
+
+        // TODO: Get today's activity and cost and statechange it
+        stateChange('F', 500);
+    }
+
+    private void initNavigationDrawer() {
         // Setup navigation drawer
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -59,60 +85,53 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
-
-        // Receive the account information:
-        Intent intent = getIntent();
-        username = intent.getStringExtra("USERNAME");
-        petname = intent.getStringExtra("PETNAME");
-        goalTotal = intent.getIntExtra("GOAL", 100);
-        goalProgress = intent.getIntExtra("PROGRESS", 0);
-        eggsRaised = intent.getIntExtra("EGGS_RAISED", 0);
-
-        // Initialize the pet states:
-        states = new PetState[] {
-                new PetState("Hi " + username + "!", "Neato!", R.drawable.restingdragon, "Resting"),
-                new PetState("Oh no! " + petname + " is hungry!", "Feed " + petname + "! - $3", R.drawable.hungrydragon, "Hungry"),
-                new PetState("Uh oh, " + petname + " looks bored...", "Give " + petname + " a toy! - $9", R.drawable.boreddragon, "Bored"),
-                new PetState("Ahh! " + petname + " is sick!", "Take " + petname + " to the vet! - $18", R.drawable.sickdragon, "Sick"),
-        };
-
-        // TODO: Will need to read today's activity and cost from storage:
-        calculateMonthlyPayments();
-        currentState = 0;
-        stateChange();
     }
 
-    private void calculateMonthlyPayments() {
-        int days = 30, vetDays = 1, toyDays = 4, foodDays = 25, vFactor = 10, tFactor = 3, fFactor = 1;
-        int totalFactor = foodDays * fFactor + toyDays * tFactor + vetDays * vFactor;
-        int goal = goalTotal * 100;
-        int remainder = goal % totalFactor;
-        int baseCost = (goal - remainder) / totalFactor;
-        Log.v(TAG, "Base cost: " + (float) baseCost / 100);
-    }
-
-    private void stateChange() {
-        // TODO: Just for the purposes of demo:
-        PetState newState = states[++currentState % 4];
+    private void stateChange(char c, int cost) {
+        PetState newState;
+        int costFactor = 1;
+        switch (c) {
+            case 'F':
+                findViewById(R.id.no_action).setVisibility(View.GONE);
+                findViewById(R.id.action_container).setVisibility(View.VISIBLE);
+                newState = states[1];
+                break;
+            case 'T':
+                findViewById(R.id.no_action).setVisibility(View.GONE);
+                findViewById(R.id.action_container).setVisibility(View.VISIBLE);
+                newState = states[2];
+                costFactor = 3;
+                break;
+            case 'V':
+                findViewById(R.id.no_action).setVisibility(View.GONE);
+                findViewById(R.id.action_container).setVisibility(View.VISIBLE);
+                newState = states[3];
+                costFactor = 10;
+                break;
+            default:
+                findViewById(R.id.no_action).setVisibility(View.VISIBLE);
+                findViewById(R.id.action_container).setVisibility(View.GONE);
+                newState = states[0];
+                ((TextView) findViewById(R.id.pet_state_title)).setText(newState.getTitle());
+                ((ImageView) findViewById(R.id.pet_state_image)).setImageDrawable(getDrawable(newState.getImageId()));
+                return;
+        }
 
         ((TextView) findViewById(R.id.pet_state_title)).setText(newState.getTitle());
         ((ImageView) findViewById(R.id.pet_state_image)).setImageDrawable(getDrawable(newState.getImageId()));
 
-        if (newState.getLabel().equals("Resting")) {
-            findViewById(R.id.no_action).setVisibility(View.VISIBLE);
-            findViewById(R.id.action_container).setVisibility(View.GONE);
-        } else {
-            findViewById(R.id.no_action).setVisibility(View.GONE);
-            findViewById(R.id.action_container).setVisibility(View.VISIBLE);
-            Button actionButton = (Button) findViewById(R.id.pet_state_action);
-            actionButton.setText(newState.getAction());
-            actionButton.setOnClickListener(new View.OnClickListener() {
+        // Set up the action button:
+        BigDecimal actionCost = new BigDecimal(costFactor * cost / 100);
+        actionCost.setScale(2, RoundingMode.HALF_UP);
+        Button actionButton = (Button) findViewById(R.id.pet_state_action);
+        String actionString = newState.getAction().replace("%d", new Double(actionCost.doubleValue()).toString());
+        actionButton.setText(actionString);
+        actionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    stateChange();
+                    stateChange('R', 0);
                 }
-            });
-        }
+        });
     }
 
     @Override
