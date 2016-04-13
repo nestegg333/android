@@ -59,11 +59,11 @@ public class MainActivity extends AppCompatActivity
                 new PetState("Hi " + username + "!", "Neato!", R.drawable.restingdragon, "Resting"),
                 new PetState("Oh no! " + petname + " is hungry!", "Feed " + petname + "! - $%d", R.drawable.hungrydragon, "Hungry"),
                 new PetState("Uh oh, " + petname + " looks bored...", "Give " + petname + " a toy! - $%d", R.drawable.boreddragon, "Bored"),
-                new PetState("Ahh! " + petname + " is sick!", "Take " + petname + " to the vet! - $1%d", R.drawable.sickdragon, "Sick"),
+                new PetState("Ahh! " + petname + " is sick!", "Take " + petname + " to the vet! - $%d", R.drawable.sickdragon, "Sick"),
         };
 
         // TODO: Get today's activity and cost and statechange it
-        stateChange('F', 500);
+        stateChange('V', 500);
     }
 
     private void initNavigationDrawer() {
@@ -121,18 +121,9 @@ public class MainActivity extends AppCompatActivity
         ((TextView) findViewById(R.id.pet_state_title)).setText(newState.getTitle());
         ((ImageView) findViewById(R.id.pet_state_image)).setImageDrawable(getDrawable(newState.getImageId()));
 
-        // get cost
-        String intString = Integer.toString(cost);
-        String finalCost = "";
-        for (int i = 0; i < intString.length(); i++) {
-            if (i == intString.length() - 2)
-                finalCost += '.';
-            finalCost += intString.charAt(i);
-        }
-
         // Set up the action button:
         Button actionButton = (Button) findViewById(R.id.pet_state_action);
-        String actionString = newState.getAction().replace("%d", finalCost);
+        String actionString = newState.getAction().replace("%d", Utils.amountToString(cost * costFactor));
         actionButton.setText(actionString);
         actionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
