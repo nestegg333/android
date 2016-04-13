@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    private void stateChange(char c, int cost) {
+    private void stateChange(char c, final int cost) {
         PetState newState;
         int costFactor = 1;
         switch (c) {
@@ -120,18 +121,30 @@ public class MainActivity extends AppCompatActivity
         ((TextView) findViewById(R.id.pet_state_title)).setText(newState.getTitle());
         ((ImageView) findViewById(R.id.pet_state_image)).setImageDrawable(getDrawable(newState.getImageId()));
 
+        // get cost
+        String intString = Integer.toString(cost);
+        String finalCost = "";
+        for (int i = 0; i < intString.length(); i++) {
+            if (i == intString.length() - 2)
+                finalCost += '.';
+            finalCost += intString.charAt(i);
+        }
+
         // Set up the action button:
-        BigDecimal actionCost = new BigDecimal(costFactor * cost / 100);
-        actionCost.setScale(2, RoundingMode.HALF_UP);
         Button actionButton = (Button) findViewById(R.id.pet_state_action);
-        String actionString = newState.getAction().replace("%d", new Double(actionCost.doubleValue()).toString());
+        String actionString = newState.getAction().replace("%d", finalCost);
         actionButton.setText(actionString);
         actionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    issuePayment(cost);
                     stateChange('R', 0);
                 }
         });
+    }
+
+    private void issuePayment(int amount) {
+        // TODO: hit api. Note: amount will be 100x value expected
     }
 
     @Override
