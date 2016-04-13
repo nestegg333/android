@@ -27,7 +27,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // OVERRIDE activity-wide font to custom font:
-        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/Arciform.ttf");
+        Utils.setDefaultFont(this, "MONOSPACE", "fonts/Arciform.ttf");
         setContentView(R.layout.activity_account);
         context = this;
 
