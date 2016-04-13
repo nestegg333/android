@@ -1,7 +1,11 @@
 package io.github.nestegg333.nestegg;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import java.lang.reflect.Field;
 
@@ -9,6 +13,12 @@ import java.lang.reflect.Field;
  * Created by aqeelp on 4/12/16.
  */
 public class Utils {
+    public static void hideActionBar(AppCompatActivity activity) {
+        Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+        activity.setSupportActionBar(toolbar);
+        activity.getSupportActionBar().hide();
+    }
+
     public static String amountToString(int amount) {
         String intString = Integer.toString(amount);
         String finalCost = "";

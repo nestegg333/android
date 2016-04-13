@@ -39,9 +39,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         Utils.setDefaultFont(this, "MONOSPACE", "fonts/Arciform.ttf"); // OVERRIDE activity-wide font to custom font:
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().hide();
+        Utils.hideActionBar(this);
 
         // Setup navigation drawer
         initNavigationDrawer();
