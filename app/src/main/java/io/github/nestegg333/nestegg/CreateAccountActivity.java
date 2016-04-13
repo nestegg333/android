@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * Created by aqeelp on 3/29/16.
@@ -74,24 +75,30 @@ public class CreateAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Do something with the value of @firstGoalEntry
-                Intent intent = new Intent(context, MainActivity.class);
+                /*Intent intent = new Intent(context, MainActivity.class);
                 intent.putExtra("USERNAME", username);
                 intent.putExtra("PETNAME", "Jethro");
                 intent.putExtra("PROGRESS", 0);
                 intent.putExtra("GOAL", Integer.parseInt(firstGoalEntry.getText().toString()));
                 intent.putExtra("EGGS_RAISED", 0);
-                startActivity(intent);
+                startActivity(intent);*/
+                validate("");
             }
         });
     }
 
     private void validate(String password) {
         // TODO: Issue some request to log in
-        // TODO: Request should return USERNAME, PROGRESS, GOAL, EGGS RAISED
 
+        // TODO please PLEASE set up constants for all of these
         Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("TOKEN", "1a2b3c");
         intent.putExtra("USERNAME", username);
-        intent.putExtra("PETNAME", "Jethro");
+        intent.putExtra("PETNAME", "Jimanji");
+        intent.putExtra("INTERACTION_SEQUENCE", "FTVFF");
+        intent.putExtra("BASELINE_COST", 500);
+        intent.putExtra("TRANSACTIONS", 0);
+        intent.putExtra("LAST_PAYMENT", (new Date()).toString());
         intent.putExtra("PROGRESS", 50);
         intent.putExtra("GOAL", 100);
         intent.putExtra("EGGS_RAISED", 5);

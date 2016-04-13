@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity
                 new PetState("Ahh! " + petname + " is sick!", "Take " + petname + " to the vet! - $%d", R.drawable.sickdragon, "Sick"),
         };
 
-        // TODO: Get today's activity and cost and statechange it
-        stateChange('V', 500);
+        // TODO: compare with lastPaymentDate to make sure its time for an update
+        stateChange(interactionSequence.charAt(transactionsMade), baselineCost);
     }
 
     private void initNavigationDrawer() {
@@ -122,7 +122,8 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onClick(View v) {
                     issuePayment(cost);
-                    stateChange('R', 0);
+                    //TODO stateChange('R', 0);
+                    stateChange(interactionSequence.charAt(++transactionsMade), baselineCost);
                 }
         });
     }
