@@ -2,19 +2,12 @@ package io.github.nestegg333.nestegg;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.text.Layout;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -25,21 +18,37 @@ public class MainActivity extends AppCompatActivity
 
     private final static String TAG = "NestEgg";
     private PetState[] states;
-    private int currentState;
     private DrawerLayout drawer;
-    private int goalTotal, goalProgress, eggsRaised;
-    private String username, petname;
+    private int goalTotal, goalProgress, eggsRaised, baselineCost, transactionsMade;
+    private String username, petname, token, interactionSequence, lastPaymentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Activity and view init:
         super.onCreate(savedInstanceState);
-        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/Arciform.ttf"); // OVERRIDE activity-wide font to custom font:
+        Utils.setDefaultFont(this, "MONOSPACE", "fonts/Arciform.ttf"); // OVERRIDE activity-wide font to custom font:
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().hide();
+        Utils.hideActionBar(this);
 
+        // Setup navigation drawer
+        initNavigationDrawer();
+
+        // Receive the account information:
+        parseIntent(getIntent());
+
+        // Initialize the pet states:
+        states = new PetState[] {
+                new PetState("Hi " + username + "!", "Neato!", R.drawable.restingdragon, "Resting"),
+                new PetState("Oh no! " + petname + " is hungry!", "Feed " + petname + "! - $%d", R.drawable.hungrydragon, "Hungry"),
+                new PetState("Uh oh, " + petname + " looks bored...", "Give " + petname + " a toy! - $%d", R.drawable.boreddragon, "Bored"),
+                new PetState("Ahh! " + petname + " is sick!", "Take " + petname + " to the vet! - $%d", R.drawable.sickdragon, "Sick"),
+        };
+
+        // TODO: compare with lastPaymentDate to make sure its time for an update
+        stateChange(interactionSequence.charAt(transactionsMade), baselineCost);
+    }
+
+    private void initNavigationDrawer() {
         // Setup navigation drawer
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -59,60 +68,70 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
-
-        // Receive the account information:
-        Intent intent = getIntent();
-        username = intent.getStringExtra("USERNAME");
-        petname = intent.getStringExtra("PETNAME");
-        goalTotal = intent.getIntExtra("GOAL", 100);
-        goalProgress = intent.getIntExtra("PROGRESS", 0);
-        eggsRaised = intent.getIntExtra("EGGS_RAISED", 0);
-
-        // Initialize the pet states:
-        states = new PetState[] {
-                new PetState("Hi " + username + "!", "Neato!", R.drawable.restingdragon, "Resting"),
-                new PetState("Oh no! " + petname + " is hungry!", "Feed " + petname + "! - $3", R.drawable.hungrydragon, "Hungry"),
-                new PetState("Uh oh, " + petname + " looks bored...", "Give " + petname + " a toy! - $9", R.drawable.boreddragon, "Bored"),
-                new PetState("Ahh! " + petname + " is sick!", "Take " + petname + " to the vet! - $18", R.drawable.sickdragon, "Sick"),
-        };
-
-        // TODO: Will need to read today's activity and cost from storage:
-        calculateMonthlyPayments();
-        currentState = 0;
-        stateChange();
     }
 
-    private void calculateMonthlyPayments() {
-        int days = 30, vetDays = 1, toyDays = 4, foodDays = 25, vFactor = 10, tFactor = 3, fFactor = 1;
-        int totalFactor = foodDays * fFactor + toyDays * tFactor + vetDays * vFactor;
-        int goal = goalTotal * 100;
-        int remainder = goal % totalFactor;
-        int baseCost = (goal - remainder) / totalFactor;
-        Log.v(TAG, "Base cost: " + (float) baseCost / 100);
-    }
-
-    private void stateChange() {
-        // TODO: Just for the purposes of demo:
-        PetState newState = states[++currentState % 4];
+    private void stateChange(char c, final int cost) {
+        PetState newState;
+        int costFactor = 1;
+        switch (c) {
+            case 'F':
+                findViewById(R.id.no_action).setVisibility(View.GONE);
+                findViewById(R.id.action_container).setVisibility(View.VISIBLE);
+                newState = states[1];
+                break;
+            case 'T':
+                findViewById(R.id.no_action).setVisibility(View.GONE);
+                findViewById(R.id.action_container).setVisibility(View.VISIBLE);
+                newState = states[2];
+                costFactor = 3;
+                break;
+            case 'V':
+                findViewById(R.id.no_action).setVisibility(View.GONE);
+                findViewById(R.id.action_container).setVisibility(View.VISIBLE);
+                newState = states[3];
+                costFactor = 10;
+                break;
+            default:
+                findViewById(R.id.no_action).setVisibility(View.VISIBLE);
+                findViewById(R.id.action_container).setVisibility(View.GONE);
+                newState = states[0];
+                ((TextView) findViewById(R.id.pet_state_title)).setText(newState.getTitle());
+                ((ImageView) findViewById(R.id.pet_state_image)).setImageDrawable(getDrawable(newState.getImageId()));
+                return;
+        }
 
         ((TextView) findViewById(R.id.pet_state_title)).setText(newState.getTitle());
         ((ImageView) findViewById(R.id.pet_state_image)).setImageDrawable(getDrawable(newState.getImageId()));
 
-        if (newState.getLabel().equals("Resting")) {
-            findViewById(R.id.no_action).setVisibility(View.VISIBLE);
-            findViewById(R.id.action_container).setVisibility(View.GONE);
-        } else {
-            findViewById(R.id.no_action).setVisibility(View.GONE);
-            findViewById(R.id.action_container).setVisibility(View.VISIBLE);
-            Button actionButton = (Button) findViewById(R.id.pet_state_action);
-            actionButton.setText(newState.getAction());
-            actionButton.setOnClickListener(new View.OnClickListener() {
+        // Set up the action button:
+        Button actionButton = (Button) findViewById(R.id.pet_state_action);
+        String actionString = newState.getAction().replace("%d", Utils.amountToString(cost * costFactor));
+        actionButton.setText(actionString);
+        actionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    stateChange();
+                    issuePayment(cost);
+                    //TODO stateChange('R', 0);
+                    stateChange(interactionSequence.charAt(++transactionsMade), baselineCost);
                 }
-            });
-        }
+        });
+    }
+
+    private void issuePayment(int amount) {
+        // TODO: hit api. Note: amount will be 100x value expected
+    }
+
+    private void parseIntent(Intent intent) {
+        token = intent.getStringExtra(Utils.TOKEN);
+        username = intent.getStringExtra(Utils.USERNAME);
+        petname = intent.getStringExtra(Utils.PETNAME);
+        goalTotal = intent.getIntExtra(Utils.GOAL, 100);
+        goalProgress = intent.getIntExtra(Utils.PROGRESS, 0);
+        eggsRaised = intent.getIntExtra(Utils.PETS, 0);
+        interactionSequence = intent.getStringExtra(Utils.INTERACTIONS);
+        baselineCost = intent.getIntExtra(Utils.COST, 0);
+        transactionsMade = intent.getIntExtra(Utils.TRANSACTIONS, 0);
+        lastPaymentDate = intent.getStringExtra(Utils.LAST_PAYMENT);
     }
 
     @Override

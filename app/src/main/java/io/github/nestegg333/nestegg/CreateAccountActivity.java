@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import java.io.IOException;
+import java.util.Date;
 
 /**
  * Created by aqeelp on 3/29/16.
@@ -27,7 +26,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // OVERRIDE activity-wide font to custom font:
-        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/Arciform.ttf");
+        Utils.setDefaultFont(this, "MONOSPACE", "fonts/Arciform.ttf");
         setContentView(R.layout.activity_account);
         context = this;
 
@@ -74,27 +73,33 @@ public class CreateAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Do something with the value of @firstGoalEntry
-                Intent intent = new Intent(context, MainActivity.class);
+                /*Intent intent = new Intent(context, MainActivity.class);
                 intent.putExtra("USERNAME", username);
                 intent.putExtra("PETNAME", "Jethro");
                 intent.putExtra("PROGRESS", 0);
                 intent.putExtra("GOAL", Integer.parseInt(firstGoalEntry.getText().toString()));
                 intent.putExtra("EGGS_RAISED", 0);
-                startActivity(intent);
+                startActivity(intent);*/
+                validate("");
             }
         });
     }
 
     private void validate(String password) {
         // TODO: Issue some request to log in
-        // TODO: Request should return USERNAME, PROGRESS, GOAL, EGGS RAISED
 
+        // TODO please PLEASE set up constants for all of these
         Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra("USERNAME", username);
-        intent.putExtra("PETNAME", "Jethro");
-        intent.putExtra("PROGRESS", 50);
-        intent.putExtra("GOAL", 100);
-        intent.putExtra("EGGS_RAISED", 5);
+        intent.putExtra(Utils.TOKEN, "1a2b3c");
+        intent.putExtra(Utils.USERNAME, username);
+        intent.putExtra(Utils.PETNAME, "Jimanji");
+        intent.putExtra(Utils.INTERACTIONS, "FTVFF");
+        intent.putExtra(Utils.COST, 500);
+        intent.putExtra(Utils.TRANSACTIONS, 0);
+        intent.putExtra(Utils.LAST_PAYMENT, (new Date()).toString());
+        intent.putExtra(Utils.PROGRESS, 50);
+        intent.putExtra(Utils.GOAL, 100);
+        intent.putExtra(Utils.PETS, 5);
         startActivity(intent);
     }
 }
