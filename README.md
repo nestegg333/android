@@ -38,3 +38,7 @@
 * Refactored application to move away from prototype and towards functional app
 * Cleaned up codebase and restructured messy methods
 * Determined locations of API calls and filled with temporary data to test functionality
+
+### 4/14/16 (Juliana):
+* finally updated this folder
+* modified layout for activity_enter_bank_info.xml, still need to fix bottom button
