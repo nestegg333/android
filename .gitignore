@@ -1,1 +1,13 @@
+<<<<<<< HEAD
 /.idea/vcs.xml
+=======
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+/.idea/vcs.xml
+>>>>>>> e443bc8888535bf7c183cdf4ad033a7f6ccf9f81
