@@ -43,19 +43,25 @@ public class MainActivity extends AppCompatActivity
         states = new PetState[] {
                 new PetState("Hi " + username + "!", "Neato!", R.drawable.restingdragon, "Resting"),
                 new PetState("Oh no! " + petname + " is hungry!",
-                        "Feed " + petname + "! - $%d", R.drawable.hungrydragon, "Hungry"),
+                        "Feed " + petname + "! - $%m", R.drawable.hungrydragon, "Hungry"),
                 new PetState("Uh oh, " + petname + " looks bored...",
-                        "Give " + petname + " a toy! - $%d", R.drawable.boreddragon, "Bored"),
+                        "Give " + petname + " a toy! - $%m", R.drawable.boreddragon, "Bored"),
                 new PetState("Ahh! " + petname + " is sick!",
-                        "Take " + petname + " to the vet! - $%d", R.drawable.sickdragon, "Sick"),
+                        "Take " + petname + " to the vet! - $%m", R.drawable.sickdragon, "Sick"),
         };
 
         // TODO: compare with lastPaymentDate to make sure its time for an update
         stateChange(interactionSequence.charAt(transactionsMade), baselineCost);
+
     }
 
+    // Setup navigation drawer
     private void initNavigationDrawer() {
-        // Setup navigation drawer
+        // Set up menu item click listener:
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        // Restrict opening/closing actions and fill contents:
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         findViewById(R.id.drawer_opener).setOnClickListener(new View.OnClickListener() {
@@ -111,7 +117,7 @@ public class MainActivity extends AppCompatActivity
 
         // Set up the action button:
         Button actionButton = (Button) findViewById(R.id.pet_state_action);
-        String actionString = newState.getAction().replace("%d", Utils.amountToString(cost * costFactor));
+        String actionString = newState.getAction().replace("%m", Utils.amountToString(cost * costFactor));
         actionButton.setText(actionString);
         actionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -153,7 +159,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        Log.v(TAG, "MenuItem clicked");
         int id = item.getItemId();
         Intent intent;
 
