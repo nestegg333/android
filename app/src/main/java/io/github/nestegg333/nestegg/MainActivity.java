@@ -167,9 +167,9 @@ public class MainActivity extends AppCompatActivity
             intent.putExtras(userData.getExtras());
             startActivity(intent);
         } else if (id == R.id.user_settings_option) {
-            //intent = new Intent(this, UserSettingActivity.class);
-            //intent.putExtras(userData.getExtras());
-            //startActivity(intent);
+            intent = new Intent(this, UserSettingsActivity.class);
+            intent.putExtras(userData.getExtras());
+            startActivity(intent);
         } else if (id == R.id.logout_option) {
             // API.logout()
             this.finish();
