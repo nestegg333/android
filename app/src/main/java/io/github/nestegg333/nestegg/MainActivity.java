@@ -6,6 +6,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,12 +22,13 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout drawer;
     private int goalTotal, goalProgress, eggsRaised, baselineCost, transactionsMade;
     private String username, petname, token, interactionSequence, lastPaymentDate;
+    private Intent userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Activity and view init:
         super.onCreate(savedInstanceState);
-        Utils.setDefaultFont(this, "MONOSPACE", "fonts/Arciform.ttf"); // OVERRIDE activity-wide font to custom font:
+        Utils.setDefaultFont(this, "MONOSPACE", "fonts/Arciform.ttf");
         setContentView(R.layout.activity_main);
         Utils.hideActionBar(this);
 
@@ -34,14 +36,18 @@ public class MainActivity extends AppCompatActivity
         initNavigationDrawer();
 
         // Receive the account information:
-        parseIntent(getIntent());
+        userData = getIntent();
+        parseIntent(userData);
 
         // Initialize the pet states:
         states = new PetState[] {
                 new PetState("Hi " + username + "!", "Neato!", R.drawable.restingdragon, "Resting"),
-                new PetState("Oh no! " + petname + " is hungry!", "Feed " + petname + "! - $%d", R.drawable.hungrydragon, "Hungry"),
-                new PetState("Uh oh, " + petname + " looks bored...", "Give " + petname + " a toy! - $%d", R.drawable.boreddragon, "Bored"),
-                new PetState("Ahh! " + petname + " is sick!", "Take " + petname + " to the vet! - $%d", R.drawable.sickdragon, "Sick"),
+                new PetState("Oh no! " + petname + " is hungry!",
+                        "Feed " + petname + "! - $%d", R.drawable.hungrydragon, "Hungry"),
+                new PetState("Uh oh, " + petname + " looks bored...",
+                        "Give " + petname + " a toy! - $%d", R.drawable.boreddragon, "Bored"),
+                new PetState("Ahh! " + petname + " is sick!",
+                        "Take " + petname + " to the vet! - $%d", R.drawable.sickdragon, "Sick"),
         };
 
         // TODO: compare with lastPaymentDate to make sure its time for an update
@@ -144,19 +150,24 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        Log.v(TAG, "MenuItem clicked");
         int id = item.getItemId();
+        Intent intent;
 
-        // TODO: Handle new views/settings menus in each case
         if (id == R.id.payment_history) {
-
+            intent = new Intent(this, FullPaymentActivity.class);
+            intent.putExtras(userData.getExtras());
+            startActivity(intent);
         } else if (id == R.id.user_settings_option) {
-
+            //intent = new Intent(this, UserSettingActivity.class);
+            //intent.putExtras(userData.getExtras());
+            //startActivity(intent);
         } else if (id == R.id.logout_option) {
-
+            // API.logout()
+            this.finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
