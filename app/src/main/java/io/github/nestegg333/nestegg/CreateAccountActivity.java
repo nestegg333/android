@@ -16,7 +16,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     private final static String TAG = "NestEgg";
     private EditText usernameAddressEntry, passwordEntry, checkingAccountEntry,
             savingsAccountEntry, firstGoalEntry;
-    private String username;
+    private String username, password;
     private int goal, progress, eggs_raised;
     private Context context;
 
@@ -45,7 +45,8 @@ public class CreateAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 username = usernameAddressEntry.getText().toString();
-                validate(passwordEntry.getText().toString());
+                password = passwordEntry.getText().toString();
+                validate();
             }
         });
     }
@@ -80,15 +81,25 @@ public class CreateAccountActivity extends AppCompatActivity {
                 intent.putExtra("GOAL", Integer.parseInt(firstGoalEntry.getText().toString()));
                 intent.putExtra("EGGS_RAISED", 0);
                 startActivity(intent);*/
-                validate("");
+                validate();
             }
         });
     }
 
-    private void validate(String password) {
+    private void validate() {
         // TODO: Issue some request to log in
+        FetchUser fetcher = new FetchUser(username, password, (CreateAccountActivity) this);
+        fetcher.execute("http://api.nestegg.com/users/");
+    }
 
-        // TODO please PLEASE set up constants for all of these
+    public void launchMainActivity(Bundle bundle) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtras(bundle);
+        // TODO startActivity(intent);
+        startActivity(fakeIntent());
+    }
+
+    private Intent fakeIntent() {
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(Utils.TOKEN, "1a2b3c");
         intent.putExtra(Utils.USERNAME, username);
@@ -100,6 +111,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         intent.putExtra(Utils.PROGRESS, 50);
         intent.putExtra(Utils.GOAL, 100);
         intent.putExtra(Utils.PETS, 5);
-        startActivity(intent);
+        return intent;
     }
 }
