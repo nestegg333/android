@@ -29,6 +29,8 @@ public class NewUserPost extends AsyncTask<String, Void, String> {
     public NewUserPost(LogInActivity c) {
         context = c;
 
+        Log.d(TAG, "Posting new user");
+
         trustEveryone();
 
         // Create the JSON object for this user
@@ -39,7 +41,7 @@ public class NewUserPost extends AsyncTask<String, Void, String> {
         // Issue post request
         try {
 
-            Log.v(TAG, "Issuing user post request...");
+            Log.d(TAG, "Issuing user post request...");
 
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             HttpRequest.post(params[0])
@@ -47,17 +49,17 @@ public class NewUserPost extends AsyncTask<String, Void, String> {
                     .send(json.toString())
                     .receive(result);
 
-            Log.v(TAG, "Completed.");
+            Log.d(TAG, "Completed.");
             return result.toString();
 
         } catch (HttpRequest.HttpRequestException e) {
-            Log.v(TAG, "Exception: " + e.toString());
+            Log.d(TAG, "Exception: " + e.toString());
         }
         return null;
     }
 
     protected void onPostExecute(String response) {
-        Log.v(TAG, "Response received: " + response);
+        Log.d(TAG, "Response received: " + response);
 
         try {
             JSONObject newUserReceivedJSON = new JSONObject(response);

@@ -31,31 +31,31 @@ public class FetchUser extends AsyncTask<String, Void, String> {
     LogInActivity context;
 
     public FetchUser(String username, String password, LogInActivity c) {
-        Log.v(TAG, "Fetching user using username and password");
+        Log.d(TAG, "Fetching user using username and password");
         context = c;
         trustEveryone();
     }
 
     @Override
     protected String doInBackground(String... params) {
-        Log.v(TAG, "Do in background - Attempting to get data url " + params[0]);
+        Log.d(TAG, "Do in background - Attempting to get data url " + params[0]);
         try {
             return get(new URL(params[0]));
         } catch (Exception e) {
-            Log.v(TAG, "Do in background - Failed to retrieve properly" + e.toString());
+            Log.d(TAG, "Do in background - Failed to retrieve properly" + e.toString());
             return null;
         }
     }
 
     protected void onPostExecute(String data) {
-        Log.v(TAG, "On Post Execute - Attempting to create bundle from data");
-        Log.v(TAG, data);
+        Log.d(TAG, "On Post Execute - Attempting to create bundle from data");
+        Log.d(TAG, data);
         try {
             InputStream stream = new ByteArrayInputStream(data.getBytes("UTF-8"));
             Bundle bundle = readJsonStream(stream);
             context.launchMainActivity(bundle);
         } catch (IOException e) {
-            Log.v(TAG, "On Post Execute - Failed to parse JSON response properly");
+            Log.d(TAG, "On Post Execute - Failed to parse JSON response properly");
         }
     }
 

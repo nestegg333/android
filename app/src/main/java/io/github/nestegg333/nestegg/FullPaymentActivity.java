@@ -6,13 +6,18 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class FullPaymentActivity extends AppCompatActivity {
+    private final static String TAG = "NestEgg";
+    PaymentAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,14 +27,14 @@ public class FullPaymentActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Utils.hideActionBar(this);
 
+        ArrayList<PaymentAdapter.Payment> p = new ArrayList<>();
+        p.add(new PaymentAdapter.Payment("Tuesday", "$" + Utils.amountToString(500)));
+        p.add(new PaymentAdapter.Payment("Yesterday", "$" + Utils.amountToString(1500)));
+        p.add(new PaymentAdapter.Payment("Last month", "$" + Utils.amountToString(3000)));
+        adapter = new PaymentAdapter(this, p);
+
         ListView list = (ListView) findViewById(R.id.paymentHistoryListView);
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        LinearLayout headerView = (LinearLayout) inflater.inflate(R.layout.payment_list_item,
-                null);
-        ((TextView) headerView.findViewById(R.id.paymentListItemDate)).setText("Yesterday");
-        ((TextView) headerView.findViewById(R.id.paymentListItemAmount)).setText("$5.66");
-        list.addHeaderView(headerView);
-        // TODO: make an adapater for this (ugh)
+        list.setAdapter(adapter);
     }
 
 }

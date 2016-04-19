@@ -75,15 +75,16 @@ public class LogInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO: include all other data in bundle/datamap
                 NewUserPost poster = new NewUserPost(context);
-                poster.execute("http://api.nestegg.com/users/");
+                // TODO poster.execute("http://api.nestegg.com/users/");
+                launchMainActivity(new Bundle());
             }
         });
     }
 
     private void validate() {
-        // TODO: Issue some request to log in
         FetchUser fetcher = new FetchUser(username, password,this);
-        fetcher.execute("http://api.nestegg.com/users/");
+        // TODO fetcher.execute("http://api.nestegg.com/users/");
+        launchMainActivity(new Bundle());
     }
 
     public void launchMainActivity(Bundle bundle) {
