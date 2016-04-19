@@ -12,13 +12,13 @@ import java.util.Date;
 /**
  * Created by aqeelp on 3/29/16.
  */
-public class CreateAccountActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity {
     private final static String TAG = "NestEgg";
     private EditText usernameAddressEntry, passwordEntry, checkingAccountEntry,
             savingsAccountEntry, firstGoalEntry;
     private String username, password;
     private int goal, progress, eggs_raised;
-    private Context context;
+    private LogInActivity context;
 
     // TODO input validation throughout
 
@@ -66,29 +66,23 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     private void initFirstGoalEntry() {
-        // Do something with the values of @checkingAccountEntry and @savingsAccountEntry
+        // Do something with the values of checkingAccountEntry and savingsAccountEntry
         setContentView(R.layout.activity_set_first_goal);
         firstGoalEntry = (EditText) findViewById(R.id.new_goal);
 
         findViewById(R.id.set_first_goal_continue).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Do something with the value of @firstGoalEntry
-                /*Intent intent = new Intent(context, MainActivity.class);
-                intent.putExtra("USERNAME", username);
-                intent.putExtra("PETNAME", "Jethro");
-                intent.putExtra("PROGRESS", 0);
-                intent.putExtra("GOAL", Integer.parseInt(firstGoalEntry.getText().toString()));
-                intent.putExtra("EGGS_RAISED", 0);
-                startActivity(intent);*/
-                validate();
+                // TODO: include all other data in bundle/datamap
+                NewUserPost poster = new NewUserPost(context);
+                poster.execute("http://api.nestegg.com/users/");
             }
         });
     }
 
     private void validate() {
         // TODO: Issue some request to log in
-        FetchUser fetcher = new FetchUser(username, password, (CreateAccountActivity) this);
+        FetchUser fetcher = new FetchUser(username, password,this);
         fetcher.execute("http://api.nestegg.com/users/");
     }
 

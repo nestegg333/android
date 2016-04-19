@@ -16,7 +16,6 @@ import java.net.URLConnection;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -29,9 +28,9 @@ import javax.net.ssl.X509TrustManager;
  */
 public class FetchUser extends AsyncTask<String, Void, String> {
     private final static String TAG = "NestEgg";
-    CreateAccountActivity context;
+    LogInActivity context;
 
-    public FetchUser(String username, String password, CreateAccountActivity c) {
+    public FetchUser(String username, String password, LogInActivity c) {
         Log.v(TAG, "Fetching user using username and password");
         context = c;
         trustEveryone();
