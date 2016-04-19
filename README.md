@@ -38,3 +38,6 @@
 * Refactored application to move away from prototype and towards functional app
 * Cleaned up codebase and restructured messy methods
 * Determined locations of API calls and filled with temporary data to test functionality
+
+### 4/18/16 (Aqeel):
+* Created basic classes to issue get/post requests
