@@ -44,17 +44,18 @@ public class PaymentAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LinearLayout v = new LinearLayout(context);
-        v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,
+        v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
         v.setOrientation(LinearLayout.HORIZONTAL);
         v.setPadding(16, 16, 16, 16);
 
         if (position < payments.size()) {
+            // TODO can't get weights to display properly
             TextView dateView = new TextView(context);
             dateView.setText(payments.get(position).date);
             dateView.setLayoutParams(new LinearLayout.LayoutParams(0,
                     LinearLayout.LayoutParams.WRAP_CONTENT, 0.5f));
-            dateView.setGravity(Gravity.START);
+            dateView.setGravity(Gravity.LEFT);
             dateView.setPadding(8, 8, 8, 8);
             v.addView(dateView);
 
@@ -62,7 +63,7 @@ public class PaymentAdapter extends BaseAdapter {
             amountView.setText(payments.get(position).amount);
             amountView.setLayoutParams(new LinearLayout.LayoutParams(0,
                     LinearLayout.LayoutParams.WRAP_CONTENT, 0.5f));
-            amountView.setGravity(Gravity.END);
+            amountView.setGravity(Gravity.RIGHT);
             amountView.setPadding(8, 8, 8, 8);
             v.addView(amountView);
         }

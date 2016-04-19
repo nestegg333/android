@@ -34,11 +34,13 @@
             android:layout_height="match_parent"
             android:layout_weight="0.6"/>
 
-        <View
+        <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:background="#FF000000"/>
+            android:textSize="35sp"
+            android:layout_gravity="center"
+            android:text="70%"/>
 
     </LinearLayout>
 
