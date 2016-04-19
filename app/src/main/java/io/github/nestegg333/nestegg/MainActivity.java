@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         };
 
         // TODO: compare with lastPaymentDate to make sure its time for an update
-        stateChange(interactionSequence.charAt(transactionsMade), baselineCost);
+        stateChange(interactionSequence.charAt(transactionsMade));
 
     }
 
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    private void stateChange(char c, final int cost) {
+    private void stateChange(char c) {
         PetState newState;
         int costFactor = 1;
         switch (c) {
@@ -112,20 +112,23 @@ public class MainActivity extends AppCompatActivity
                 ((ImageView) findViewById(R.id.pet_state_image)).setImageDrawable(getDrawable(newState.getImageId()));
                 return;
         }
+        final int cost = costFactor * baselineCost;
 
         ((TextView) findViewById(R.id.pet_state_title)).setText(newState.getTitle());
         ((ImageView) findViewById(R.id.pet_state_image)).setImageDrawable(getDrawable(newState.getImageId()));
 
         // Set up the action button:
         Button actionButton = (Button) findViewById(R.id.pet_state_action);
-        String actionString = newState.getAction().replace("%m", Utils.amountToString(cost * costFactor));
+        String actionString = newState.getAction().replace("%m", Utils.amountToString(cost));
         actionButton.setText(actionString);
         actionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     issuePayment(cost);
+                    goalProgress += cost;
+                    ((TextView) findViewById(R.id.main_big_percentage)).setText((goalProgress / goalTotal) + "%");
                     //TODO stateChange('R', 0);
-                    stateChange(interactionSequence.charAt(++transactionsMade), baselineCost);
+                    stateChange(interactionSequence.charAt(++transactionsMade));
                 }
         });
     }
