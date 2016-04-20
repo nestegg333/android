@@ -12,9 +12,11 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src = "@drawable/background"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:src = "@drawable/background" />
+
+        <!--android:src = "@drawable/background"-->
 
         <TextView
             android:layout_width="match_parent"
