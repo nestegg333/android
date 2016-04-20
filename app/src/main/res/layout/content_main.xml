@@ -99,7 +99,7 @@
             android:layout_weight="0.1"
             android:textSize="40sp"
             android:visibility="visible"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:adjustViewBounds = "true"
             android:text="All is well."/>
 
