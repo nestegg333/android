@@ -46,3 +46,7 @@
 
 ### 4/18/16 (Aqeel):
 * Created basic classes to issue get/post requests
+
+### 4/19/16 (Juliana):
+* modified layouts for all layout screens
+* added drawable-nodpi
