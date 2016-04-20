@@ -2,57 +2,264 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp">
+    android:background="#E9E8E8">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.25">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src = "@drawable/background"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:text="SIGN UP"/>
+
+    </RelativeLayout>
+
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="0.5"-->
+    <!--android:textSize="60sp"-->
+    <!--android:gravity="center"-->
+    <!--android:text="NestEgg!"/>-->
+
+    <!--<View-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="4dip"-->
+    <!--android:background="#22000000" />-->
+
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:textSize="60sp"
-        android:gravity="center"
-        android:text="NestEgg!"/>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="2dip"
-        android:background="#22000000" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:text="Set your first monthly savings goal!"/>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"/>
-
-    <EditText
-        android:id="@+id/new_goal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_weight="0.1"
         android:textSize="15sp"
-        android:background="#22000000"
-        android:padding="10dp"
-        android:hint="Savings goal"
-        android:layout_gravity="center"
-        android:inputType="number"/>
+        android:gravity="center"
+        android:padding = "5dp"
+        android:text="Enter your nestegg goal this month to hatch your egg!"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src = "@drawable/long_button"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:padding= "20dp"/>
+
+        <EditText
+            android:id="@+id/new_checking_account_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginLeft="90dp"
+            android:layout_centerInParent="true"
+            android:hint="$"
+            android:inputType="numberPassword"
+            android:background="@android:color/transparent"/>
+
+    </RelativeLayout>
+
+    <!--<EditText-->
+    <!--android:id="@+id/new_checking_account_number"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="0.1"-->
+    <!--android:textSize="15sp"-->
+    <!--android:background="#22000000"-->
+    <!--android:padding="10dp"-->
+    <!--android:hint="Checking account number"-->
+    <!--android:inputType="numberPassword"/>-->
+
+    <!--<View-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="0.05"/>-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:padding = "5dp"
+        android:text="Don't forget to name your nestegg!"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src = "@drawable/long_button"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:padding= "20dp"/>
+
+        <!--NEED TO ADD FIELD FOR NAME!!! -->
+
+
+        <EditText
+            android:id="@+id/new_savings_account_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginLeft="90dp"
+            android:layout_centerInParent="true"
+            android:hint="nestegg name"
+            android:inputType="numberPassword"
+            android:background="@android:color/transparent"/>
+
+    </RelativeLayout>
+
+    <!--<EditText-->
+    <!--android:id="@+id/new_savings_account_number"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="0.1"-->
+    <!--android:textSize="15sp"-->
+    <!--android:background="#22000000"-->
+    <!--android:padding="10dp"-->
+    <!--android:hint="Savings account number"-->
+    <!--android:inputType="numberPassword"/>-->
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/long_greenbutton"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Finish!"
+            android:textSize="18sp"
+            android:id="@+id/set_first_goal_continue"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            style="?android:attr/borderlessButtonStyle"/>
+
+    </FrameLayout>
+
+    <!--<Button-->
+    <!--android:id="@+id/enter_bank_info_continue"-->
+    <!--android:layout_weight="0.1"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:background="@drawable/long_greenbutton"-->
+    <!--android:text="Continue" />-->
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"/>
 
-    <Button
-        android:id="@+id/set_first_goal_continue"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:layout_gravity="center"
-        android:text="Begin!"/>
-
 </LinearLayout>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:orientation="vertical" android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.25">-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src = "@drawable/background"-->
+            <!--android:adjustViewBounds="true"-->
+            <!--android:scaleType="centerCrop"/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:textSize="40sp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="NESTEGG"/>-->
+
+    <!--</RelativeLayout>-->
+
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="0dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_weight="0.5"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textSize="60sp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:text="NestEgg!"/>&ndash;&gt;-->
+
+    <!--<View-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="2dip"-->
+        <!--android:background="#22000000" />-->
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.1"-->
+        <!--android:textSize="20sp"-->
+        <!--android:gravity="center"-->
+        <!--android:text="Set your first monthly savings goal!"/>-->
+
+    <!--<View-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.1"/>-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/new_goal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.1"-->
+        <!--android:textSize="15sp"-->
+        <!--android:background="#22000000"-->
+        <!--android:padding="10dp"-->
+        <!--android:hint="Savings goal"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:inputType="number"/>-->
+
+    <!--<View-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.1"/>-->
+
+    <!--<Button-->
+        <!--android:id="@+id/set_first_goal_continue"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.1"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:text="Begin!"/>-->
+
+<!--</LinearLayout>-->

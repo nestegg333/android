@@ -144,15 +144,38 @@
         android:padding = "25dp"
         android:text="Your banking information is needed to automate movement of funds between accounts."/>
 
-
-    <Button
-        android:id="@+id/enter_bank_info_continue"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:scaleType="centerInside"
-        android:background="@drawable/long_greenbutton"
-        android:text="Continue" />
+        android:layout_weight="0.1">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/long_greenbutton"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Continue!"
+            android:textSize="18sp"
+            android:id="@+id/enter_bank_info_continue"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            style="?android:attr/borderlessButtonStyle"/>
+
+    </FrameLayout>
+
+    <!--<Button-->
+        <!--android:id="@+id/enter_bank_info_continue"-->
+        <!--android:layout_weight="0.1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:background="@drawable/long_greenbutton"-->
+        <!--android:text="Continue" />-->
 
     <View
         android:layout_width="fill_parent"

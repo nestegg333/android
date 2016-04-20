@@ -5,18 +5,21 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:id="@+id/nav_bar_layout"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:background="#F1F1F1">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/nav_header_height"
         android:orientation="vertical"
         android:gravity="bottom"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
         android:background="@drawable/side_nav_bar">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/yellowbackground"
+            android:scaleType="centerCrop"/>
 
         <!-- TODO: location for icon if desired
         <ImageView
@@ -26,63 +29,117 @@
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:src="@android:drawable/sym_def_app_icon" />-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:text="NestEgg"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingTop="@dimen/nav_header_vertical_spacing"-->
+            <!--android:text="NestEgg"-->
+            <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1" />-->
 
         <TextView
             android:id="@+id/drawer_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="aqeelphillips@jimmy.com" />
-    </LinearLayout>
+            android:text="aqeelphillips@jimmy.com"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#4A4A4A"
+            android:paddingTop="30dp"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:gravity="start"
-        android:textSize="15sp"
-        android:textColor="#FF000000"
-        android:text="Monthly progress" />
 
-    <LinearLayout
+    </FrameLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/greytab"/>
 
         <TextView
-            android:id="@+id/drawer_progress_status"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="start"
+            android:layout_margin="@dimen/activity_vertical_margin"
             android:textSize="15sp"
-            android:textColor="#FF000000"/>
+            android:textColor="#FF000000"
+            android:text="Monthly progress"
+            android:gravity="center"/>
 
-        <TextView
-            android:id="@+id/drawer_goal_status"
-            android:layout_width="0dp"
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="end"
-            android:textSize="15sp"
-            android:textColor="#FF000000"/>
-    </LinearLayout>
+            android:src="@drawable/bigwhitetab"
+            android:adjustViewBounds="true"/>
 
-    <ProgressBar
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:id="@+id/drawer_progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:max="100"
-        android:progress="70" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:id="@+id/drawer_progress_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="start"
+                android:textSize="15sp"
+                android:textColor="#FF000000"/>
+
+            <TextView
+                android:id="@+id/drawer_goal_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="end"
+                android:textSize="15sp"
+                android:textColor="#FF000000"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp" />
+
+            <ProgressBar
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:id="@+id/drawer_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:max="100"
+                android:progress="70" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp" />
+
+            <ProgressBar
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:id="@+id/drawer_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:max="100"
+                android:progress="70" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
     <TextView
         android:layout_width="match_parent"
