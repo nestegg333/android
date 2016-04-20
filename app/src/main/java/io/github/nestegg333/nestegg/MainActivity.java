@@ -126,9 +126,8 @@ public class MainActivity extends AppCompatActivity
                 public void onClick(View v) {
                     issuePayment(cost);
                     goalProgress += cost;
-                    ((TextView) findViewById(R.id.main_big_percentage)).setText((goalProgress / goalTotal) + "%");
-                    //TODO stateChange('R', 0);
-                    stateChange(interactionSequence.charAt(++transactionsMade));
+                    stateChange('R');
+                    //stateChange(interactionSequence.charAt(++transactionsMade));
                 }
         });
     }
