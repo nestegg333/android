@@ -22,12 +22,14 @@ public class Utils {
             GOAL = "GOAL",
             PETS = "PETS_RAISED";
 
+    // Hide the sticky action bar
     public static void hideActionBar(AppCompatActivity activity) {
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().hide();
     }
 
+    // Convert @param amount to a String of the form "5.00"
     public static String amountToString(int amount) {
         String intString = Integer.toString(amount);
         String finalCost = "";
@@ -39,6 +41,7 @@ public class Utils {
         return finalCost;
     }
 
+    // OVERRIDE activity-wide font to custom font:
     public static void setDefaultFont(Context context,
                                       String staticTypefaceFieldName, String fontAssetName) {
         final Typeface regular = Typeface.createFromAsset(context.getAssets(),

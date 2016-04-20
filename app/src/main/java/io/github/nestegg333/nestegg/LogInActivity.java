@@ -12,13 +12,13 @@ import java.util.Date;
 /**
  * Created by aqeelp on 3/29/16.
  */
-public class CreateAccountActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity {
     private final static String TAG = "NestEgg";
     private EditText usernameAddressEntry, passwordEntry, checkingAccountEntry,
             savingsAccountEntry, firstGoalEntry;
-    private String username;
+    private String username, password;
     private int goal, progress, eggs_raised;
-    private Context context;
+    private LogInActivity context;
 
     // TODO input validation throughout
 
@@ -45,7 +45,8 @@ public class CreateAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 username = usernameAddressEntry.getText().toString();
-                validate(passwordEntry.getText().toString());
+                password = passwordEntry.getText().toString();
+                validate();
             }
         });
     }
@@ -65,30 +66,35 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     private void initFirstGoalEntry() {
-        // Do something with the values of @checkingAccountEntry and @savingsAccountEntry
+        // Do something with the values of checkingAccountEntry and savingsAccountEntry
         setContentView(R.layout.activity_set_first_goal);
         firstGoalEntry = (EditText) findViewById(R.id.new_goal);
 
         findViewById(R.id.set_first_goal_continue).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Do something with the value of @firstGoalEntry
-                /*Intent intent = new Intent(context, MainActivity.class);
-                intent.putExtra("USERNAME", username);
-                intent.putExtra("PETNAME", "Jethro");
-                intent.putExtra("PROGRESS", 0);
-                intent.putExtra("GOAL", Integer.parseInt(firstGoalEntry.getText().toString()));
-                intent.putExtra("EGGS_RAISED", 0);
-                startActivity(intent);*/
-                validate("");
+                // TODO: include all other data in bundle/datamap
+                NewUserPost poster = new NewUserPost(context);
+                // TODO poster.execute("http://api.nestegg.com/users/");
+                launchMainActivity(new Bundle());
             }
         });
     }
 
-    private void validate(String password) {
-        // TODO: Issue some request to log in
+    private void validate() {
+        FetchUser fetcher = new FetchUser(username, password,this);
+        // TODO fetcher.execute("http://api.nestegg.com/users/");
+        launchMainActivity(new Bundle());
+    }
 
-        // TODO please PLEASE set up constants for all of these
+    public void launchMainActivity(Bundle bundle) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtras(bundle);
+        // TODO startActivity(intent);
+        startActivity(fakeIntent());
+    }
+
+    private Intent fakeIntent() {
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(Utils.TOKEN, "1a2b3c");
         intent.putExtra(Utils.USERNAME, username);
@@ -100,6 +106,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         intent.putExtra(Utils.PROGRESS, 50);
         intent.putExtra(Utils.GOAL, 100);
         intent.putExtra(Utils.PETS, 5);
-        startActivity(intent);
+        return intent;
     }
 }
