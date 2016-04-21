@@ -50,3 +50,8 @@
 ### 4/19/16 (Juliana):
 * modified layouts for all layout screens
 * added drawable-nodpi
+
+### 4/20/16 (Juliana):
+* created new graphics for hungrydragon, sickdragon, angrydragonlol (<- might be boreddragon if I don't make something better)
+* updated layouts
+* CREATED ICON! but didn't update manifest bc it's in my gitignore
