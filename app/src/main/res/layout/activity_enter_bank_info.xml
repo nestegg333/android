@@ -144,7 +144,8 @@
         android:textSize="15sp"
         android:textStyle="italic"
         android:padding = "25dp"
-        android:text="Your banking information is needed to automate movement of funds between accounts."/>
+        android:text="Your banking information is needed to automate movement of funds between accounts."
+        android:gravity="center"/>
 
     <FrameLayout
         android:layout_width="match_parent"
