@@ -68,10 +68,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.1"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:layout_gravity="center"
             android:textAlignment="center"
-            android:text="test"/>
+            android:text="test"
+            android:textColor="#ffffff"/>
 
         <!-- Pet image: -->
         <ImageView
@@ -83,7 +84,7 @@
             android:src="@drawable/restingdragon" />
 
         <!-- Pet action (or no action): -->
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/action_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -91,14 +92,27 @@
             android:visibility="gone"
             android:gravity="center">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/orangebutton"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:padding="15dp"/>
+
             <Button
                 android:id="@+id/pet_state_action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:background="@android:color/transparent"
+                style="?android:attr/borderlessButtonStyle"
+                android:textColor="#ffffff"/>
 
-        </LinearLayout>
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/no_action"
@@ -109,7 +123,8 @@
             android:visibility="visible"
             android:gravity="center"
             android:adjustViewBounds = "true"
-            android:text="All is well."/>
+            android:text="All is well."
+            android:textColor="#ffffff"/>
 
     </LinearLayout>
 

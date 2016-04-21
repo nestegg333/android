@@ -29,10 +29,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="35dp"
+            android:paddingTop="25dp"
             android:textSize="60sp"
             android:gravity="center"
-            android:text="NESTEGG" />
+            android:text="NESTEGG"
+            android:textColor="#ffffff"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -177,6 +178,7 @@
                 android:paddingTop="15dp"
                 android:paddingLeft="10dp"
                 android:background="@android:color/transparent"
+                android:textColor="#ffffff"
                 style="?android:attr/borderlessButtonStyle"/>
 
         </FrameLayout>
@@ -221,6 +223,7 @@
                 android:paddingTop="15dp"
                 android:paddingRight="10dp"
                 android:background="@android:color/transparent"
+                android:textColor="#ffffff"
                 style="?android:attr/borderlessButtonStyle"/>
 
         </FrameLayout>

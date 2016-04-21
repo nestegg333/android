@@ -5,14 +5,14 @@
 
     <TextView
         android:id="@+id/paymentListItemDate"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"/>
+        android:gravity="start"/>
 
     <TextView
         android:id="@+id/paymentListItemAmount"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"/>
+        android:gravity="end"/>
 
 </LinearLayout>
