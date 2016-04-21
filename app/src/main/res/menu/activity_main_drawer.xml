@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- For horizontal line:
+    <item android:height="0dp"/>-->
+
+    <item android:title="Settings" >
+
+        <menu>
+            <item
+                android:id="@+id/payment_history"
+                android:title="Full payment history" />
+            <item
+                android:id="@+id/user_settings_option"
+                android:title="User settings" />
+            <item
+                android:id="@+id/logout_option"
+                android:title="Logout" />
+        </menu>
+    </item>
+
+</menu>
