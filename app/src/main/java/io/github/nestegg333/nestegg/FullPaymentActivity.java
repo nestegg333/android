@@ -27,13 +27,18 @@ public class FullPaymentActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Utils.hideActionBar(this);
 
+        // TODO temporary:
         ArrayList<PaymentAdapter.Payment> p = new ArrayList<>();
         p.add(new PaymentAdapter.Payment("Tuesday", "$" + Utils.amountToString(500)));
         p.add(new PaymentAdapter.Payment("Yesterday", "$" + Utils.amountToString(1500)));
         p.add(new PaymentAdapter.Payment("Last month", "$" + Utils.amountToString(3000)));
         adapter = new PaymentAdapter(this, p);
+        setAdapter(adapter);
+    }
 
+    public void setAdapter(PaymentAdapter pa) {
         ListView list = (ListView) findViewById(R.id.paymentHistoryListView);
+        adapter = pa;
         list.setAdapter(adapter);
     }
 
