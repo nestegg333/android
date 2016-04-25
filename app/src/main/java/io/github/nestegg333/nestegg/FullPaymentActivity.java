@@ -34,6 +34,10 @@ public class FullPaymentActivity extends AppCompatActivity {
         p.add(new PaymentAdapter.Payment("Last month", "$" + Utils.amountToString(3000)));
         adapter = new PaymentAdapter(this, p);
         setAdapter(adapter);
+
+        // TODO:
+        // FetchAllPayments f = new FetchAllPayments(USERID, this);
+        // f.execute(URL/payments/USERIR);
     }
 
     public void setAdapter(PaymentAdapter pa) {
