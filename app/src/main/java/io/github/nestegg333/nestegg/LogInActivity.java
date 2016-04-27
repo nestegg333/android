@@ -38,6 +38,8 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
         context = this;
 
+        Utils.makeNotification(this);
+
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,

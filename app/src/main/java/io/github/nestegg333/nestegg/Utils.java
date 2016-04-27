@@ -1,8 +1,12 @@
 package io.github.nestegg333.nestegg;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 
 import java.lang.reflect.Field;
@@ -43,6 +47,25 @@ public class Utils {
             finalCost += intString.charAt(i);
         }
         return finalCost;
+    }
+
+    public static void makeNotification(Context context) {
+        NotificationCompat.Builder mBuilder =
+                (NotificationCompat.Builder) new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.eggicon)
+                        .setContentTitle("Your pet misses you!")
+                        .setContentText("See what they've been up to while you've been gone.")
+                        .setColor(0x3D7423);
+
+        Intent resultIntent = new Intent(context, LogInActivity.class);
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(context, 0, resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
+
+        NotificationManager mNotifyMgr =
+                (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(001, mBuilder.build());
     }
 
     // OVERRIDE activity-wide font to custom font:
