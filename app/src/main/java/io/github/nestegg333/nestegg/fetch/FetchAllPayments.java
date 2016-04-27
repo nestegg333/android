@@ -1,4 +1,4 @@
-package io.github.nestegg333.nestegg;
+package io.github.nestegg333.nestegg.fetch;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import java.net.URLConnection;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -23,16 +24,22 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
+import io.github.nestegg333.nestegg.FullPaymentActivity;
+import io.github.nestegg333.nestegg.PaymentAdapter;
+import io.github.nestegg333.nestegg.Utils;
+
 /**
  * Created by aqeelp on 4/18/16.
  */
-public class FetchUser extends AsyncTask<String, Void, String> {
+public class FetchAllPayments extends AsyncTask<String, Void, String> {
     private final static String TAG = "NestEgg";
-    LogInActivity context;
+    private FullPaymentActivity context;
+    private int userID;
 
-    public FetchUser(String username, String password, LogInActivity c) {
+    public FetchAllPayments(int uid, FullPaymentActivity c) {
         Log.d(TAG, "Fetching user using username and password");
         context = c;
+        userID = uid;
         trustEveryone();
     }
 
@@ -48,62 +55,52 @@ public class FetchUser extends AsyncTask<String, Void, String> {
     }
 
     protected void onPostExecute(String data) {
-        Log.d(TAG, "On Post Execute - Attempting to create bundle from data");
+        Log.d(TAG, "On Post Execute - Attempting to create adapter from data");
         Log.d(TAG, data);
         try {
             InputStream stream = new ByteArrayInputStream(data.getBytes("UTF-8"));
-            Bundle bundle = readJsonStream(stream);
-            context.launchMainActivity(bundle);
+            ArrayList<PaymentAdapter.Payment> payments = readJsonStream(stream);
+            PaymentAdapter paymentAdapter = new PaymentAdapter(context, payments);
+            context.setAdapter(paymentAdapter);
         } catch (IOException e) {
             Log.d(TAG, "On Post Execute - Failed to parse JSON response properly");
         }
     }
 
-    public Bundle readJsonStream(InputStream in) throws IOException {
+    public ArrayList<PaymentAdapter.Payment> readJsonStream(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-        try {
-            Bundle bundle = readUser(reader);
-            return bundle;
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        ArrayList<PaymentAdapter.Payment> payments = new ArrayList<>();
+
+        reader.beginArray();
+        while (reader.hasNext()) {
+            PaymentAdapter.Payment payment = readPayment(reader);
+            payments.add(payment);
         }
-        return null;
+        reader.endArray();
+        return payments;
     }
 
-    public Bundle readUser(JsonReader reader) throws IOException {
-        int pinId = -1;
-        int userId = -1;
-        String pinType = null;
-        String title = null;
-        double latitude = 0.0;
-        double longitude = 0.0;
-        String dateCreated = null;
-        String dateModified = null;
+    public PaymentAdapter.Payment readPayment(JsonReader reader) throws IOException {
+        String date = null;
+        int amount = 0;
 
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
-            if (name.equals("pinId")) {
-                pinId = reader.nextInt();
-            } else if (name.equals("userId")) {
-                userId = reader.nextInt();
-            } else if (name.equals("pinType")) {
-                pinType = reader.nextString();
-            } else if (name.equals("title")) {
-                title = reader.nextString();
-            } else if (name.equals("latitude")) {
-                latitude = reader.nextDouble();
-            } else if (name.equals("longitude")) {
-                longitude = reader.nextDouble();
-            } else if (name.equals("dateCreated")) {
-                dateCreated = reader.nextString();
-            } else if (name.equals("dateModified")) {
-                dateModified = reader.nextString();
+            if (name.equals("owner")) {
+                reader.beginObject();
+                while (reader.hasNext()) { }
+                reader.endObject();
+            } else if (name.equals("date")) {
+                date = reader.nextString();
+            } else if (name.equals("amount")) {
+                amount = reader.nextInt();
             }
         }
         reader.endObject();
 
-        return new Bundle();
+        return new PaymentAdapter.Payment(date, Utils.amountToString(amount));
     }
 
     private String get(URL url) throws IOException {

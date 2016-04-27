@@ -117,7 +117,7 @@
 
 
         <EditText
-            android:id="@+id/new_savings_account_number"
+            android:id="@+id/new_pet_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"

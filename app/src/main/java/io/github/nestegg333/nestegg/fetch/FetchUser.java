@@ -1,4 +1,4 @@
-package io.github.nestegg333.nestegg;
+package io.github.nestegg333.nestegg.fetch;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,7 +16,6 @@ import java.net.URLConnection;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -24,19 +23,20 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
+import io.github.nestegg333.nestegg.LogInActivity;
+
 /**
  * Created by aqeelp on 4/18/16.
  */
-public class FetchAllPayments extends AsyncTask<String, Void, String> {
+public class FetchUser extends AsyncTask<String, Void, String> {
     private final static String TAG = "NestEgg";
-    private FullPaymentActivity context;
-    private int userID;
+    LogInActivity context;
 
-    public FetchAllPayments(int uid, FullPaymentActivity c) {
+    public FetchUser(String username, String password, LogInActivity c) {
         Log.d(TAG, "Fetching user using username and password");
         context = c;
-        userID = uid;
         trustEveryone();
+        // this.execute("nestegg.herokuapp.com/users")
     }
 
     @Override
@@ -51,52 +51,39 @@ public class FetchAllPayments extends AsyncTask<String, Void, String> {
     }
 
     protected void onPostExecute(String data) {
-        Log.d(TAG, "On Post Execute - Attempting to create adapter from data");
+        Log.d(TAG, "On Post Execute - Attempting to create bundle from data");
         Log.d(TAG, data);
         try {
             InputStream stream = new ByteArrayInputStream(data.getBytes("UTF-8"));
-            ArrayList<PaymentAdapter.Payment> payments = readJsonStream(stream);
-            PaymentAdapter paymentAdapter = new PaymentAdapter(context, payments);
-            context.setAdapter(paymentAdapter);
+            Bundle bundle = readJsonStream(stream);
+            context.launchMainActivity(bundle);
         } catch (IOException e) {
             Log.d(TAG, "On Post Execute - Failed to parse JSON response properly");
         }
     }
 
-    public ArrayList<PaymentAdapter.Payment> readJsonStream(InputStream in) throws IOException {
+    public Bundle readJsonStream(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-
-        ArrayList<PaymentAdapter.Payment> payments = new ArrayList<>();
-
-        reader.beginArray();
-        while (reader.hasNext()) {
-            PaymentAdapter.Payment payment = readPayment(reader);
-            payments.add(payment);
+        try {
+            Bundle bundle = readUser(reader);
+            return bundle;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        reader.endArray();
-        return payments;
+        return null;
     }
 
-    public PaymentAdapter.Payment readPayment(JsonReader reader) throws IOException {
-        String date = null;
-        int amount = 0;
-
+    public Bundle readUser(JsonReader reader) throws IOException {
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
-            if (name.equals("owner")) {
-                reader.beginObject();
-                while (reader.hasNext()) { }
-                reader.endObject();
-            } else if (name.equals("date")) {
-                date = reader.nextString();
-            } else if (name.equals("amount")) {
-                amount = reader.nextInt();
+            if (name.equals("this")) {
+                reader.nextInt();
             }
         }
         reader.endObject();
 
-        return new PaymentAdapter.Payment(date, Utils.amountToString(amount));
+        return new Bundle();
     }
 
     private String get(URL url) throws IOException {

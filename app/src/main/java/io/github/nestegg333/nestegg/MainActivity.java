@@ -126,8 +126,8 @@ public class MainActivity extends AppCompatActivity
                 public void onClick(View v) {
                     issuePayment(cost);
                     goalProgress += cost;
-                    stateChange('R');
-                    //stateChange(interactionSequence.charAt(++transactionsMade));
+                    // stateChange('R');
+                    stateChange(interactionSequence.charAt(++transactionsMade));
                 }
         });
     }

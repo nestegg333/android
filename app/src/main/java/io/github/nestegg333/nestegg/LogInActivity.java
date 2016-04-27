@@ -9,15 +9,18 @@ import android.widget.EditText;
 
 import java.util.Date;
 
+import io.github.nestegg333.nestegg.fetch.FetchUser;
+import io.github.nestegg333.nestegg.post.NewUserPost;
+
 /**
  * Created by aqeelp on 3/29/16.
  */
 public class LogInActivity extends AppCompatActivity {
     private final static String TAG = "NestEgg";
     private EditText usernameAddressEntry, passwordEntry, checkingAccountEntry,
-            savingsAccountEntry, firstGoalEntry;
-    private String username, password;
-    private int goal, progress, eggs_raised;
+            savingsAccountEntry, firstGoalEntry, petNameEntry;
+    private String username, password, petName;
+    private int goal, checkingAcctNum, savingsAcctNum;
     private LogInActivity context;
 
     // TODO input validation throughout
@@ -50,7 +53,6 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
     }
-
     private void initBankInfoEntry() {
         // Do something with the values of @emailAddressEntry and @passwordEntry
         setContentView(R.layout.activity_enter_bank_info);
@@ -60,6 +62,8 @@ public class LogInActivity extends AppCompatActivity {
         findViewById(R.id.enter_bank_info_continue).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkingAcctNum = Integer.parseInt(checkingAccountEntry.getText().toString());
+                savingsAcctNum = Integer.parseInt(savingsAccountEntry.getText().toString());
                 initFirstGoalEntry();
             }
         });
@@ -69,21 +73,28 @@ public class LogInActivity extends AppCompatActivity {
         // Do something with the values of checkingAccountEntry and savingsAccountEntry
         setContentView(R.layout.activity_set_first_goal);
         firstGoalEntry = (EditText) findViewById(R.id.new_goal);
+        petNameEntry = (EditText) findViewById(R.id.new_pet_name);
 
         findViewById(R.id.set_first_goal_continue).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                goal = Integer.parseInt(firstGoalEntry.getText().toString());
+                petName = petNameEntry.getText().toString();
                 // TODO: include all other data in bundle/datamap
-                NewUserPost poster = new NewUserPost(context);
-                // TODO poster.execute("http://api.nestegg.com/users/");
-                launchMainActivity(new Bundle());
+                Bundle newUserInfo = new Bundle();
+                newUserInfo.putString(Utils.USERNAME, username);
+                newUserInfo.putString(Utils.PASSWORD, password);
+                newUserInfo.putString(Utils.PETNAME, petName);
+                newUserInfo.putInt(Utils.CHECKING_ACCT, checkingAcctNum);
+                newUserInfo.putInt(Utils.SAVINGS_ACCT, savingsAcctNum);
+                newUserInfo.putInt(Utils.GOAL, goal);
+                new NewUserPost(context);
             }
         });
     }
 
     private void validate() {
-        FetchUser fetcher = new FetchUser(username, password,this);
-        // TODO fetcher.execute("http://api.nestegg.com/users/");
+        FetchUser fetcher = new FetchUser(username, password, this);
         launchMainActivity(new Bundle());
     }
 
@@ -99,7 +110,7 @@ public class LogInActivity extends AppCompatActivity {
         intent.putExtra(Utils.TOKEN, "1a2b3c");
         intent.putExtra(Utils.USERNAME, username);
         intent.putExtra(Utils.PETNAME, "Jimanji");
-        intent.putExtra(Utils.INTERACTIONS, "FTVFF");
+        intent.putExtra(Utils.INTERACTIONS, "FTVFFR");
         intent.putExtra(Utils.COST, 500);
         intent.putExtra(Utils.TRANSACTIONS, 0);
         intent.putExtra(Utils.LAST_PAYMENT, (new Date()).toString());

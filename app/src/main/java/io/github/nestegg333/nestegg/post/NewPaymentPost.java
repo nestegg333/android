@@ -1,4 +1,4 @@
-package io.github.nestegg333.nestegg;
+package io.github.nestegg333.nestegg.post;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,30 +18,33 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
+import io.github.nestegg333.nestegg.HttpRequest;
+import io.github.nestegg333.nestegg.LogInActivity;
+
 /**
  * Created by aqeelp on 12/28/15.
  */
-public class NewUserPost extends AsyncTask<String, Void, String> {
+public class NewPaymentPost extends AsyncTask<String, Void, String> {
     private final static String TAG = "NestEgg";
-    JSONObject json;
-    LogInActivity context;
+    private JSONObject json;
+    private int amount;
+    private int ownerID;
 
-    public NewUserPost(LogInActivity c) {
-        context = c;
-
-        Log.d(TAG, "Posting new user");
+    public NewPaymentPost(int a, int o) {
+        Log.d(TAG, "Posting new payment");
+        amount = a;
+        ownerID = o;
 
         trustEveryone();
-
-        // Create the JSON object for this user
-        json = makeUserJSON();
+        json = makePaymentJSON();
+        this.execute("http://nestegg.herokuapp.com/payments/" + ownerID);
     }
 
     protected String doInBackground(String... params) {
         // Issue post request
         try {
 
-            Log.d(TAG, "Issuing user post request...");
+            Log.d(TAG, "Issuing payment post request...");
 
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             HttpRequest.post(params[0])
@@ -60,20 +63,18 @@ public class NewUserPost extends AsyncTask<String, Void, String> {
 
     protected void onPostExecute(String response) {
         Log.d(TAG, "Response received: " + response);
+    }
+
+    private JSONObject makePaymentJSON() {
+        JSONObject paymentJSON = new JSONObject();
 
         try {
-            JSONObject newUserReceivedJSON = new JSONObject(response);
-
-            context.launchMainActivity(new Bundle());
+            paymentJSON.put("amount", amount);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
 
-    private JSONObject makeUserJSON() {
-        JSONObject userJSON = new JSONObject();
-
-        return null;
+        return paymentJSON;
     }
 
     private void trustEveryone() {
