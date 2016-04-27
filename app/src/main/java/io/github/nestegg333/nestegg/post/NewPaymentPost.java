@@ -37,7 +37,7 @@ public class NewPaymentPost extends AsyncTask<String, Void, String> {
 
         trustEveryone();
         json = makePaymentJSON();
-        this.execute("http://nestegg.herokuapp.com/payments/" + ownerID);
+        this.execute("http://nestegg.herokuapp.com/api/payments/" + ownerID);
     }
 
     protected String doInBackground(String... params) {

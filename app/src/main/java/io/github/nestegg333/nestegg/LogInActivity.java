@@ -1,9 +1,14 @@
 package io.github.nestegg333.nestegg;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -33,6 +38,12 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
         context = this;
 
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.INTERNET}, 0);
+        }
+
         usernameAddressEntry = (EditText) findViewById(R.id.new_username_address_input);
         passwordEntry = (EditText) findViewById(R.id.new_password_input);
 
@@ -40,6 +51,7 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 username = usernameAddressEntry.getText().toString();
+                password = passwordEntry.getText().toString();
                 initBankInfoEntry();
             }
         });
@@ -88,7 +100,7 @@ public class LogInActivity extends AppCompatActivity {
                 newUserInfo.putInt(Utils.CHECKING_ACCT, checkingAcctNum);
                 newUserInfo.putInt(Utils.SAVINGS_ACCT, savingsAcctNum);
                 newUserInfo.putInt(Utils.GOAL, goal);
-                new NewUserPost(context);
+                new NewUserPost(context, newUserInfo);
             }
         });
     }

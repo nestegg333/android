@@ -20,6 +20,7 @@ import javax.net.ssl.X509TrustManager;
 
 import io.github.nestegg333.nestegg.HttpRequest;
 import io.github.nestegg333.nestegg.LogInActivity;
+import io.github.nestegg333.nestegg.Utils;
 
 /**
  * Created by aqeelp on 12/28/15.
@@ -28,22 +29,24 @@ public class NewUserPost extends AsyncTask<String, Void, String> {
     private final static String TAG = "NestEgg";
     JSONObject json;
     LogInActivity context;
+    Bundle userData;
 
-    public NewUserPost(LogInActivity c) {
+    public NewUserPost(LogInActivity c, Bundle b) {
         Log.d(TAG, "Posting new user");
         context = c;
+        userData = b;
 
         trustEveryone();
         // Create the JSON object for this user
         json = makeUserJSON();
-        // this.execute()
+        this.execute("http://nestegg.herokuapp.com/api/users/");
     }
 
     protected String doInBackground(String... params) {
         // Issue post request
         try {
 
-            Log.d(TAG, "Issuing user post request...");
+            Log.d(TAG, "Issuing user post request... " + json.toString());
 
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             HttpRequest.post(params[0])
@@ -65,6 +68,7 @@ public class NewUserPost extends AsyncTask<String, Void, String> {
 
         try {
             JSONObject newUserReceivedJSON = new JSONObject(response);
+            Log.d(TAG, newUserReceivedJSON.toString());
 
             context.launchMainActivity(new Bundle());
         } catch (JSONException e) {
@@ -74,6 +78,16 @@ public class NewUserPost extends AsyncTask<String, Void, String> {
 
     private JSONObject makeUserJSON() {
         JSONObject userJSON = new JSONObject();
+        try {
+            userJSON.put("username", userData.get(Utils.USERNAME));
+            userJSON.put("password", userData.get(Utils.PASSWORD));
+            userJSON.put("first_name", "");
+            userJSON.put("last_name", "");
+            userJSON.put("email", "");
+            return userJSON;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         return null;
     }
