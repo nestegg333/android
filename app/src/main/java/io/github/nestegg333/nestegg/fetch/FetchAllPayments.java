@@ -40,7 +40,7 @@ public class FetchAllPayments extends AsyncTask<String, Void, String> {
         Log.d(TAG, "Fetching user using username and password");
         context = c;
         userID = uid;
-        trustEveryone();
+        this.execute("http://nestegg.herokuapp.com/payments/" + uid);
     }
 
     @Override
@@ -89,9 +89,7 @@ public class FetchAllPayments extends AsyncTask<String, Void, String> {
         while (reader.hasNext()) {
             String name = reader.nextName();
             if (name.equals("owner")) {
-                reader.beginObject();
-                while (reader.hasNext()) { }
-                reader.endObject();
+                reader.nextString();
             } else if (name.equals("date")) {
                 date = reader.nextString();
             } else if (name.equals("amount")) {

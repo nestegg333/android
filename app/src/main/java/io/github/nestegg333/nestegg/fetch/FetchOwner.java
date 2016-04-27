@@ -55,10 +55,10 @@ public class FetchOwner extends AsyncTask<String, Void, String> {
 
     protected void onPostExecute(String data) {
         Log.d(TAG, "On Post Execute - Attempting to create bundle from data");
-        Log.d(TAG, data);
         try {
             InputStream stream = new ByteArrayInputStream(data.getBytes("UTF-8"));
             Bundle bundle = readJsonStream(stream);
+            Log.d(TAG, bundle.toString());
             // context.launchMainActivity(bundle);
         } catch (IOException e) {
             Log.d(TAG, "On Post Execute - Failed to parse JSON response properly");
