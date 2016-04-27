@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import io.github.nestegg333.nestegg.post.NewPaymentPost;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -133,7 +135,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void issuePayment(int amount) {
-        // TODO: hit api. Note: amount will be 100x value expected
+        // dynamic user ID
+        new NewPaymentPost(amount, 1);
     }
 
     private void parseIntent(Intent intent) {

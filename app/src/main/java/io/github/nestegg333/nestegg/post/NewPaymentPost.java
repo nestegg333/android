@@ -37,14 +37,14 @@ public class NewPaymentPost extends AsyncTask<String, Void, String> {
 
         trustEveryone();
         json = makePaymentJSON();
-        this.execute("http://nestegg.herokuapp.com/api/payments/" + ownerID);
+        this.execute("http://nestegg.herokuapp.com/api/payments/");
     }
 
     protected String doInBackground(String... params) {
         // Issue post request
         try {
 
-            Log.d(TAG, "Issuing payment post request...");
+            Log.d(TAG, "Issuing payment post request... " + json.toString());
 
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             HttpRequest.post(params[0])
@@ -69,6 +69,7 @@ public class NewPaymentPost extends AsyncTask<String, Void, String> {
         JSONObject paymentJSON = new JSONObject();
 
         try {
+            paymentJSON.put("owner", "http://nestegg.herokuapp.com/api/owners/" + ownerID + "/");
             paymentJSON.put("amount", amount);
         } catch (JSONException e) {
             e.printStackTrace();

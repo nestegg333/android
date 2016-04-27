@@ -34,12 +34,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2a3d9c1-9acc-4877-9145-1d3c41c595c7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/hungrydragon.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sickdragon.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/LogInActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/LogInActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/post/NewPaymentPost.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/post/NewPaymentPost.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/post/NewUserPost.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/post/NewUserPost.java" />
     </list>
     <ignored path="Nest Egg.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -64,10 +63,10 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="129" column="20" selection-start-line="129" selection-start-column="20" selection-end-line="129" selection-end-column="20" />
+              <caret line="138" column="38" selection-start-line="138" selection-start-column="38" selection-end-line="138" selection-end-column="38" />
               <folding>
-                <element signature="e#5657#5989#0" expanded="true" />
-                <element signature="e#5988#5989#0" expanded="true" />
+                <element signature="e#5715#6047#0" expanded="true" />
+                <element signature="e#6046#6047#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -86,10 +85,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.15503876">
+            <state vertical-scroll-proportion="-2.5">
               <caret line="4" column="66" selection-start-line="4" selection-start-column="66" selection-end-line="4" selection-end-column="66" />
               <folding>
                 <element signature="e#340#358#0" expanded="true" />
@@ -110,35 +109,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NewPaymentPost.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="NewPaymentPost.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/post/NewPaymentPost.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="39" column="55" selection-start-line="39" selection-start-column="55" selection-end-line="39" selection-end-column="55" />
+            <state vertical-scroll-proportion="0.52554744">
+              <caret line="39" column="65" selection-start-line="39" selection-start-column="65" selection-end-line="39" selection-end-column="65" />
               <folding>
-                <element signature="e#1841#1842#0" expanded="true" />
-                <element signature="e#1901#1902#0" expanded="true" />
+                <element signature="e#1850#1851#0" expanded="true" />
+                <element signature="e#1910#1911#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Utils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/Utils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FetchAllPayments.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/fetch/FetchAllPayments.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="80" column="24" selection-start-line="80" selection-start-column="24" selection-end-line="80" selection-end-column="24" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -148,19 +127,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="27" column="54" selection-start-line="27" selection-start-column="54" selection-end-line="27" selection-end-column="54" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_set_first_goal.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_set_first_goal.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.792453">
-              <caret line="119" column="41" selection-start-line="119" selection-start-column="29" selection-end-line="119" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -1705,17 +1671,17 @@
         <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/FetchUser.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/fetch/FetchAllPayments.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_set_first_goal.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/fetch/FetchOwner.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/Utils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/fetch/FetchUser.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/post/NewPetPost.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/post/NewOwnerPost.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/put/UpdateOwner.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/post/NewPaymentPost.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/post/NewUserPost.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/LogInActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/post/NewPaymentPost.java" />
       </list>
     </option>
   </component>
@@ -1806,7 +1772,7 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
+              <option name="myItemId" value="drawable" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2226,7 +2192,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286119" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.096317284" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -2234,7 +2200,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37818697" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37818697" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286119" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286119" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2274,47 +2240,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="125" column="18" selection-start-line="125" selection-start-column="16" selection-end-line="125" selection-end-column="18" />
-          <folding>
-            <element signature="e#5657#5989#0" expanded="true" />
-            <element signature="e#5988#5989#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/LogInActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <element signature="e#2901#3243#0" expanded="true" />
-            <element signature="e#3242#3243#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="44" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_set_first_goal.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="249" column="0" selection-start-line="249" selection-start-column="0" selection-end-line="249" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/FullPaymentActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2328,8 +2253,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#5657#5989#0" expanded="true" />
-            <element signature="e#5988#5989#0" expanded="true" />
+            <element signature="e#5715#6047#0" expanded="true" />
+            <element signature="e#6046#6047#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2369,8 +2294,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#5657#5989#0" expanded="true" />
-            <element signature="e#5988#5989#0" expanded="true" />
+            <element signature="e#5715#6047#0" expanded="true" />
+            <element signature="e#6046#6047#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2410,8 +2335,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="125" column="18" selection-start-line="125" selection-start-column="16" selection-end-line="125" selection-end-column="18" />
           <folding>
-            <element signature="e#5657#5989#0" expanded="true" />
-            <element signature="e#5988#5989#0" expanded="true" />
+            <element signature="e#5715#6047#0" expanded="true" />
+            <element signature="e#6046#6047#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2492,8 +2417,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="128" column="35" selection-start-line="128" selection-start-column="35" selection-end-line="128" selection-end-column="35" />
           <folding>
-            <element signature="e#5657#5989#0" expanded="true" />
-            <element signature="e#5988#5989#0" expanded="true" />
+            <element signature="e#5715#6047#0" expanded="true" />
+            <element signature="e#6046#6047#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2644,11 +2569,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/hungrydragon.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -2750,34 +2670,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/post/NewPaymentPost.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="55" selection-start-line="39" selection-start-column="55" selection-end-line="39" selection-end-column="55" />
-          <folding>
-            <element signature="e#1841#1842#0" expanded="true" />
-            <element signature="e#1901#1902#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="129" column="20" selection-start-line="129" selection-start-column="20" selection-end-line="129" selection-end-column="20" />
-          <folding>
-            <element signature="e#5657#5989#0" expanded="true" />
-            <element signature="e#5988#5989#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/post/NewUserPost.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="53" column="42" selection-start-line="53" selection-start-column="42" selection-end-line="53" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.5">
+          <caret line="4" column="66" selection-start-line="4" selection-start-column="66" selection-end-line="4" selection-end-column="66" />
+          <folding>
+            <element signature="e#340#358#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2793,12 +2701,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/restingdragon.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-nodpi/restingdragon.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-nodpi/sickdragon.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/boreddragon.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15503876">
-          <caret line="4" column="66" selection-start-line="4" selection-start-column="66" selection-end-line="4" selection-end-column="66" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="138" column="38" selection-start-line="138" selection-start-column="38" selection-end-line="138" selection-end-column="38" />
           <folding>
-            <element signature="e#340#358#0" expanded="true" />
+            <element signature="e#5715#6047#0" expanded="true" />
+            <element signature="e#6046#6047#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/HttpRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.25260416">
+          <caret line="659" column="45" selection-start-line="659" selection-start-column="20" selection-end-line="659" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/post/NewPaymentPost.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.52554744">
+          <caret line="39" column="65" selection-start-line="39" selection-start-column="65" selection-end-line="39" selection-end-column="65" />
+          <folding>
+            <element signature="e#1850#1851#0" expanded="true" />
+            <element signature="e#1910#1911#0" expanded="true" />
           </folding>
         </state>
       </provider>
