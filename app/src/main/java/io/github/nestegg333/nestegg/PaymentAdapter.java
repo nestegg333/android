@@ -47,31 +47,7 @@ public class PaymentAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = View.inflate(context, R.layout.payment_list_item, null);
         ((TextView) v.findViewById(R.id.paymentListItemDate)).setText(payments.get(position).date);
-        ((TextView) v.findViewById(R.id.paymentListItemAmount)).setText(payments.get(position).amount);
-        /*LinearLayout v = new LinearLayout(context);
-        v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT));
-        v.setOrientation(LinearLayout.HORIZONTAL);
-        v.setPadding(16, 16, 16, 16);
-
-        if (position < payments.size()) {
-            // TODO can't get weights to display properly
-            TextView dateView = new TextView(context);
-            dateView.setText(payments.get(position).date);
-            dateView.setLayoutParams(new LinearLayout.LayoutParams(0,
-                    LinearLayout.LayoutParams.WRAP_CONTENT, 0.5f));
-            dateView.setGravity(Gravity.LEFT);
-            dateView.setPadding(8, 8, 8, 8);
-            v.addView(dateView);
-
-            TextView amountView = new TextView(context);
-            amountView.setText(payments.get(position).amount);
-            amountView.setLayoutParams(new LinearLayout.LayoutParams(0,
-                    LinearLayout.LayoutParams.WRAP_CONTENT, 0.5f));
-            amountView.setGravity(Gravity.RIGHT);
-            amountView.setPadding(8, 8, 8, 8);
-            v.addView(amountView);
-        }*/
+        ((TextView) v.findViewById(R.id.paymentListItemAmount)).setText("$" + payments.get(position).amount);
 
         return v;
     }
