@@ -45,10 +45,16 @@ public class Utils {
     public static String amountToString(int amount) {
         String intString = Integer.toString(amount);
         String finalCost = "";
-        for (int i = 0; i < intString.length(); i++) {
-            if (i == intString.length() - 2)
-                finalCost += '.';
-            finalCost += intString.charAt(i);
+        if (intString.length() >= 3) {
+            for (int i = 0; i < intString.length(); i++) {
+                if (i == intString.length() - 2)
+                    finalCost += '.';
+                finalCost += intString.charAt(i);
+            }
+        } else if (intString.length() == 2) {
+            finalCost = "0." + intString;
+        } else if (intString.length() == 1) {
+            finalCost = "0.0" + intString;
         }
         return finalCost;
     }

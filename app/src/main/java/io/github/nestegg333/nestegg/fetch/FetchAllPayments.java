@@ -94,6 +94,8 @@ public class FetchAllPayments extends AsyncTask<String, Void, String> {
                 date = reader.nextString();
             } else if (name.equals("amount")) {
                 amount = reader.nextInt();
+            } else if (name.equals("id")) {
+                reader.nextInt();
             }
         }
         reader.endObject();

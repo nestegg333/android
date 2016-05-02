@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -43,7 +45,10 @@ public class PaymentAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LinearLayout v = new LinearLayout(context);
+        View v = View.inflate(context, R.layout.payment_list_item, null);
+        ((TextView) v.findViewById(R.id.paymentListItemDate)).setText(payments.get(position).date);
+        ((TextView) v.findViewById(R.id.paymentListItemAmount)).setText(payments.get(position).amount);
+        /*LinearLayout v = new LinearLayout(context);
         v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
         v.setOrientation(LinearLayout.HORIZONTAL);
@@ -66,7 +71,7 @@ public class PaymentAdapter extends BaseAdapter {
             amountView.setGravity(Gravity.RIGHT);
             amountView.setPadding(8, 8, 8, 8);
             v.addView(amountView);
-        }
+        }*/
 
         return v;
     }
