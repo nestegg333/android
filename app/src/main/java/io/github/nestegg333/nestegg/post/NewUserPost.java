@@ -70,7 +70,8 @@ public class NewUserPost extends AsyncTask<String, Void, String> {
             JSONObject newUserReceivedJSON = new JSONObject(response);
             Log.d(TAG, newUserReceivedJSON.toString());
 
-            context.launchMainActivity(new Bundle());
+            // TODO: parse the results
+            new NewOwnerPost(userData, context);
         } catch (JSONException e) {
             e.printStackTrace();
         }

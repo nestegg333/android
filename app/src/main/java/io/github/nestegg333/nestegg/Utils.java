@@ -28,7 +28,11 @@ public class Utils {
             LAST_PAYMENT = "LAST_PAYMENT",
             PROGRESS = "PROGRESS",
             GOAL = "GOAL",
-            PETS = "PETS_RAISED";
+            PETS = "PETS_RAISED",
+            OWNER_ID = "OWNER_ID",
+            PET_ID = "PET_ID",
+            USER_ID = "USER_ID";
+    public static int GREEN = 0x3D7423;
 
     // Hide the sticky action bar
     public static void hideActionBar(AppCompatActivity activity) {
@@ -55,7 +59,7 @@ public class Utils {
                         .setSmallIcon(R.drawable.eggicon)
                         .setContentTitle("Your pet misses you!")
                         .setContentText("See what they've been up to while you've been gone.")
-                        .setColor(0x3D7423);
+                        .setColor(GREEN);
 
         Intent resultIntent = new Intent(context, LogInActivity.class);
         PendingIntent resultPendingIntent =
@@ -65,7 +69,7 @@ public class Utils {
 
         NotificationManager mNotifyMgr =
                 (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-        mNotifyMgr.notify(001, mBuilder.build());
+        mNotifyMgr.notify(1, mBuilder.build());
     }
 
     // OVERRIDE activity-wide font to custom font:
