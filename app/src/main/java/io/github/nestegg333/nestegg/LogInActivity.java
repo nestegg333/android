@@ -1,15 +1,23 @@
 package io.github.nestegg333.nestegg;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Date;
 
 import io.github.nestegg333.nestegg.auth.Login;
@@ -92,11 +100,26 @@ public class LogInActivity extends AppCompatActivity {
                 goal = Integer.parseInt(firstGoalEntry.getText().toString());
                 petName = petNameEntry.getText().toString();
 
-                // TODO: register a new user
-                launchMainActivity(fakeBundle());
-
+                registerUser();
             }
         });
+    }
+
+    private void registerUser() {
+        // Faux last payment date for notification
+        try {
+            String writeString = (new Date()).toString();
+            Log.d(TAG, "Writing recent payment: " + writeString);
+            FileOutputStream outputStream = context.openFileOutput("lastPayment", Context.MODE_PRIVATE);
+            outputStream.write(writeString.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // TODO: register a new user
+
+        launchMainActivity(fakeBundle());
     }
 
     private void validate() {

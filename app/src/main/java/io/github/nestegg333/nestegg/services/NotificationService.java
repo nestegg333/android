@@ -13,6 +13,14 @@ import android.content.Intent;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Date;
+
 import io.github.nestegg333.nestegg.LogInActivity;
 import io.github.nestegg333.nestegg.R;
 import io.github.nestegg333.nestegg.Utils;
@@ -20,6 +28,7 @@ import io.github.nestegg333.nestegg.Utils;
 public class NotificationService extends IntentService {
     private final static String TAG = "NestEgg";
     public static Context context;
+    private final static int PERIOD = 3600000;
 
     public NotificationService() {
         super("NotificationService");
@@ -27,13 +36,29 @@ public class NotificationService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        if (context == null) return;
+
         Log.d(TAG, "NotificationService - Making notification");
-        makeNotification();
+
+        try {
+            byte[] buffer = new byte[28];
+            FileInputStream inputStream = context.openFileInput("lastPayment");
+            inputStream.read(buffer);
+            String date = new String(buffer);
+
+            Log.d(TAG, "Trying to parse date from line " + date);
+            long lastPayment = Date.parse(date);
+            long now = (new Date()).getTime();
+            Log.d(TAG, "Previous time: " + lastPayment + " Now: " + now + " Difference: " + (lastPayment - now));
+            if (now - lastPayment > PERIOD)
+                makeNotification();
+        } catch (IOException e) {
+            // e.printStackTrace();
+            // File hasn't been made yet
+        }
     }
 
     public static void makeNotification() {
-        if (context == null) return;
-        
         NotificationCompat.Builder mBuilder =
                 (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.eggicon)

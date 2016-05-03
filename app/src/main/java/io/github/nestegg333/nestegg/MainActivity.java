@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity
 
     private void issuePayment(int amount) {
         // TODO dynamic user ID
-        new NewPaymentPost(amount, 1);
+        new NewPaymentPost(amount, 1, this);
     }
 
     private void parseIntent(Intent intent) {

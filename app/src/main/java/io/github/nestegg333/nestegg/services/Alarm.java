@@ -14,7 +14,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 public class Alarm extends BroadcastReceiver {
-    private static final int PERIOD = 10000;
+    private static final int PERIOD = 3600000;
     private final static String TAG = "NestEgg";
 
     @Override
