@@ -76,6 +76,8 @@ public class Login extends AsyncTask<String, Void, String> {
         try {
             JSONObject loginReceived = new JSONObject(data);
             // TODO: get/parse owner and pet object
+
+            /* TODO: brink of new pet:
             userData.putString(Utils.TOKEN, loginReceived.getString("auth_token"));
             userData.putString(Utils.PETNAME, "Jimanji");
             userData.putString(Utils.INTERACTIONS, "FFFFFFTFFFFFTFFTVFFFFFFFTFFFFF");
@@ -85,9 +87,20 @@ public class Login extends AsyncTask<String, Void, String> {
             userData.putInt(Utils.PROGRESS, 9780);
             userData.putInt(Utils.GOAL, 10000);
             userData.putInt(Utils.PETS, 2);
+            */
+
+            userData.putString(Utils.TOKEN, loginReceived.getString("auth_token"));
+            userData.putString(Utils.PETNAME, "Jimanji");
+            userData.putString(Utils.INTERACTIONS, "FFFTVFTFFFFFTFFFFFFFFFFFTFFFFF");
+            userData.putInt(Utils.COST, 212);
+            userData.putInt(Utils.TRANSACTIONS, 2);
+            userData.putString(Utils.LAST_PAYMENT, (new Date()).toString());
+            userData.putInt(Utils.PROGRESS, 424);
+            userData.putInt(Utils.GOAL, 10000);
+            userData.putInt(Utils.PETS, 2);
 
             long lastPayment = Date.parse(userData.getString(Utils.LAST_PAYMENT));
-            lastPayment -= 4 * Utils.DAYS;
+            // TODO to trigger neglect: lastPayment -= 4 * Utils.DAYS;
             long now = (new Date()).getTime();
             if (now - lastPayment > 3 * Utils.DAYS) {
                 activity.petFailure(userData);

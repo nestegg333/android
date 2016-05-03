@@ -50,33 +50,6 @@ public class LogInActivity extends AppCompatActivity {
         Utils.setDefaultFont(this, "MONOSPACE", "fonts/Arciform.ttf");
         context = this;
 
-        // dragon head slides up!
-        // Refer the ImageView like this
-        ImageView dHead = (ImageView) findViewById(R.id.dragonhead);
-        // Load the animation like this
-        Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.slideup);
-        // Start the animation like this
-        dHead.startAnimation(animSlide);
-
-        // textbubble slides up!
-        // Refer the ImageView like this
-        ImageView bubble = (ImageView) findViewById(R.id.speechbubble);
-        // Load the animation like this
-        Animation animSlideBubble = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.slideupslow);
-        // Start the animation like this
-        bubble.startAnimation(animSlideBubble);
-
-        // textbubble slides up!
-        // Refer the ImageView like this
-        TextView nesteggText = (TextView)findViewById(R.id.nesteggtext);
-        // Load the animation like this
-        Animation animSlideTxt = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.slideupslow);
-        // Start the animation like this
-        nesteggText.startAnimation(animSlideTxt);
-
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -91,6 +64,24 @@ public class LogInActivity extends AppCompatActivity {
         currentScreen = LOGIN;
         usernameAddressEntry = (EditText) findViewById(R.id.new_username_address_input);
         passwordEntry = (EditText) findViewById(R.id.new_password_input);
+
+        // dragon head slides up!
+        ImageView dHead = (ImageView) findViewById(R.id.dragonhead);
+        Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slideup);
+        dHead.startAnimation(animSlide);
+
+        // textbubble slides up!
+        ImageView bubble = (ImageView) findViewById(R.id.speechbubble);
+        Animation animSlideBubble = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slideupslow);
+        bubble.startAnimation(animSlideBubble);
+
+        // text slides up!
+        TextView nesteggText = (TextView)findViewById(R.id.nesteggtext);
+        Animation animSlideTxt = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slideupslow);
+        nesteggText.startAnimation(animSlideTxt);
 
         findViewById(R.id.account_register).setOnClickListener(new View.OnClickListener() {
             @Override

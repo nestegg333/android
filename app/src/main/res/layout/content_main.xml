@@ -80,8 +80,8 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="0.3"
-            android:layout_gravity="center"
-            android:src="@drawable/restingdragon" />
+            android:layout_gravity="center" />
+            <!-- android:src="@drawable/restingdragon" /> -->
 
         <!-- Pet action (or no action): -->
         <FrameLayout

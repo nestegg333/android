@@ -8,6 +8,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity
         };
 
         // TODO: compare with lastPaymentDate to make sure its time for an update
+        Log.d(TAG, interactionSequence);
+        Log.d(TAG, transactionsMade + " " + interactionSequence.charAt(transactionsMade));
         stateChange(interactionSequence.charAt(transactionsMade));
 
     }
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void stateChange(char c) {
+        Log.d(TAG, "Current state: " + c + " at index " + transactionsMade);
         PetState newState;
         int costFactor = 1;
         switch (c) {
@@ -145,13 +149,13 @@ public class MainActivity extends AppCompatActivity
                     // stateChange('R');
                     if (++transactionsMade >= 30) {
                         stateChange('R');
-                        //Toast.makeText(CONTEXT, "Your NestEgg is raised!", Toast.LENGTH_LONG).show();
+
                         Intent intent = new Intent(CONTEXT, NewPet.class);
                         intent.putExtras(userData.getExtras());
                         CONTEXT.startActivity(intent);
                     } else
                         // TODO demo hack
-                        stateChange(interactionSequence.charAt(++transactionsMade));
+                        stateChange(interactionSequence.charAt(transactionsMade));
                 }
         });
     }
