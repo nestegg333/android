@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.FileOutputStream;
 import java.util.Date;
@@ -62,7 +63,18 @@ public class LogInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 username = usernameAddressEntry.getText().toString();
                 password = passwordEntry.getText().toString();
-                initBankInfoEntry();
+                Log.d(TAG, "Password: " + password);
+                // TODO should really make sure that this username doesn't exist already
+                if (username.equals(""))
+                    Toast.makeText(context, "Please enter a username", Toast.LENGTH_LONG).show();
+                else if (password.equals(""))
+                    Toast.makeText(context, "Please enter a password", Toast.LENGTH_LONG).show();
+                else if (username.length() > 30)
+                    Toast.makeText(context, "Please choose a shorter username", Toast.LENGTH_LONG).show();
+                else if (!username.matches("^[a-zA-Z0-9]*$"))
+                    Toast.makeText(context, "Please only use alphanumeric characters in your username", Toast.LENGTH_LONG).show();
+                else
+                    initBankInfoEntry();
             }
         });
 
@@ -71,7 +83,16 @@ public class LogInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 username = usernameAddressEntry.getText().toString();
                 password = passwordEntry.getText().toString();
-                validate();
+                if (username.equals(""))
+                    Toast.makeText(context, "Please enter a username", Toast.LENGTH_LONG).show();
+                else if (password.equals(""))
+                    Toast.makeText(context, "Please enter a password", Toast.LENGTH_LONG).show();
+                else if (username.length() > 30)
+                    Toast.makeText(context, "Your username must be shorter", Toast.LENGTH_LONG).show();
+                else if (!username.matches("^[a-zA-Z0-9]*$"))
+                    Toast.makeText(context, "Your username can only contain alphanumeric characters", Toast.LENGTH_LONG).show();
+                else
+                    initBankInfoEntry();
             }
         });
     }
@@ -86,9 +107,15 @@ public class LogInActivity extends AppCompatActivity {
         findViewById(R.id.enter_bank_info_continue).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkingAcctNum = Integer.parseInt(checkingAccountEntry.getText().toString());
-                savingsAcctNum = Integer.parseInt(savingsAccountEntry.getText().toString());
-                initFirstGoalEntry();
+                String checkingAcctField = checkingAccountEntry.getText().toString();
+                String savingsAcctField = savingsAccountEntry.getText().toString();
+                if (checkingAcctField.equals("") || savingsAcctField.equals(""))
+                    Toast.makeText(context, "Please enter a valid bank account number", Toast.LENGTH_LONG).show();
+                else {
+                    checkingAcctNum = Integer.parseInt(checkingAcctField);
+                    savingsAcctNum = Integer.parseInt(savingsAcctField);
+                    initFirstGoalEntry();
+                }
             }
         });
     }
@@ -103,10 +130,21 @@ public class LogInActivity extends AppCompatActivity {
         findViewById(R.id.set_first_goal_continue).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goal = Integer.parseInt(firstGoalEntry.getText().toString());
-                petName = petNameEntry.getText().toString();
-
-                registerUser();
+                String goalField = firstGoalEntry.getText().toString();
+                String petNameField = petNameEntry.getText().toString();
+                if (goalField.equals(""))
+                    Toast.makeText(context, "Please enter a valid goal value", Toast.LENGTH_LONG).show();
+                else if (petNameField.equals(""))
+                    Toast.makeText(context, "Please enter a valid pet name", Toast.LENGTH_LONG).show();
+                else if (petNameField.length() > 30)
+                    Toast.makeText(context, "Please choose a shorter pet name", Toast.LENGTH_LONG).show();
+                else if (!petNameField.matches("^[a-zA-Z0-9]*$"))
+                    Toast.makeText(context, "Please only use alphanumeric characters in your pet name", Toast.LENGTH_LONG).show();
+                else {
+                    goal = Integer.parseInt(firstGoalEntry.getText().toString());
+                    petName = petNameEntry.getText().toString();
+                    registerUser();
+                }
             }
         });
     }
