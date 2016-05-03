@@ -29,6 +29,7 @@ public class Utils {
             PET_ID = "PET_ID",
             USER_ID = "USER_ID";
     public static int GREEN = 0x3D7423;
+    public final static int DAYS = 86400000;
 
     // Hide the sticky action bar
     public static void hideActionBar(AppCompatActivity activity) {

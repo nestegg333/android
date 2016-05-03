@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileOutputStream;
@@ -24,14 +25,15 @@ import io.github.nestegg333.nestegg.auth.Login;
 public class LogInActivity extends AppCompatActivity {
     private final static String TAG = "NestEgg";
     private EditText usernameAddressEntry, passwordEntry, checkingAccountEntry,
-            savingsAccountEntry, firstGoalEntry, petNameEntry;
+            savingsAccountEntry, goalEntry, petNameEntry;
     private String username, password, petName;
     private int goal, checkingAcctNum, savingsAcctNum;
     private LogInActivity context;
 
     private final static int LOGIN = 0,
                                 BANK = 1,
-                                GOAL = 2;
+                                GOAL = 2,
+                                FAIL = 3;
     private int currentScreen;
 
     // TODO input validation throughout
@@ -63,7 +65,6 @@ public class LogInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 username = usernameAddressEntry.getText().toString();
                 password = passwordEntry.getText().toString();
-                Log.d(TAG, "Password: " + password);
                 // TODO should really make sure that this username doesn't exist already
                 if (username.equals(""))
                     Toast.makeText(context, "Please enter a username", Toast.LENGTH_LONG).show();
@@ -90,9 +91,9 @@ public class LogInActivity extends AppCompatActivity {
                 else if (username.length() > 30)
                     Toast.makeText(context, "Your username must be shorter", Toast.LENGTH_LONG).show();
                 else if (!username.matches("^[a-zA-Z0-9]*$"))
-                    Toast.makeText(context, "Your username can only contain alphanumeric characters", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Your username should only contain alphanumeric characters", Toast.LENGTH_LONG).show();
                 else
-                    initBankInfoEntry();
+                    validate();
             }
         });
     }
@@ -124,13 +125,13 @@ public class LogInActivity extends AppCompatActivity {
         // Do something with the values of checkingAccountEntry and savingsAccountEntry
         setContentView(R.layout.activity_set_first_goal);
         currentScreen = GOAL;
-        firstGoalEntry = (EditText) findViewById(R.id.new_goal);
+        goalEntry = (EditText) findViewById(R.id.new_goal);
         petNameEntry = (EditText) findViewById(R.id.new_pet_name);
 
         findViewById(R.id.set_first_goal_continue).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String goalField = firstGoalEntry.getText().toString();
+                String goalField = goalEntry.getText().toString();
                 String petNameField = petNameEntry.getText().toString();
                 if (goalField.equals(""))
                     Toast.makeText(context, "Please enter a valid goal value", Toast.LENGTH_LONG).show();
@@ -141,10 +142,52 @@ public class LogInActivity extends AppCompatActivity {
                 else if (!petNameField.matches("^[a-zA-Z0-9]*$"))
                     Toast.makeText(context, "Please only use alphanumeric characters in your pet name", Toast.LENGTH_LONG).show();
                 else {
-                    goal = Integer.parseInt(firstGoalEntry.getText().toString());
+                    goal = Integer.parseInt(goalEntry.getText().toString());
                     petName = petNameEntry.getText().toString();
                     registerUser();
                 }
+            }
+        });
+    }
+
+    private void newGoalEntry(final Bundle bundle) {
+        // Do something with the values of checkingAccountEntry and savingsAccountEntry
+        setContentView(R.layout.activity_set_first_goal);
+        //Utils.hideActionBar(this);
+        ((TextView) findViewById(R.id.set_goal_header)).setText("NEW GOAL!");
+        goalEntry = (EditText) findViewById(R.id.new_goal);
+        petNameEntry = (EditText) findViewById(R.id.new_pet_name);
+
+        findViewById(R.id.set_first_goal_continue).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String goalField = goalEntry.getText().toString();
+                String petNameField = petNameEntry.getText().toString();
+                if (goalField.equals(""))
+                    Toast.makeText(context, "Please enter a valid goal value", Toast.LENGTH_LONG).show();
+                else if (petNameField.equals(""))
+                    Toast.makeText(context, "Please enter a valid pet name", Toast.LENGTH_LONG).show();
+                else if (petNameField.length() > 30)
+                    Toast.makeText(context, "Please choose a shorter pet name", Toast.LENGTH_LONG).show();
+                else if (!petNameField.matches("^[a-zA-Z0-9]*$"))
+                    Toast.makeText(context, "Please only use alphanumeric characters in your pet name", Toast.LENGTH_LONG).show();
+                else {
+                    goal = Integer.parseInt(goalField);
+                    petName = petNameField;
+                    updateUser(bundle);
+                }
+            }
+        });
+    }
+
+    public void petFailure(final Bundle bundle) {
+        setContentView(R.layout.pet_failure);
+        ((TextView) findViewById(R.id.pet_failure_header)).setText("No!! " + bundle.getString(Utils.PETNAME) + " ran away!!");
+
+        findViewById(R.id.pet_failure_continue).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newGoalEntry(bundle);
             }
         });
     }
@@ -164,6 +207,29 @@ public class LogInActivity extends AppCompatActivity {
         // TODO: register a new user
 
         launchMainActivity(fakeBundle());
+    }
+
+    private void updateUser(Bundle b) {
+        // Faux last payment date for notification
+        try {
+            String writeString = (new Date()).toString();
+            Log.d(TAG, "Writing recent payment: " + writeString);
+            FileOutputStream outputStream = context.openFileOutput("lastPayment", Context.MODE_PRIVATE);
+            outputStream.write(writeString.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // TODO: PUT request update new user
+        b.putInt(Utils.PROGRESS, 0);
+        b.putInt(Utils.GOAL, goal * 100);
+        b.putInt(Utils.COST, (int) (goal * 100 / 47.169811321));
+        b.putInt(Utils.TRANSACTIONS, 0);
+        b.putInt(Utils.PETS, b.getInt(Utils.PETS) + 1);
+        b.putString(Utils.PETNAME, petName);
+
+        launchMainActivity(b);
     }
 
     private void validate() {
@@ -207,6 +273,8 @@ public class LogInActivity extends AppCompatActivity {
                 return;
             case GOAL:
                 initBankInfoEntry();
+                return;
+            case FAIL:
                 return;
             default:
                 super.onBackPressed();

@@ -75,6 +75,7 @@ public class Login extends AsyncTask<String, Void, String> {
         Log.d(TAG, data);
         try {
             JSONObject loginReceived = new JSONObject(data);
+            // TODO: get/parse owner and pet object
             userData.putString(Utils.TOKEN, loginReceived.getString("auth_token"));
             userData.putString(Utils.PETNAME, "Jimanji");
             userData.putString(Utils.INTERACTIONS, "FFFFFFTFFFFFTFFTVFFFFFFFTFFFFF");
@@ -84,7 +85,15 @@ public class Login extends AsyncTask<String, Void, String> {
             userData.putInt(Utils.PROGRESS, 9780);
             userData.putInt(Utils.GOAL, 10000);
             userData.putInt(Utils.PETS, 2);
-            activity.launchMainActivity(userData);
+
+            long lastPayment = Date.parse(userData.getString(Utils.LAST_PAYMENT));
+            lastPayment -= 4 * Utils.DAYS;
+            long now = (new Date()).getTime();
+            if (now - lastPayment > 3 * Utils.DAYS) {
+                activity.petFailure(userData);
+            } else {
+                activity.launchMainActivity(userData);
+            }
         } catch (JSONException e) {
             Toast.makeText(activity, "Log-in Failed", Toast.LENGTH_LONG).show();
             e.printStackTrace();

@@ -24,7 +24,6 @@ public class NotificationService extends IntentService {
     private final static String TAG = "NestEgg";
     public static Context context;
     private final static int PERIOD = 3600000;
-    private final static int DAYS = 86400000;
 
     public NotificationService() {
         super("NotificationService");
@@ -59,11 +58,11 @@ public class NotificationService extends IntentService {
                         .setContentTitle("Your pet misses you!")
                         .setColor(Utils.GREEN);
 
-        if (difference < 1 * DAYS) {
+        if (difference < 1 * Utils.DAYS) {
             mBuilder.setContentText("See how they're doing!");
-        } else if (difference < 2 * DAYS) {
+        } else if (difference < 2 * Utils.DAYS) {
             mBuilder.setContentText("They're feeling lonely...");
-        } else if (difference < 3 * DAYS) {
+        } else if (difference < 3 * Utils.DAYS) {
             mBuilder.setContentText("It's packing its things!");
         }
 
