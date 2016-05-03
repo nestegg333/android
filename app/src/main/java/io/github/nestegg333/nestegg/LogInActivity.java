@@ -10,7 +10,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +47,33 @@ public class LogInActivity extends AppCompatActivity {
         // OVERRIDE activity-wide font to custom font:
         Utils.setDefaultFont(this, "MONOSPACE", "fonts/Arciform.ttf");
         context = this;
+
+        // dragon head slides up!
+        // Refer the ImageView like this
+        ImageView dHead = (ImageView) findViewById(R.id.dragonhead);
+        // Load the animation like this
+        Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slideup);
+        // Start the animation like this
+        dHead.startAnimation(animSlide);
+
+        // textbubble slides up!
+        // Refer the ImageView like this
+        ImageView bubble = (ImageView) findViewById(R.id.speechbubble);
+        // Load the animation like this
+        Animation animSlideBubble = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slideupslow);
+        // Start the animation like this
+        bubble.startAnimation(animSlideBubble);
+
+        // textbubble slides up!
+        // Refer the ImageView like this
+        TextView nesteggText = (TextView)findViewById(R.id.nesteggtext);
+        // Load the animation like this
+        Animation animSlideTxt = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slideupslow);
+        // Start the animation like this
+        nesteggText.startAnimation(animSlideTxt);
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
