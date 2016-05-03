@@ -18,24 +18,27 @@
             android:src = "@drawable/background"/>
 
         <ImageView
+            android:id = "@+id/speechbubble"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src = "@drawable/speechbubble"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:padding="15dp"
+            android:padding="20dp"
             />
 
         <TextView
+            android:id = "@+id/nesteggtext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="25dp"
-            android:textSize="60sp"
+            android:paddingTop="35dp"
+            android:textSize="75sp"
             android:gravity="center"
             android:text="NESTEGG"
             android:textColor="#ffffff"/>
 
         <ImageView
+            android:id = "@+id/dragonhead"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src = "@drawable/dragonhead"
