@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Animation frames are sickdragon.png through sickdragon3.png
+files inside the res/drawable/ folder -->
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/blinkrest" android:oneshot="false">
+    <item android:drawable="@drawable/hungrydragon" android:duration="2000" />
+    <item android:drawable="@drawable/hungrydragon2" android:duration="200" />
+    <item android:drawable="@drawable/hungrydragon3" android:duration="200" />
+    <item android:drawable="@drawable/hungrydragon2" android:duration="200" />
+</animation-list>
+
