@@ -10,7 +10,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/nav_header_height"
+        android:layout_height="100dp"
         android:orientation="vertical"
         android:gravity="bottom"
         android:background="@drawable/side_nav_bar">
@@ -41,10 +41,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="aqeelphillips@jimmy.com"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:textAlignment="center"
             android:textColor="#4A4A4A"
-            android:paddingTop="40dp"/>
+            android:layout_marginTop="25dp"
+            android:textSize="30sp" />
 
 
     </FrameLayout>

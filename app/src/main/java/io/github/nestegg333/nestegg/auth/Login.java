@@ -86,7 +86,7 @@ public class Login extends AsyncTask<String, Void, String> {
             userData.putInt(Utils.PETS, 2);
             activity.launchMainActivity(userData);
         } catch (JSONException e) {
-            Toast.makeText(activity, "Log-in Failed", Toast.LENGTH_LONG);
+            Toast.makeText(activity, "Log-in Failed", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }

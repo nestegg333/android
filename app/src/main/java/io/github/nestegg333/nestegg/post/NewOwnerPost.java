@@ -85,7 +85,7 @@ public class NewOwnerPost {
 
                 activity.launchMainActivity(ownerData);
             } catch (JSONException e) {
-                Toast.makeText(activity, "Error with request", Toast.LENGTH_LONG);
+                Toast.makeText(activity, "Error with request", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
         }
@@ -137,7 +137,7 @@ public class NewOwnerPost {
                 petid = responseJSON.getInt("id");
                 (new OwnerPost()).execute("http://nestegg.herokuapp.com/api/owners/");
             } catch (JSONException e) {
-                Toast.makeText(activity, "Error with request", Toast.LENGTH_LONG);
+                Toast.makeText(activity, "Error with request", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
         }

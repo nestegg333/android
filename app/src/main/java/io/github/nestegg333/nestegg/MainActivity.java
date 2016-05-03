@@ -1,9 +1,14 @@
 package io.github.nestegg333.nestegg;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +19,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import io.github.nestegg333.nestegg.auth.Logout;
 import io.github.nestegg333.nestegg.post.NewPaymentPost;
+import io.github.nestegg333.nestegg.services.Alarm;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     private int goalTotal, goalProgress, eggsRaised, baselineCost, transactionsMade;
     private String username, petname, token, interactionSequence, lastPaymentDate;
     private Intent userData;
+    private Context CONTEXT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +43,15 @@ public class MainActivity extends AppCompatActivity
         Utils.setDefaultFont(this, "MONOSPACE", "fonts/Arciform.ttf");
         setContentView(R.layout.activity_main);
         Utils.hideActionBar(this);
+        CONTEXT = this;
+
+        Alarm.scheduleAlarms(this);
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECEIVE_BOOT_COMPLETED)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.RECEIVE_BOOT_COMPLETED}, 1);
+        }
 
         // Setup navigation drawer
         initNavigationDrawer();
@@ -76,8 +94,10 @@ public class MainActivity extends AppCompatActivity
                     drawer.openDrawer(GravityCompat.START);
                     ((TextView) findViewById(R.id.drawer_username)).setText(username);
                     ((TextView) findViewById(R.id.drawer_eggs_raised)).setText("x " + eggsRaised);
-                    ((TextView) findViewById(R.id.drawer_progress_status)).setText("$" + goalProgress + " saved");
-                    ((TextView) findViewById(R.id.drawer_goal_status)).setText("$" + goalTotal + " goal");
+                    ((TextView) findViewById(R.id.drawer_progress_status)).setText("$"
+                            + Utils.amountToString(goalProgress) + " saved");
+                    ((TextView) findViewById(R.id.drawer_goal_status)).setText("$"
+                            + Utils.amountToString(goalTotal) + " goal");
                     ((ProgressBar) findViewById(R.id.drawer_progress_bar)).setMax(goalTotal);
                     ((ProgressBar) findViewById(R.id.drawer_progress_bar)).setProgress(goalProgress);
                 }
@@ -114,28 +134,35 @@ public class MainActivity extends AppCompatActivity
                 ((ImageView) findViewById(R.id.pet_state_image)).setImageDrawable(getDrawable(newState.getImageId()));
                 return;
         }
-        final int cost = costFactor * baselineCost;
+        int cost = costFactor * baselineCost;
+        if (transactionsMade == 29) cost = goalTotal - goalProgress;
+        final int COST = cost;
 
         ((TextView) findViewById(R.id.pet_state_title)).setText(newState.getTitle());
         ((ImageView) findViewById(R.id.pet_state_image)).setImageDrawable(getDrawable(newState.getImageId()));
 
         // Set up the action button:
         Button actionButton = (Button) findViewById(R.id.pet_state_action);
-        String actionString = newState.getAction().replace("%m", Utils.amountToString(cost));
+        String actionString = newState.getAction().replace("%m", Utils.amountToString(COST));
         actionButton.setText(actionString);
         actionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    issuePayment(cost);
-                    goalProgress += cost;
+                    issuePayment(COST);
+                    goalProgress += COST;
                     // stateChange('R');
-                    stateChange(interactionSequence.charAt(++transactionsMade));
+                    if (++transactionsMade >= 30) {
+                        stateChange('R');
+                        Toast.makeText(CONTEXT, "Your NestEgg is raised!", Toast.LENGTH_LONG).show();
+                    } else
+                        // TODO demo hack
+                        stateChange(interactionSequence.charAt(++transactionsMade));
                 }
         });
     }
 
     private void issuePayment(int amount) {
-        // dynamic user ID
+        // TODO dynamic user ID
         new NewPaymentPost(amount, 1);
     }
 
@@ -177,8 +204,7 @@ public class MainActivity extends AppCompatActivity
             intent.putExtras(userData.getExtras());
             startActivity(intent);
         } else if (id == R.id.logout_option) {
-            // API.logout()
-            this.finish();
+            new Logout(userData.getStringExtra(Utils.TOKEN), this);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

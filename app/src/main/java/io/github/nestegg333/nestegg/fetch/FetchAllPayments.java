@@ -17,6 +17,7 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -60,6 +61,7 @@ public class FetchAllPayments extends AsyncTask<String, Void, String> {
         try {
             InputStream stream = new ByteArrayInputStream(data.getBytes("UTF-8"));
             ArrayList<PaymentAdapter.Payment> payments = readJsonStream(stream);
+            Collections.reverse(payments);
             PaymentAdapter paymentAdapter = new PaymentAdapter(context, payments);
             context.setAdapter(paymentAdapter);
         } catch (IOException e) {
