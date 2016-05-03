@@ -38,18 +38,14 @@ public class NotificationService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (context == null) return;
 
-        Log.d(TAG, "NotificationService - Making notification");
-
         try {
             byte[] buffer = new byte[28];
             FileInputStream inputStream = context.openFileInput("lastPayment");
             inputStream.read(buffer);
             String date = new String(buffer);
 
-            Log.d(TAG, "Trying to parse date from line " + date);
             long lastPayment = Date.parse(date);
             long now = (new Date()).getTime();
-            Log.d(TAG, "Previous time: " + lastPayment + " Now: " + now + " Difference: " + (lastPayment - now));
             if (now - lastPayment > PERIOD)
                 makeNotification();
         } catch (IOException e) {
@@ -59,6 +55,8 @@ public class NotificationService extends IntentService {
     }
 
     public static void makeNotification() {
+        Log.d(TAG, "NotificationService - Making notification");
+
         NotificationCompat.Builder mBuilder =
                 (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.eggicon)
