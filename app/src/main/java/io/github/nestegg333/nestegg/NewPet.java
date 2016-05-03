@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileOutputStream;
 import java.util.Date;
@@ -66,10 +67,21 @@ public class NewPet extends AppCompatActivity {
         findViewById(R.id.set_first_goal_continue).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goal = Integer.parseInt(goalEntry.getText().toString());
-                petName = petNameEntry.getText().toString();
-
-                updateUser();
+                String goalField = goalEntry.getText().toString();
+                String petNameField = petNameEntry.getText().toString();
+                if (goalField.equals(""))
+                    Toast.makeText(context, "Please enter a valid goal value", Toast.LENGTH_LONG).show();
+                else if (petNameField.equals(""))
+                    Toast.makeText(context, "Please enter a valid pet name", Toast.LENGTH_LONG).show();
+                else if (petNameField.length() > 30)
+                    Toast.makeText(context, "Please choose a shorter pet name", Toast.LENGTH_LONG).show();
+                else if (!petNameField.matches("^[a-zA-Z0-9]*$"))
+                    Toast.makeText(context, "Please only use alphanumeric characters in your pet name", Toast.LENGTH_LONG).show();
+                else {
+                    goal = Integer.parseInt(goalField);
+                    petName = petNameField;
+                    updateUser();
+                }
             }
         });
     }
