@@ -10,6 +10,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -50,13 +52,13 @@ public class MainActivity extends AppCompatActivity
 
         // Initialize the pet states:
         states = new PetState[] {
-                new PetState("Hi " + username + "!", "Neato!", R.drawable.restingdragon, "Resting"),
+                new PetState("Hi " + username + "!", "Neato!", R.drawable.restinganimate, "Resting"),
                 new PetState("Oh no! " + petname + " is hungry!",
-                        "Feed " + petname + "! - $%m", R.drawable.hungrydragon, "Hungry"),
+                        "Feed " + petname + "! - $%m", R.drawable.hungryanimate, "Hungry"),
                 new PetState("Uh oh, " + petname + " looks bored...",
-                        "Give " + petname + " a toy! - $%m", R.drawable.boreddragon, "Bored"),
+                        "Give " + petname + " a toy! - $%m", R.drawable.boredanimate, "Bored"),
                 new PetState("Ahh! " + petname + " is sick!",
-                        "Take " + petname + " to the vet! - $%m", R.drawable.sickdragon, "Sick"),
+                        "Take " + petname + " to the vet! - $%m", R.drawable.sickanimate, "Sick"),
         };
 
         // TODO: compare with lastPaymentDate to make sure its time for an update
@@ -127,7 +129,9 @@ public class MainActivity extends AppCompatActivity
         final int COST = cost;
 
         ((TextView) findViewById(R.id.pet_state_title)).setText(newState.getTitle());
-        ((ImageView) findViewById(R.id.pet_state_image)).setImageDrawable(getDrawable(newState.getImageId()));
+        ImageView dragon = (ImageView) findViewById(R.id.pet_state_image);
+        dragon.setBackground(getDrawable(newState.getImageId()));
+        ((AnimationDrawable) dragon.getBackground()).start();
 
         // Set up the action button:
         Button actionButton = (Button) findViewById(R.id.pet_state_action);
