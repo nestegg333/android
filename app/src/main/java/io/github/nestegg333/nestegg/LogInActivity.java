@@ -63,7 +63,9 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
         currentScreen = LOGIN;
         usernameAddressEntry = (EditText) findViewById(R.id.new_username_address_input);
+        usernameAddressEntry.setText("");
         passwordEntry = (EditText) findViewById(R.id.new_password_input);
+        passwordEntry.setText("");
 
         // dragon head slides up!
         ImageView dHead = (ImageView) findViewById(R.id.dragonhead);

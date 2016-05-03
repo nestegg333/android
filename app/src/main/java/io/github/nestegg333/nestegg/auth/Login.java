@@ -91,7 +91,7 @@ public class Login extends AsyncTask<String, Void, String> {
 
             userData.putString(Utils.TOKEN, loginReceived.getString("auth_token"));
             userData.putString(Utils.PETNAME, "Jimanji");
-            userData.putString(Utils.INTERACTIONS, "FFFTVFTFFFFFTFFFFFFFFFFFTFFFFF");
+            userData.putString(Utils.INTERACTIONS, "FFFTVRTFFFFFTFFFFFFFFFFFTFFFFF");
             userData.putInt(Utils.COST, 212);
             userData.putInt(Utils.TRANSACTIONS, 2);
             userData.putString(Utils.LAST_PAYMENT, (new Date()).toString());

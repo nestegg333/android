@@ -1,6 +1,7 @@
 package io.github.nestegg333.nestegg.auth;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.JsonReader;
@@ -64,5 +65,9 @@ public class Logout extends AsyncTask<String, Void, String> {
 
     protected void onPostExecute(String data) {
         activity.finish();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
     }
 }

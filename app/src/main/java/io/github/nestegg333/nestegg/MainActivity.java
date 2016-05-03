@@ -125,7 +125,9 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.action_container).setVisibility(View.GONE);
                 newState = states[0];
                 ((TextView) findViewById(R.id.pet_state_title)).setText(newState.getTitle());
-                ((ImageView) findViewById(R.id.pet_state_image)).setImageDrawable(getDrawable(newState.getImageId()));
+                ImageView dragon = (ImageView) findViewById(R.id.pet_state_image);
+                dragon.setBackground(getDrawable(newState.getImageId()));
+                ((AnimationDrawable) dragon.getBackground()).start();
                 return;
         }
         int cost = costFactor * baselineCost;
