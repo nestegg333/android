@@ -12,17 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Date;
 
 import io.github.nestegg333.nestegg.auth.Login;
-import io.github.nestegg333.nestegg.fetch.FetchUser;
-import io.github.nestegg333.nestegg.post.NewUserPost;
 
 /**
  * Created by aqeelp on 3/29/16.
@@ -35,6 +28,11 @@ public class LogInActivity extends AppCompatActivity {
     private int goal, checkingAcctNum, savingsAcctNum;
     private LogInActivity context;
 
+    private final static int LOGIN = 0,
+                                BANK = 1,
+                                GOAL = 2;
+    private int currentScreen;
+
     // TODO input validation throughout
 
     @Override
@@ -42,7 +40,6 @@ public class LogInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // OVERRIDE activity-wide font to custom font:
         Utils.setDefaultFont(this, "MONOSPACE", "fonts/Arciform.ttf");
-        setContentView(R.layout.activity_account);
         context = this;
 
         if (ContextCompat.checkSelfPermission(this,
@@ -51,6 +48,12 @@ public class LogInActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.INTERNET}, 0);
         }
 
+        initAccountInfoEntry();
+    }
+
+    private void initAccountInfoEntry() {
+        setContentView(R.layout.activity_account);
+        currentScreen = LOGIN;
         usernameAddressEntry = (EditText) findViewById(R.id.new_username_address_input);
         passwordEntry = (EditText) findViewById(R.id.new_password_input);
 
@@ -72,9 +75,11 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
     }
+
     private void initBankInfoEntry() {
         // Do something with the values of @emailAddressEntry and @passwordEntry
         setContentView(R.layout.activity_enter_bank_info);
+        currentScreen = BANK;
         checkingAccountEntry = (EditText) findViewById(R.id.new_checking_account_number);
         savingsAccountEntry = (EditText) findViewById(R.id.new_savings_account_number);
 
@@ -91,6 +96,7 @@ public class LogInActivity extends AppCompatActivity {
     private void initFirstGoalEntry() {
         // Do something with the values of checkingAccountEntry and savingsAccountEntry
         setContentView(R.layout.activity_set_first_goal);
+        currentScreen = GOAL;
         firstGoalEntry = (EditText) findViewById(R.id.new_goal);
         petNameEntry = (EditText) findViewById(R.id.new_pet_name);
 
@@ -153,5 +159,19 @@ public class LogInActivity extends AppCompatActivity {
         bundle.putInt(Utils.GOAL, goal * 100);
         bundle.putInt(Utils.PETS, 0);
         return bundle;
+    }
+
+    @Override
+    public void onBackPressed() {
+        switch(currentScreen) {
+            case BANK:
+                initAccountInfoEntry();
+                return;
+            case GOAL:
+                initBankInfoEntry();
+                return;
+            default:
+                super.onBackPressed();
+        }
     }
 }

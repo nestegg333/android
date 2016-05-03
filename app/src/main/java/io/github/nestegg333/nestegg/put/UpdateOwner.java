@@ -19,7 +19,6 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
 import io.github.nestegg333.nestegg.HttpRequest;
-import io.github.nestegg333.nestegg.LogInActivity;
 
 /**
  * Created by aqeelp on 12/28/15.

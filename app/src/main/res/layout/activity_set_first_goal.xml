@@ -113,7 +113,7 @@
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:padding= "20dp"/>
-        
+
 
         <EditText
             android:id="@+id/new_pet_name"

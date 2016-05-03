@@ -2,14 +2,12 @@ package io.github.nestegg333.nestegg.post;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
@@ -23,7 +21,6 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
 import io.github.nestegg333.nestegg.HttpRequest;
-import io.github.nestegg333.nestegg.LogInActivity;
 
 /**
  * Created by aqeelp on 12/28/15.

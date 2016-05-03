@@ -13,15 +13,10 @@ import android.content.Intent;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Date;
 
-import io.github.nestegg333.nestegg.LogInActivity;
 import io.github.nestegg333.nestegg.R;
 import io.github.nestegg333.nestegg.Utils;
 
@@ -29,6 +24,7 @@ public class NotificationService extends IntentService {
     private final static String TAG = "NestEgg";
     public static Context context;
     private final static int PERIOD = 3600000;
+    private final static int DAYS = 86400000;
 
     public NotificationService() {
         super("NotificationService");
@@ -47,22 +43,29 @@ public class NotificationService extends IntentService {
             long lastPayment = Date.parse(date);
             long now = (new Date()).getTime();
             if (now - lastPayment > PERIOD)
-                makeNotification();
+                makeNotification((int) (now - lastPayment));
         } catch (IOException e) {
             // e.printStackTrace();
             // File hasn't been made yet
         }
     }
 
-    public static void makeNotification() {
+    public static void makeNotification(int difference) {
         Log.d(TAG, "NotificationService - Making notification");
 
         NotificationCompat.Builder mBuilder =
                 (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.eggicon)
                         .setContentTitle("Your pet misses you!")
-                        .setContentText("See what they've been up to while you've been gone.")
                         .setColor(Utils.GREEN);
+
+        if (difference < 1 * DAYS) {
+            mBuilder.setContentText("See how they're doing!");
+        } else if (difference < 2 * DAYS) {
+            mBuilder.setContentText("They're feeling lonely...");
+        } else if (difference < 3 * DAYS) {
+            mBuilder.setContentText("It's packing its things!");
+        }
 
         //Intent resultIntent = new Intent(context, LogInActivity.class);
         Intent intentToStart = context.getPackageManager().getLaunchIntentForPackage("io.github.nestegg333.nestegg");

@@ -24,7 +24,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
-import io.github.nestegg333.nestegg.LogInActivity;
 import io.github.nestegg333.nestegg.Utils;
 
 /**

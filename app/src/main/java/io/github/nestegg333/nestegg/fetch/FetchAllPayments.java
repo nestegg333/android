@@ -1,7 +1,6 @@
 package io.github.nestegg333.nestegg.fetch;
 
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.Log;
 
