@@ -59,25 +59,6 @@ public class Utils {
         return finalCost;
     }
 
-    public static void makeNotification(Context context) {
-        NotificationCompat.Builder mBuilder =
-                (NotificationCompat.Builder) new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.eggicon)
-                        .setContentTitle("Your pet misses you!")
-                        .setContentText("See what they've been up to while you've been gone.")
-                        .setColor(GREEN);
-
-        Intent resultIntent = new Intent(context, LogInActivity.class);
-        PendingIntent resultPendingIntent =
-                PendingIntent.getActivity(context, 0, resultIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(resultPendingIntent);
-
-        NotificationManager mNotifyMgr =
-                (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-        mNotifyMgr.notify(1, mBuilder.build());
-    }
-
     // OVERRIDE activity-wide font to custom font:
     public static void setDefaultFont(Context context,
                                       String staticTypefaceFieldName, String fontAssetName) {

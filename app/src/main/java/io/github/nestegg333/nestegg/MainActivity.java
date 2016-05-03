@@ -24,6 +24,7 @@ import android.widget.Toast;
 import io.github.nestegg333.nestegg.auth.Logout;
 import io.github.nestegg333.nestegg.post.NewPaymentPost;
 import io.github.nestegg333.nestegg.services.Alarm;
+import io.github.nestegg333.nestegg.services.NotificationService;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,12 +47,6 @@ public class MainActivity extends AppCompatActivity
         CONTEXT = this;
 
         Alarm.scheduleAlarms(this);
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.RECEIVE_BOOT_COMPLETED)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.RECEIVE_BOOT_COMPLETED}, 1);
-        }
 
         // Setup navigation drawer
         initNavigationDrawer();

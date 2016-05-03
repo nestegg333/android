@@ -14,7 +14,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 public class Alarm extends BroadcastReceiver {
-    private static final int PERIOD = 5000;
+    private static final int PERIOD = 10000;
     private final static String TAG = "NestEgg";
 
     @Override
@@ -24,6 +24,8 @@ public class Alarm extends BroadcastReceiver {
 
     public static void scheduleAlarms(Context context) {
         Log.d(TAG, "Setting alarm...");
+
+        NotificationService.context = context;
 
         AlarmManager manager =
                 (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
