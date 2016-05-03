@@ -32,8 +32,10 @@ public class LogInActivity extends AppCompatActivity {
 
     private final static int LOGIN = 0,
                                 BANK = 1,
-                                GOAL = 2,
-                                FAIL = 3;
+                                HATCH_NEW = 2,
+                                HATCH_FAIL = 3,
+                                GOAL = 4,
+                                FAIL = 5;
     private int currentScreen;
 
     // TODO input validation throughout
@@ -111,12 +113,40 @@ public class LogInActivity extends AppCompatActivity {
                 String checkingAcctField = checkingAccountEntry.getText().toString();
                 String savingsAcctField = savingsAccountEntry.getText().toString();
                 if (checkingAcctField.equals("") || savingsAcctField.equals(""))
+                    Toast.makeText(context, "Please enter a bank account number", Toast.LENGTH_LONG).show();
+                else if (!checkingAcctField.matches("^[0-9]*$") || !savingsAcctField.matches("^[0-9]*$"))
                     Toast.makeText(context, "Please enter a valid bank account number", Toast.LENGTH_LONG).show();
                 else {
                     checkingAcctNum = Integer.parseInt(checkingAcctField);
                     savingsAcctNum = Integer.parseInt(savingsAcctField);
-                    initFirstGoalEntry();
+                    hatchNewEgg();
                 }
+            }
+        });
+    }
+
+    private void hatchNewEgg() {
+        // Do something with the values of @emailAddressEntry and @passwordEntry
+        setContentView(R.layout.egg_hatch);
+        currentScreen = HATCH_NEW;
+
+        findViewById(R.id.egg_hatch_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initFirstGoalEntry();
+            }
+        });
+    }
+
+    private void hatchEggAfterFailure(final Bundle bundle) {
+        // Do something with the values of @emailAddressEntry and @passwordEntry
+        setContentView(R.layout.egg_hatch);
+        currentScreen = HATCH_FAIL;
+
+        findViewById(R.id.egg_hatch_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newGoalEntry(bundle);
             }
         });
     }
@@ -134,9 +164,11 @@ public class LogInActivity extends AppCompatActivity {
                 String goalField = goalEntry.getText().toString();
                 String petNameField = petNameEntry.getText().toString();
                 if (goalField.equals(""))
+                    Toast.makeText(context, "Please enter a goal value", Toast.LENGTH_LONG).show();
+                else if (!goalField.matches("^[0-9.]*$"))
                     Toast.makeText(context, "Please enter a valid goal value", Toast.LENGTH_LONG).show();
                 else if (petNameField.equals(""))
-                    Toast.makeText(context, "Please enter a valid pet name", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Please enter a pet name", Toast.LENGTH_LONG).show();
                 else if (petNameField.length() > 30)
                     Toast.makeText(context, "Please choose a shorter pet name", Toast.LENGTH_LONG).show();
                 else if (!petNameField.matches("^[a-zA-Z0-9]*$"))
@@ -164,9 +196,11 @@ public class LogInActivity extends AppCompatActivity {
                 String goalField = goalEntry.getText().toString();
                 String petNameField = petNameEntry.getText().toString();
                 if (goalField.equals(""))
+                    Toast.makeText(context, "Please enter a goal value", Toast.LENGTH_LONG).show();
+                else if (!goalField.matches("^[0-9.]*$"))
                     Toast.makeText(context, "Please enter a valid goal value", Toast.LENGTH_LONG).show();
                 else if (petNameField.equals(""))
-                    Toast.makeText(context, "Please enter a valid pet name", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Please enter a pet name", Toast.LENGTH_LONG).show();
                 else if (petNameField.length() > 30)
                     Toast.makeText(context, "Please choose a shorter pet name", Toast.LENGTH_LONG).show();
                 else if (!petNameField.matches("^[a-zA-Z0-9]*$"))
@@ -272,9 +306,14 @@ public class LogInActivity extends AppCompatActivity {
                 initAccountInfoEntry();
                 return;
             case GOAL:
-                initBankInfoEntry();
+                hatchNewEgg();
                 return;
             case FAIL:
+                return;
+            case HATCH_NEW:
+                initBankInfoEntry();
+                return;
+            case HATCH_FAIL:
                 return;
             default:
                 super.onBackPressed();
