@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,6 +32,18 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         getDelegate().onPostCreate(savedInstanceState);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public ActionBar getSupportActionBar() {

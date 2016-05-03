@@ -34,11 +34,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2a3d9c1-9acc-4877-9145-1d3c41c595c7" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/xml/pref_data_sync.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/LogInActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/LogInActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/auth/Login.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/auth/Login.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/auth/Logout.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/auth/Logout.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/AppCompatPreferenceActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/AppCompatPreferenceActivity.java" />
     </list>
     <ignored path="Nest Egg.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,10 +67,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LogInActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LogInActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/LogInActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.5625">
+            <state vertical-scroll-proportion="79.111115">
               <caret line="67" column="21" selection-start-line="67" selection-start-column="21" selection-end-line="67" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -104,24 +102,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Logout.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/auth/Logout.java">
+      <file leaf-file-name="AppCompatPreferenceActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/AppCompatPreferenceActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="70" column="39" selection-start-line="70" selection-start-column="39" selection-end-line="70" selection-end-column="39" />
+            <state vertical-scroll-proportion="0.5703125">
+              <caret line="37" column="45" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="egg_hatch.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/egg_hatch.xml">
-          <provider editor-type-id="android-designer">
-            <state />
+      <file leaf-file-name="UserSettingsActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/UserSettingsActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-12.555555">
+              <caret line="163" column="46" selection-start-line="163" selection-start-column="46" selection-end-line="163" selection-end-column="46" />
+              <folding />
+            </state>
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Logout.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/auth/Logout.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="55" column="39" selection-start-line="55" selection-start-column="39" selection-end-line="55" selection-end-column="39" />
+              <caret line="70" column="39" selection-start-line="70" selection-start-column="39" selection-end-line="70" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -1700,6 +1705,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/LogInActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/auth/Logout.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/AppCompatPreferenceActivity.java" />
       </list>
     </option>
   </component>
@@ -1806,25 +1812,7 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="drawable" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Nest Egg" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="anim" />
+              <option name="myItemId" value="menu" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2267,20 +2255,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="33" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
-          <folding>
-            <element signature="e#420#438#0" expanded="true" />
-            <element signature="e#634#652#0" expanded="true" />
-            <element signature="e#1073#1091#0" expanded="true" />
-            <element signature="e#1243#1280#0" expanded="true" />
-            <element signature="e#1433#1471#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_set_first_goal.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2404,17 +2378,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.0055866">
           <caret line="24" column="53" selection-start-line="24" selection-start-column="53" selection-end-line="24" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/app_bar_main.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6703911">
-          <caret line="21" column="49" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
           <folding />
         </state>
       </provider>
@@ -2566,52 +2529,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/UserSettingsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="202" column="0" selection-start-line="202" selection-start-column="0" selection-end-line="202" selection-end-column="95" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_notification.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.375">
-          <caret line="7" column="39" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/fetch/FetchOwner.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="56" column="51" selection-start-line="56" selection-start-column="51" selection-end-line="56" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_general.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.875">
-          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_headers.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.25">
-          <caret line="2" column="61" selection-start-line="2" selection-start-column="61" selection-end-line="2" selection-end-column="61" />
-          <folding>
-            <element signature="e#570#605#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2732,17 +2653,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.811321">
-          <caret line="83" column="61" selection-start-line="83" selection-start-column="61" selection-end-line="83" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/auth/Login.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2767,13 +2677,83 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_notification.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27131784">
+          <caret line="7" column="39" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/app_bar_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8798883">
+          <caret line="21" column="49" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/LogInActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.5625">
+        <state vertical-scroll-proportion="79.111115">
           <caret line="67" column="21" selection-start-line="67" selection-start-column="21" selection-end-line="67" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_headers.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4651163">
+          <caret line="12" column="60" selection-start-line="12" selection-start-column="60" selection-end-line="12" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_general.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.11627907">
+          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.811321">
+          <caret line="83" column="61" selection-start-line="83" selection-start-column="61" selection-end-line="83" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/UserSettingsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.555555">
+          <caret line="163" column="46" selection-start-line="163" selection-start-column="46" selection-end-line="163" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/AppCompatPreferenceActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5703125">
+          <caret line="37" column="45" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="45" />
+          <folding />
         </state>
       </provider>
     </entry>
