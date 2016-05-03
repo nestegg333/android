@@ -79,9 +79,9 @@ public class Login extends AsyncTask<String, Void, String> {
             userData.putString(Utils.PETNAME, "Jimanji");
             userData.putString(Utils.INTERACTIONS, "FFFFFFTFFFFFTFFTVFFFFFFFTFFFFF");
             userData.putInt(Utils.COST, 212);
-            userData.putInt(Utils.TRANSACTIONS, 5);
+            userData.putInt(Utils.TRANSACTIONS, 29);
             userData.putString(Utils.LAST_PAYMENT, (new Date()).toString());
-            userData.putInt(Utils.PROGRESS, 1060);
+            userData.putInt(Utils.PROGRESS, 9788);
             userData.putInt(Utils.GOAL, 10000);
             userData.putInt(Utils.PETS, 2);
             activity.launchMainActivity(userData);

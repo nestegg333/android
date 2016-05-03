@@ -148,7 +148,10 @@ public class MainActivity extends AppCompatActivity
                     // stateChange('R');
                     if (++transactionsMade >= 30) {
                         stateChange('R');
-                        Toast.makeText(CONTEXT, "Your NestEgg is raised!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(CONTEXT, "Your NestEgg is raised!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(CONTEXT, NewPet.class);
+                        intent.putExtras(userData.getExtras());
+                        CONTEXT.startActivity(intent);
                     } else
                         // TODO demo hack
                         stateChange(interactionSequence.charAt(++transactionsMade));

@@ -33,7 +33,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".UserSettingsActivity"
-            android:label="@string/title_activity_user_settings"></activity>
+            android:label="@string/title_activity_user_settings" />
+        <activity
+            android:name=".NewPet"
+            android:label="NewPet"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <receiver android:name=".services.Alarm">
             <intent-filter>
