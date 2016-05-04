@@ -47,6 +47,25 @@ public class Login extends AsyncTask<String, Void, String> {
         Log.d(TAG, "Fetching user using username and password");
         activity = l;
         userData = b;
+
+        // trigger neglect:
+        if (userData.get(Utils.USERNAME).equals("neglect")) {
+            activity.petFailure(userData);
+            return;
+        } else if (userData.get(Utils.USERNAME).equals("diligent")) {
+            userData.putString(Utils.TOKEN, "a");
+            userData.putString(Utils.PETNAME, "Jimanji");
+            userData.putString(Utils.INTERACTIONS, "FFFFFFTFFFFFTFFTVFFFFFFFTFFFFF");
+            userData.putInt(Utils.COST, 212);
+            userData.putInt(Utils.TRANSACTIONS, 29);
+            userData.putString(Utils.LAST_PAYMENT, (new Date()).toString());
+            userData.putInt(Utils.PROGRESS, 9780);
+            userData.putInt(Utils.GOAL, 10000);
+            userData.putInt(Utils.PETS, 2);
+            activity.launchMainActivity(userData);
+            return;
+        }
+
         this.execute("http://nestegg.herokuapp.com/auth/login/");
     }
 
@@ -100,6 +119,7 @@ public class Login extends AsyncTask<String, Void, String> {
             userData.putInt(Utils.PETS, 2);
 
             long lastPayment = Date.parse(userData.getString(Utils.LAST_PAYMENT));
+
             // TODO to trigger neglect: lastPayment -= 4 * Utils.DAYS;
             long now = (new Date()).getTime();
             if (now - lastPayment > 3 * Utils.DAYS) {

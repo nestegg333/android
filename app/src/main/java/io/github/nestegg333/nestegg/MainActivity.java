@@ -107,18 +107,21 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.no_action).setVisibility(View.GONE);
                 findViewById(R.id.action_container).setVisibility(View.VISIBLE);
                 newState = states[1];
+                Utils.makeNotification(1, this); // TODO demo
                 break;
             case 'T':
                 findViewById(R.id.no_action).setVisibility(View.GONE);
                 findViewById(R.id.action_container).setVisibility(View.VISIBLE);
                 newState = states[2];
                 costFactor = 3;
+                Utils.makeNotification(2, this); // TODO demo
                 break;
             case 'V':
                 findViewById(R.id.no_action).setVisibility(View.GONE);
                 findViewById(R.id.action_container).setVisibility(View.VISIBLE);
                 newState = states[3];
                 costFactor = 10;
+                Utils.makeNotification(3, this); // TODO demo
                 break;
             default:
                 findViewById(R.id.no_action).setVisibility(View.VISIBLE);

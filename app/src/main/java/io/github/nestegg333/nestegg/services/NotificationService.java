@@ -66,14 +66,6 @@ public class NotificationService extends IntentService {
             mBuilder.setContentText("It's packing its things!");
         }
 
-        //Intent resultIntent = new Intent(context, LogInActivity.class);
-        Intent intentToStart = context.getPackageManager().getLaunchIntentForPackage("io.github.nestegg333.nestegg");
-        intentToStart.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent resultPendingIntent =
-                PendingIntent.getActivity(context, 0, intentToStart,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(resultPendingIntent);
-
         NotificationManager mNotifyMgr =
                 (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
         mNotifyMgr.notify(1, mBuilder.build());

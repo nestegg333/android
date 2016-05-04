@@ -1,9 +1,14 @@
 package io.github.nestegg333.nestegg;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import java.lang.reflect.Field;
 
@@ -54,6 +59,34 @@ public class Utils {
             finalCost = "0.0" + intString;
         }
         return finalCost;
+    }
+
+    public static void makeNotification(int num, Context context) {
+        NotificationCompat.Builder mBuilder =
+                (NotificationCompat.Builder) new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.eggicon)
+                        .setContentTitle("Your pet misses you!")
+                        .setColor(Utils.GREEN);
+
+        if (num == 1) {
+            mBuilder.setContentText("See how they're doing!");
+        } else if (num == 2) {
+            mBuilder.setContentText("They're feeling lonely...");
+        } else if (num == 3) {
+            mBuilder.setContentText("It's packing its things!");
+        }
+
+        //Intent resultIntent = new Intent(context, LogInActivity.class);
+        Intent intentToStart = context.getPackageManager().getLaunchIntentForPackage("io.github.nestegg333.nestegg");
+        intentToStart.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(context, 0, intentToStart,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
+
+        NotificationManager mNotifyMgr =
+                (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(1, mBuilder.build());
     }
 
     // OVERRIDE activity-wide font to custom font:
