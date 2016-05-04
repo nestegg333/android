@@ -107,8 +107,8 @@ public class Login extends AsyncTask<String, Void, String> {
             userData.putInt(Utils.PETS, 2);
 
             long lastPayment = Date.parse(userData.getString(Utils.LAST_PAYMENT));
-
             // TODO to trigger neglect: lastPayment -= 4 * Utils.DAYS;
+
             long now = (new Date()).getTime();
             if (now - lastPayment > 3 * Utils.DAYS) {
                 activity.petFailure(userData);

@@ -87,6 +87,11 @@ public class MainActivity extends AppCompatActivity
                     drawer.openDrawer(GravityCompat.START);
                     ((TextView) findViewById(R.id.drawer_username)).setText(username);
                     ((TextView) findViewById(R.id.drawer_eggs_raised)).setText("x " + eggsRaised);
+
+                    ImageView eggWiggle = (ImageView) findViewById(R.id.egg_menu);
+                    AnimationDrawable egg = ((AnimationDrawable) eggWiggle.getBackground());
+                    egg.start();
+
                     ((TextView) findViewById(R.id.drawer_progress_status)).setText("$"
                             + Utils.amountToString(goalProgress) + " saved");
                     ((TextView) findViewById(R.id.drawer_goal_status)).setText("$"

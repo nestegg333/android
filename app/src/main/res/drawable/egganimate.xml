@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Animation frames are boreddragon.png through boreddragon3.png
+files inside the res/drawable/ folder -->
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/blinkrest" android:oneshot="false">
+    <item android:drawable="@drawable/egg1" android:duration="1000" />
+    <item android:drawable="@drawable/egg2" android:duration="100" />
+    <item android:drawable="@drawable/egg3" android:duration="100" />
+    <item android:drawable="@drawable/egg1" android:duration="100" />
+    <item android:drawable="@drawable/egg2" android:duration="100" />
+    <item android:drawable="@drawable/egg3" android:duration="100" />
+    <item android:drawable="@drawable/egg1" android:duration="100" />
+    <item android:drawable="@drawable/egg2" android:duration="100" />
+    <item android:drawable="@drawable/egg3" android:duration="100" />
+</animation-list>
+

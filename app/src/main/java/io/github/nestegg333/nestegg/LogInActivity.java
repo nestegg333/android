@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -153,6 +154,10 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(R.layout.egg_hatch);
         currentScreen = HATCH_NEW;
 
+        ImageView eggRock = (ImageView) findViewById(R.id.egg_hatch_image);
+        AnimationDrawable animate = ((AnimationDrawable) eggRock.getBackground());
+        animate.start();
+
         findViewById(R.id.egg_hatch_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,6 +245,9 @@ public class LogInActivity extends AppCompatActivity {
     public void petFailure(final Bundle bundle) {
         setContentView(R.layout.pet_failure);
         ((TextView) findViewById(R.id.pet_failure_header)).setText("No!! " + bundle.getString(Utils.PETNAME) + " ran away!!");
+
+        ImageView runningAway = (ImageView) findViewById(R.id.egg_menu);
+        ((AnimationDrawable) runningAway.getBackground()).start();
 
         findViewById(R.id.pet_failure_continue).setOnClickListener(new View.OnClickListener() {
             @Override
