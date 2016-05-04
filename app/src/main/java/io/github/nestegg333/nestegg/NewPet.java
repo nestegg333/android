@@ -111,6 +111,7 @@ public class NewPet extends AppCompatActivity {
         b.putInt(Utils.GOAL, goal * 100);
         b.putInt(Utils.COST, (int) (goal * 100 / 47.169811321));
         b.putInt(Utils.TRANSACTIONS, 0);
+        b.putString(Utils.INTERACTIONS, "R");
         b.putInt(Utils.PETS, b.getInt(Utils.PETS) + 1);
         b.putString(Utils.PETNAME, petName);
 
