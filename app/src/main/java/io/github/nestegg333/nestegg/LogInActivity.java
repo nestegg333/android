@@ -312,7 +312,7 @@ public class LogInActivity extends AppCompatActivity {
         bundle.putString(Utils.TOKEN, "1a2b3c");
         bundle.putString(Utils.USERNAME, username);
         bundle.putString(Utils.PETNAME, petName);
-        bundle.putString(Utils.INTERACTIONS, "FFFFFFTFFFFFTFFTVFFFFFFFTFFFFF");
+        bundle.putString(Utils.INTERACTIONS, "FTVRFFFFFFFFFFTFFTFFFFFFFFTFFFFF");
         bundle.putInt(Utils.COST, (int) (goal * 100 / 47.169811321));
         bundle.putInt(Utils.TRANSACTIONS, 0);
         bundle.putString(Utils.LAST_PAYMENT, "");

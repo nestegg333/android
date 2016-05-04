@@ -54,7 +54,7 @@ public class Login extends AsyncTask<String, Void, String> {
             return;
         } else if (userData.get(Utils.USERNAME).equals("diligent")) {
             userData.putString(Utils.TOKEN, "a");
-            userData.putString(Utils.PETNAME, "Jimanji");
+            userData.putString(Utils.PETNAME, "Foo");
             userData.putString(Utils.INTERACTIONS, "FFFFFFTFFFFFTFFTVFFFFFFFTFFFFF");
             userData.putInt(Utils.COST, 212);
             userData.putInt(Utils.TRANSACTIONS, 29);
@@ -96,20 +96,8 @@ public class Login extends AsyncTask<String, Void, String> {
             JSONObject loginReceived = new JSONObject(data);
             // TODO: get/parse owner and pet object
 
-            /* TODO: brink of new pet:
             userData.putString(Utils.TOKEN, loginReceived.getString("auth_token"));
-            userData.putString(Utils.PETNAME, "Jimanji");
-            userData.putString(Utils.INTERACTIONS, "FFFFFFTFFFFFTFFTVFFFFFFFTFFFFF");
-            userData.putInt(Utils.COST, 212);
-            userData.putInt(Utils.TRANSACTIONS, 29);
-            userData.putString(Utils.LAST_PAYMENT, (new Date()).toString());
-            userData.putInt(Utils.PROGRESS, 9780);
-            userData.putInt(Utils.GOAL, 10000);
-            userData.putInt(Utils.PETS, 2);
-            */
-
-            userData.putString(Utils.TOKEN, loginReceived.getString("auth_token"));
-            userData.putString(Utils.PETNAME, "Jimanji");
+            userData.putString(Utils.PETNAME, "Foo");
             userData.putString(Utils.INTERACTIONS, "FFFTVRTFFFFFTFFFFFFFFFFFTFFFFF");
             userData.putInt(Utils.COST, 212);
             userData.putInt(Utils.TRANSACTIONS, 2);
