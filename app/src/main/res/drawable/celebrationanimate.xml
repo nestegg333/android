@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Animation frames are celebrationdragon.png through celebrationdragon3.png
+files inside the res/drawable/ folder -->
+<animation-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/blinkrest"
+    android:oneshot="false">
+    <item android:drawable="@drawable/celebrationdragon1" android:duration="2000" />
+    <item android:drawable="@drawable/celebrationdragon2" android:duration="50" />
+    <item android:drawable="@drawable/celebrationdragon3" android:duration="100" />
+    <item android:drawable="@drawable/celebrationdragon2" android:duration="50" />
+    <item android:drawable="@drawable/celebrationdragon1" android:duration="150" />
+    <item android:drawable="@drawable/celebrationdragon2" android:duration="50" />
+    <item android:drawable="@drawable/celebrationdragon3" android:duration="100" />
+    <item android:drawable="@drawable/celebrationdragon2" android:duration="50" />
+</animation-list>
+

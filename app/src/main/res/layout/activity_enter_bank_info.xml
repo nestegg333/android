@@ -28,17 +28,17 @@
     </RelativeLayout>
 
     <!--<TextView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_weight="0.5"-->
-    <!--android:textSize="60sp"-->
-    <!--android:gravity="center"-->
-    <!--android:text="NestEgg!"/>-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.5"-->
+        <!--android:textSize="60sp"-->
+        <!--android:gravity="center"-->
+        <!--android:text="NestEgg!"/>-->
 
     <!--<View-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="4dip"-->
-    <!--android:background="#22000000" />-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="4dip"-->
+        <!--android:background="#22000000" />-->
 
     <View
         android:layout_width="fill_parent"
@@ -86,20 +86,20 @@
     </RelativeLayout>
 
     <!--<EditText-->
-    <!--android:id="@+id/new_checking_account_number"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_weight="0.1"-->
-    <!--android:textSize="15sp"-->
-    <!--android:background="#22000000"-->
-    <!--android:padding="10dp"-->
-    <!--android:hint="Checking account number"-->
-    <!--android:inputType="numberPassword"/>-->
+        <!--android:id="@+id/new_checking_account_number"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.1"-->
+        <!--android:textSize="15sp"-->
+        <!--android:background="#22000000"-->
+        <!--android:padding="10dp"-->
+        <!--android:hint="Checking account number"-->
+        <!--android:inputType="numberPassword"/>-->
 
     <!--<View-->
-    <!--android:layout_width="fill_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_weight="0.05"/>-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.05"/>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -128,15 +128,15 @@
     </RelativeLayout>
 
     <!--<EditText-->
-    <!--android:id="@+id/new_savings_account_number"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_weight="0.1"-->
-    <!--android:textSize="15sp"-->
-    <!--android:background="#22000000"-->
-    <!--android:padding="10dp"-->
-    <!--android:hint="Savings account number"-->
-    <!--android:inputType="numberPassword"/>-->
+        <!--android:id="@+id/new_savings_account_number"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="0.1"-->
+        <!--android:textSize="15sp"-->
+        <!--android:background="#22000000"-->
+        <!--android:padding="10dp"-->
+        <!--android:hint="Savings account number"-->
+        <!--android:inputType="numberPassword"/>-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -174,12 +174,12 @@
     </FrameLayout>
 
     <!--<Button-->
-    <!--android:id="@+id/enter_bank_info_continue"-->
-    <!--android:layout_weight="0.1"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:background="@drawable/long_greenbutton"-->
-    <!--android:text="Continue" />-->
+        <!--android:id="@+id/enter_bank_info_continue"-->
+        <!--android:layout_weight="0.1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:background="@drawable/long_greenbutton"-->
+        <!--android:text="Continue" />-->
 
     <View
         android:layout_width="fill_parent"

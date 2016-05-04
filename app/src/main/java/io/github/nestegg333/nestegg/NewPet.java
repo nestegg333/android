@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,11 @@ public class NewPet extends AppCompatActivity {
         // OVERRIDE activity-wide font to custom font:
         Utils.setDefaultFont(this, "MONOSPACE", "fonts/Arciform.ttf");
         setContentView(R.layout.egg_success);
+
+        ImageView celebrateDragon = (ImageView) findViewById(R.id.celebdragon);
+        AnimationDrawable animate = ((AnimationDrawable) celebrateDragon.getBackground());
+        animate.start();
+
         context = this;
         intent = getIntent();
 

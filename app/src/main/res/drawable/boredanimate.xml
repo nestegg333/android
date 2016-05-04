@@ -2,7 +2,10 @@
 
 <!-- Animation frames are boreddragon.png through boreddragon3.png
 files inside the res/drawable/ folder -->
-<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/blinkrest" android:oneshot="false">
+<animation-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/blinkrest"
+    android:oneshot="false">
     <item android:drawable="@drawable/boreddragon" android:duration="2000" />
     <item android:drawable="@drawable/boreddragon2" android:duration="50" />
     <item android:drawable="@drawable/boreddragon3" android:duration="100" />

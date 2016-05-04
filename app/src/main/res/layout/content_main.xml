@@ -23,9 +23,9 @@
         android:orientation="vertical">
 
         <!--<ImageView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:src="@drawable/dragonhead"/>-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/dragonhead"/>-->
 
         <!-- Top buttons: -->
         <LinearLayout
@@ -53,13 +53,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.8"/>
-                <!--android:layout_weight="0.6"/>-->
-
-            <!--<View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:background="#FF000000"/>-->
 
         </LinearLayout>
 
@@ -83,7 +76,7 @@
             android:layout_weight="0.3"
             android:layout_gravity="center"
             android:background="@drawable/restingdragon"/>
-        <!-- android:src="@drawable/restingdragon" /> -->
+            <!-- android:src="@drawable/restingdragon" /> -->
 
         <!-- Pet action (or no action): -->
         <FrameLayout
