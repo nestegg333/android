@@ -50,6 +50,10 @@ public class Login extends AsyncTask<String, Void, String> {
 
         // trigger neglect:
         if (userData.get(Utils.USERNAME).equals("neglect")) {
+            userData.putString(Utils.TOKEN, "a");
+            userData.putString(Utils.PETNAME, "James");
+            userData.putString(Utils.INTERACTIONS, "RFFFFFTFFFFFTFFTVFFFFFFFTFFFFF");
+            userData.putInt(Utils.PETS, 2);
             activity.petFailure(userData);
             return;
         } else if (userData.get(Utils.USERNAME).equals("diligent")) {

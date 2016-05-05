@@ -246,8 +246,9 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(R.layout.pet_failure);
         ((TextView) findViewById(R.id.pet_failure_header)).setText("No!! " + bundle.getString(Utils.PETNAME) + " ran away!!");
 
-        ImageView runningAway = (ImageView) findViewById(R.id.egg_menu);
-        ((AnimationDrawable) runningAway.getBackground()).start();
+        ImageView runningAway = (ImageView) findViewById(R.id.runningawaydragon);
+        AnimationDrawable animate = (AnimationDrawable) runningAway.getBackground();
+        animate.start();
 
         findViewById(R.id.pet_failure_continue).setOnClickListener(new View.OnClickListener() {
             @Override

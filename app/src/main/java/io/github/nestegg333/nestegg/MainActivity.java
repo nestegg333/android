@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity
         };
 
         // TODO: compare with lastPaymentDate to make sure its time for an update
-        Log.d(TAG, interactionSequence);
-        Log.d(TAG, transactionsMade + " " + interactionSequence.charAt(transactionsMade));
         stateChange(interactionSequence.charAt(transactionsMade));
 
     }
