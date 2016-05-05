@@ -25,7 +25,7 @@ public class NewOwnerPost {
     private LogInActivity activity;
 
     public NewOwnerPost(Bundle b, LogInActivity l) {
-        Log.d(TAG, "Posting new payment");
+        Log.d(TAG, "Posting new owner and pet");
         data = b;
         activity = l;
 
@@ -70,10 +70,6 @@ public class NewOwnerPost {
                 ownerData.putInt(Utils.COST, responseJSON.getInt("baseCost"));
                 ownerData.putInt(Utils.TRANSACTIONS, 0);
 
-                String[] userURL = responseJSON.getString("user").split("/");
-                int userID = Integer.parseInt(userURL[userURL.length - 2]);
-                ownerData.putInt(Utils.USER_ID, userID);
-
                 new Login(ownerData, activity);
             } catch (JSONException e) {
                 Toast.makeText(activity, "Error with request", Toast.LENGTH_LONG).show();
@@ -85,7 +81,7 @@ public class NewOwnerPost {
             JSONObject ownerJSON = new JSONObject();
 
             try {
-                ownerJSON.put("user", "http://nestegg.herokuapp.com/api/users/" + data.getInt("userID") + "/");
+                ownerJSON.put("user", "http://nestegg.herokuapp.com/api/users/" + data.getInt(Utils.USER_ID) + "/");
                 ownerJSON.put("pet", "http://nestegg.herokuapp.com/api/pets/" + petid + "/");
                 ownerJSON.put("goal", data.getInt(Utils.GOAL));
                 ownerJSON.put("checkNum", data.getInt(Utils.CHECKING_ACCT));

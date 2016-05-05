@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity
         token = intent.getStringExtra(Utils.TOKEN);
         username = intent.getStringExtra(Utils.USERNAME);
         petname = intent.getStringExtra(Utils.PETNAME);
-        goalTotal = intent.getIntExtra(Utils.GOAL, 100);
+        goalTotal = intent.getIntExtra(Utils.GOAL, 100) * 100;
         goalProgress = intent.getIntExtra(Utils.PROGRESS, 0);
         eggsRaised = intent.getIntExtra(Utils.PETS, 0);
         interactionSequence = intent.getStringExtra(Utils.INTERACTIONS);

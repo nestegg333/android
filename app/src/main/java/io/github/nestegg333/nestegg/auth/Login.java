@@ -94,14 +94,17 @@ public class Login extends AsyncTask<String, Void, String> {
     }
 
     protected void onPostExecute(String data) {
-        Log.d(TAG, "On Post Execute - Attempting to create adapter from data");
+        Log.d(TAG, "On Post Execute - Attempting to get token");
         Log.d(TAG, data);
         try {
             JSONObject loginReceived = new JSONObject(data);
             userData.putString(Utils.TOKEN, loginReceived.getString("auth_token"));
             // TODO: get/parse owner and pet object
 
-            if (userData.containsKey(Utils.OWNER_ID)) activity.launchMainActivity(userData);
+            if (userData.containsKey(Utils.OWNER_ID)) {
+                activity.launchMainActivity(userData);
+                return;
+            }
 
             userData.putString(Utils.PETNAME, "Foo");
             userData.putString(Utils.INTERACTIONS, "FFFTVRTFFFFFTFFFFFFFFFFFTFFFFF");

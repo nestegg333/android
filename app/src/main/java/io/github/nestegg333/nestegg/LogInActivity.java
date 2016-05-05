@@ -22,6 +22,8 @@ import java.io.FileOutputStream;
 import java.util.Date;
 
 import io.github.nestegg333.nestegg.auth.Login;
+import io.github.nestegg333.nestegg.auth.Register;
+import io.github.nestegg333.nestegg.put.UpdateOwner;
 
 /**
  * Created by aqeelp on 3/29/16.
@@ -268,11 +270,9 @@ public class LogInActivity extends AppCompatActivity {
             outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            new Register(makeBundle(), this);
         }
-
-        // TODO: register a new user
-
-        launchMainActivity(fakeBundle());
     }
 
     private void updateUser(Bundle b) {
@@ -288,26 +288,23 @@ public class LogInActivity extends AppCompatActivity {
         }
 
         // TODO: PUT request update new user
+        String oldPetName = b.getString(Utils.PETNAME);
         b.putInt(Utils.PROGRESS, 0);
-        b.putInt(Utils.GOAL, goal * 100);
+        b.putInt(Utils.GOAL, goal);
         b.putInt(Utils.COST, (int) (goal * 100 / 47.169811321));
         b.putInt(Utils.TRANSACTIONS, 0);
         b.putInt(Utils.PETS, b.getInt(Utils.PETS) + 1);
         b.putString(Utils.PETNAME, petName);
 
-        launchMainActivity(b);
+        new UpdateOwner(b, this, null, oldPetName);
     }
 
     private void validate() {
         // FetchUser fetcher = new FetchUser(username, password, this);
-        Bundle newUserInfo = new Bundle();
-        newUserInfo.putString(Utils.USERNAME, username);
-        newUserInfo.putString(Utils.PASSWORD, password);
-        newUserInfo.putString(Utils.PETNAME, petName);
-        newUserInfo.putInt(Utils.CHECKING_ACCT, checkingAcctNum);
-        newUserInfo.putInt(Utils.SAVINGS_ACCT, savingsAcctNum);
-        newUserInfo.putInt(Utils.GOAL, goal);
-        new Login(newUserInfo, this);
+        Bundle userInfo = new Bundle();
+        userInfo.putString(Utils.USERNAME, username);
+        userInfo.putString(Utils.PASSWORD, password);
+        new Login(userInfo, this);
     }
 
     public void launchMainActivity(Bundle bundle) {
@@ -316,19 +313,15 @@ public class LogInActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private Bundle fakeBundle() {
-        Bundle bundle = new Bundle();
-        bundle.putString(Utils.TOKEN, "1a2b3c");
-        bundle.putString(Utils.USERNAME, username);
-        bundle.putString(Utils.PETNAME, petName);
-        bundle.putString(Utils.INTERACTIONS, "FTVRFFFFFFFFFFTFFTFFFFFFFFTFFFFF");
-        bundle.putInt(Utils.COST, (int) (goal * 100 / 47.169811321));
-        bundle.putInt(Utils.TRANSACTIONS, 0);
-        bundle.putString(Utils.LAST_PAYMENT, "");
-        bundle.putInt(Utils.PROGRESS, 0);
-        bundle.putInt(Utils.GOAL, goal * 100);
-        bundle.putInt(Utils.PETS, 0);
-        return bundle;
+    private Bundle makeBundle() {
+        Bundle userInfo = new Bundle();
+        userInfo.putString(Utils.USERNAME, username);
+        userInfo.putString(Utils.PASSWORD, password);
+        userInfo.putString(Utils.PETNAME, petName);
+        userInfo.putInt(Utils.CHECKING_ACCT, checkingAcctNum);
+        userInfo.putInt(Utils.SAVINGS_ACCT, savingsAcctNum);
+        userInfo.putInt(Utils.GOAL, goal);
+        return userInfo;
     }
 
     @Override

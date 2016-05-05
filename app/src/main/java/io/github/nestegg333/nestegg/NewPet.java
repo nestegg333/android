@@ -19,6 +19,8 @@ import android.widget.Toast;
 import java.io.FileOutputStream;
 import java.util.Date;
 
+import io.github.nestegg333.nestegg.put.UpdateOwner;
+
 /**
  * Created by aqeelp on 3/29/16.
  */
@@ -107,6 +109,7 @@ public class NewPet extends AppCompatActivity {
 
         // TODO: PUT request update new user
         Bundle b = intent.getExtras();
+        String oldPetName = b.getString(Utils.PETNAME);
         b.putInt(Utils.PROGRESS, 0);
         b.putInt(Utils.GOAL, goal * 100);
         b.putInt(Utils.COST, (int) (goal * 100 / 47.169811321));
@@ -115,7 +118,7 @@ public class NewPet extends AppCompatActivity {
         b.putInt(Utils.PETS, b.getInt(Utils.PETS) + 1);
         b.putString(Utils.PETNAME, petName);
 
-        launchMainActivity(b);
+        new UpdateOwner(b, null, this, oldPetName);
     }
 
     public void launchMainActivity(Bundle bundle) {

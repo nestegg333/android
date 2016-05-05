@@ -34,7 +34,7 @@ public class Register extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        Log.d(TAG, "Do in background - Attempting to log in");
+        Log.d(TAG, "Do in background - Attempting to register new use");
         try {
             JSONObject json = makeLoginJSON();
             if (json == null) activity.finish(); // TODO: crash...
@@ -47,14 +47,13 @@ public class Register extends AsyncTask<String, Void, String> {
 
             return result.toString();
         } catch (Exception e) {
-            Log.d(TAG, "Do in background - Failed to retrieve properly" + e.toString());
+            Log.d(TAG, "Do in background - Failed to register properly" + e.toString());
             return null;
         }
     }
 
     protected void onPostExecute(String data) {
-        Log.d(TAG, "On Post Execute - Attempting to create adapter from data");
-        Log.d(TAG, data);
+        Log.d(TAG, "On Post Execute - Parsing new user's data: " + data);
         try {
             JSONObject loginReceived = new JSONObject(data);
 
@@ -62,7 +61,7 @@ public class Register extends AsyncTask<String, Void, String> {
             new NewOwnerPost(userData, activity);
             // todo: register owner and pet objects
         } catch (JSONException e) {
-            Toast.makeText(activity, "Log-in Failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "Register Failed", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
