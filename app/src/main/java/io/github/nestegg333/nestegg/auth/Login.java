@@ -98,9 +98,11 @@ public class Login extends AsyncTask<String, Void, String> {
         Log.d(TAG, data);
         try {
             JSONObject loginReceived = new JSONObject(data);
+            userData.putString(Utils.TOKEN, loginReceived.getString("auth_token"));
             // TODO: get/parse owner and pet object
 
-            userData.putString(Utils.TOKEN, loginReceived.getString("auth_token"));
+            if (userData.containsKey(Utils.OWNER_ID)) activity.launchMainActivity(userData);
+
             userData.putString(Utils.PETNAME, "Foo");
             userData.putString(Utils.INTERACTIONS, "FFFTVRTFFFFFTFFFFFFFFFFFTFFFFF");
             userData.putInt(Utils.COST, 212);

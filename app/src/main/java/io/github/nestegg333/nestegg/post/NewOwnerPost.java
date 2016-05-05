@@ -13,6 +13,7 @@ import java.io.ByteArrayOutputStream;
 import io.github.nestegg333.nestegg.HttpRequest;
 import io.github.nestegg333.nestegg.LogInActivity;
 import io.github.nestegg333.nestegg.Utils;
+import io.github.nestegg333.nestegg.auth.Login;
 
 /**
  * Created by aqeelp on 12/28/15.
@@ -61,7 +62,7 @@ public class NewOwnerPost {
                 Bundle ownerData = new Bundle();
                 ownerData.putAll(data);
                 ownerData.putInt(Utils.OWNER_ID, responseJSON.getInt("id"));
-                ownerData.putInt(Utils.PETS, 1);
+                ownerData.putInt(Utils.PETS, 0);
                 ownerData.putInt(Utils.PET_ID, petid);
                 ownerData.putInt(Utils.GOAL, data.getInt(Utils.GOAL));
                 ownerData.putInt(Utils.PROGRESS, 0);
@@ -73,7 +74,7 @@ public class NewOwnerPost {
                 int userID = Integer.parseInt(userURL[userURL.length - 2]);
                 ownerData.putInt(Utils.USER_ID, userID);
 
-                activity.launchMainActivity(ownerData);
+                new Login(ownerData, activity);
             } catch (JSONException e) {
                 Toast.makeText(activity, "Error with request", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
