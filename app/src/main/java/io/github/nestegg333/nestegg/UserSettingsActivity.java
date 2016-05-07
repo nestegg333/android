@@ -22,6 +22,7 @@ import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -56,7 +57,13 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
 
             String key = preference.getKey();
             if (key.equals("username")) {
-                new AccountUpdate(context, userData, stringValue, -1, -1);
+                if (stringValue.length() > 30)
+                    Toast.makeText(context, "Your username must be shorter", Toast.LENGTH_LONG).show();
+                else if (!stringValue.matches("^[a-zA-Z0-9]*$"))
+                    Toast.makeText(context, "Your username should only contain alphanumeric characters", Toast.LENGTH_LONG).show();
+                else
+                    new AccountUpdate(context, userData, stringValue, -1, -1);
+                // TODO programmatically ensure that the edit text is not filled in with bullshit values
             } else if (key.equals("password")) {
                 // TODO fire off API call for updating passwordg
             } else if (key.equals("checking")) {
