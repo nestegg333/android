@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import io.github.nestegg333.nestegg.auth.ChangePassword;
 import io.github.nestegg333.nestegg.put.AccountUpdate;
 
 /**
@@ -64,8 +65,9 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
                 else
                     new AccountUpdate(context, userData, stringValue, -1, -1);
                 // TODO programmatically ensure that the edit text is not filled in with bullshit values
+                // TODO I think this might be due to the bind() method?
             } else if (key.equals("password")) {
-                // TODO fire off API call for updating passwordg
+                new ChangePassword(userData, context, stringValue);
             } else if (key.equals("checking")) {
                 new AccountUpdate(context, userData, null, Integer.parseInt(value.toString()), -1);
             } else if (key.equals("savings")) {
@@ -118,10 +120,10 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
 
         // Trigger the listener immediately with the preference's
         // current value.
-        sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
+        /* sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
                 PreferenceManager
                         .getDefaultSharedPreferences(preference.getContext())
-                        .getString(preference.getKey(), ""));
+                        .getString(preference.getKey(), "")); */
     }
 
     private static void bindSwtich(Preference preference, final String value) {
@@ -148,7 +150,10 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
         super.onCreate(savedInstanceState);
         setupActionBar();
         Intent intent = getIntent();
-        userData = intent.getExtras();
+        if (userData == null) {
+            userData = intent.getExtras();
+            Log.d(TAG, "userData: " + userData);
+        }
         context = this;
     }
 
@@ -203,6 +208,9 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
             setHasOptionsMenu(true);
 
             bindPreferenceSummaryToValue(findPreference("username"));
+            bindPreferenceSummaryToValue(findPreference("password"));
+            bindPreferenceSummaryToValue(findPreference("checking"));
+            bindPreferenceSummaryToValue(findPreference("savings"));
         }
 
         @Override

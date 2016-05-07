@@ -32,6 +32,7 @@ import javax.net.ssl.X509TrustManager;
 import io.github.nestegg333.nestegg.FullPaymentActivity;
 import io.github.nestegg333.nestegg.HttpRequest;
 import io.github.nestegg333.nestegg.LogInActivity;
+import io.github.nestegg333.nestegg.NestEgg;
 import io.github.nestegg333.nestegg.PaymentAdapter;
 import io.github.nestegg333.nestegg.Utils;
 
@@ -42,22 +43,25 @@ public class Login extends AsyncTask<String, Void, String> {
     private final static String TAG = "NestEgg";
     private LogInActivity activity;
     private Bundle userData;
+    private NestEgg app;
 
     public Login(Bundle b, LogInActivity l) {
         Log.d(TAG, "Fetching user using username and password");
         activity = l;
         userData = b;
+        app = (NestEgg) activity.getApplicationContext();
 
-        // trigger neglect:
-        if (userData.get(Utils.USERNAME).equals("neglect")) {
-            userData.putString(Utils.TOKEN, "a");
+        // TODO demo stuff:
+        String username = app.getUsername();
+        if (username.equals("neglect")) {
+            app.setToken("a");
             userData.putString(Utils.PETNAME, "James");
             userData.putString(Utils.INTERACTIONS, "RFFFFFTFFFFFTFFTVFFFFFFFTFFFFF");
             userData.putInt(Utils.PETS, 2);
             activity.petFailure(userData);
             return;
-        } else if (userData.get(Utils.USERNAME).equals("diligent")) {
-            userData.putString(Utils.TOKEN, "a");
+        } else if (username.equals("diligent")) {
+            app.setToken("a");
             userData.putString(Utils.PETNAME, "Foo");
             userData.putString(Utils.INTERACTIONS, "FFFFFFTFFFFFTFFTVFFFFFFFTFFFFF");
             userData.putInt(Utils.COST, 212);
@@ -98,7 +102,7 @@ public class Login extends AsyncTask<String, Void, String> {
         Log.d(TAG, data);
         try {
             JSONObject loginReceived = new JSONObject(data);
-            userData.putString(Utils.TOKEN, loginReceived.getString("auth_token"));
+            app.setToken(loginReceived.getString("auth_token"));
             // TODO: get/parse owner and pet object
 
             if (userData.containsKey(Utils.OWNER_ID)) {
@@ -131,15 +135,15 @@ public class Login extends AsyncTask<String, Void, String> {
     }
 
     private JSONObject makeLoginJSON() {
-        JSONObject paymentJSON = new JSONObject();
+        JSONObject loginJSON = new JSONObject();
 
         try {
-            paymentJSON.put("username", userData.get(Utils.USERNAME));
-            paymentJSON.put("password", userData.get(Utils.PASSWORD));
+            loginJSON.put("username", app.getUsername());
+            loginJSON.put("password", app.getPassword());
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return paymentJSON;
+        return loginJSON;
     }
 }

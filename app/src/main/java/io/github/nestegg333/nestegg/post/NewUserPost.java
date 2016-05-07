@@ -20,6 +20,7 @@ import javax.net.ssl.X509TrustManager;
 
 import io.github.nestegg333.nestegg.HttpRequest;
 import io.github.nestegg333.nestegg.LogInActivity;
+import io.github.nestegg333.nestegg.NestEgg;
 import io.github.nestegg333.nestegg.Utils;
 
 /**
@@ -80,8 +81,9 @@ public class NewUserPost extends AsyncTask<String, Void, String> {
     private JSONObject makeUserJSON() {
         JSONObject userJSON = new JSONObject();
         try {
-            userJSON.put("username", userData.get(Utils.USERNAME));
-            userJSON.put("password", userData.get(Utils.PASSWORD));
+            NestEgg app = (NestEgg) context.getApplicationContext();
+            userJSON.put("username", app.getUsername());
+            userJSON.put("password", app.getPassword());
             userJSON.put("first_name", "");
             userJSON.put("last_name", "");
             userJSON.put("email", "");

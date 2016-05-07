@@ -309,8 +309,11 @@ public class LogInActivity extends AppCompatActivity {
     private void validate() {
         // FetchUser fetcher = new FetchUser(username, password, this);
         Bundle fakeBundle = fakeBundle();
-        fakeBundle.putString(Utils.USERNAME, username);
-        fakeBundle.putString(Utils.PASSWORD, password);
+
+        ((NestEgg) getApplicationContext()).setUsername(username);
+        ((NestEgg) getApplicationContext()).setPassword(password);
+        ((NestEgg) getApplicationContext()).setToken("1a2b3c");
+
         launchMainActivity(fakeBundle);
 
         // TODO new Login(userInfo, this);
@@ -325,8 +328,6 @@ public class LogInActivity extends AppCompatActivity {
 
     private Bundle fakeBundle() {
         Bundle bundle = new Bundle();
-        bundle.putString(Utils.TOKEN, "1a2b3c");
-        bundle.putString(Utils.USERNAME, "username");
         bundle.putString(Utils.PETNAME, "petname");
         bundle.putString(Utils.INTERACTIONS, "RTVRFFFFFFFFFFTFFTFFFFFFFFTFFFFF");
         bundle.putInt(Utils.COST, (int) (goal * 100 / 47.169811321));
@@ -340,12 +341,14 @@ public class LogInActivity extends AppCompatActivity {
 
     private Bundle makeBundle() {
         Bundle userInfo = new Bundle();
-        userInfo.putString(Utils.USERNAME, username);
-        userInfo.putString(Utils.PASSWORD, password);
         userInfo.putString(Utils.PETNAME, petName);
         userInfo.putInt(Utils.CHECKING_ACCT, checkingAcctNum);
         userInfo.putInt(Utils.SAVINGS_ACCT, savingsAcctNum);
         userInfo.putInt(Utils.GOAL, goal);
+
+        ((NestEgg) getApplicationContext()).setUsername(username);
+        ((NestEgg) getApplicationContext()).setPassword(password);
+
         return userInfo;
     }
 

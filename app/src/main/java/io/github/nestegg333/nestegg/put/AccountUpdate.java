@@ -14,6 +14,7 @@ import java.io.ByteArrayOutputStream;
 
 import io.github.nestegg333.nestegg.HttpRequest;
 import io.github.nestegg333.nestegg.LogInActivity;
+import io.github.nestegg333.nestegg.NestEgg;
 import io.github.nestegg333.nestegg.NewPet;
 import io.github.nestegg333.nestegg.Utils;
 
@@ -88,8 +89,9 @@ public class AccountUpdate extends AsyncTask<String, Void, String> {
         JSONObject userJSON = new JSONObject();
 
         try {
+            NestEgg app = (NestEgg) context.getApplicationContext();
             userJSON.put("username", username);
-            userJSON.put("password", data.get(Utils.PASSWORD));
+            userJSON.put("password", app.getPassword());
 
             return userJSON;
         } catch (JSONException e) {

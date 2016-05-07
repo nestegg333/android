@@ -24,6 +24,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
+import io.github.nestegg333.nestegg.NestEgg;
 import io.github.nestegg333.nestegg.Utils;
 
 /**
@@ -85,7 +86,7 @@ public class FetchOwner extends AsyncTask<String, Void, String> {
                 reader.beginObject();
                 while (reader.hasNext()) {
                     if (reader.nextName().equals("username"))
-                        ownerInfo.putString(Utils.USERNAME, reader.nextString());
+                        ((NestEgg) context.getApplicationContext()).setUsername(reader.nextString());
                 }
                 reader.endObject();
             } else if (name.equals("pet")) {

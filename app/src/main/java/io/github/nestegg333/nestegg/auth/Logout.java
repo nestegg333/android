@@ -28,6 +28,7 @@ import javax.net.ssl.X509TrustManager;
 
 import io.github.nestegg333.nestegg.HttpRequest;
 import io.github.nestegg333.nestegg.LogInActivity;
+import io.github.nestegg333.nestegg.NestEgg;
 import io.github.nestegg333.nestegg.PaymentAdapter;
 import io.github.nestegg333.nestegg.Utils;
 
@@ -39,10 +40,10 @@ public class Logout extends AsyncTask<String, Void, String> {
     private String token;
     private Activity activity;
 
-    public Logout(String t, Activity a) {
-        Log.d(TAG, "Fetching user using username and password");
+    public Logout(Activity a) {
+        Log.d(TAG, "Logging out");
         activity = a;
-        token = t;
+        token = ((NestEgg) a.getApplicationContext()).getToken();
         this.execute("http://nestegg.herokuapp.com/auth/logout/");
     }
 
@@ -53,7 +54,7 @@ public class Logout extends AsyncTask<String, Void, String> {
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             HttpRequest.post(params[0])
                     .contentType(HttpRequest.CONTENT_TYPE_JSON)
-                    .header("Authentication", "Token " + token)
+                    .header("Authorization", "Token " + token)
                     .receive(result);
 
             return result.toString();

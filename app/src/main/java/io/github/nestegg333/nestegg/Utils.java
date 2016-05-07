@@ -17,9 +17,6 @@ import java.lang.reflect.Field;
  */
 public class Utils {
     public static String
-            TOKEN = "TOKEN",
-            USERNAME = "USERNAME",
-            PASSWORD = "PASSWORD",
             CHECKING_ACCT = "CHECKING",
             SAVINGS_ACCT = "SAVINGS",
             PETNAME = "PETNAME",

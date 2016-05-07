@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity
     private PetState[] states;
     private DrawerLayout drawer;
     private int goalTotal, goalProgress, eggsRaised, baselineCost, transactionsMade;
-    private String username, petname, token, interactionSequence, lastPaymentDate;
+    private String petname, interactionSequence, lastPaymentDate;
     private Intent userData;
     private Context CONTEXT;
 
@@ -46,10 +46,6 @@ public class MainActivity extends AppCompatActivity
         // Receive the account information:
         userData = getIntent();
         parseIntent(userData);
-
-        SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(this).edit();
-        e.putString("username", username);
-        e.commit();
 
         Alarm.scheduleAlarms(this);
 
@@ -88,7 +84,7 @@ public class MainActivity extends AppCompatActivity
                     drawer.closeDrawer(GravityCompat.START);
                 } else {
                     drawer.openDrawer(GravityCompat.START);
-                    ((TextView) findViewById(R.id.drawer_username)).setText(username);
+                    ((TextView) findViewById(R.id.drawer_username)).setText(((NestEgg) getApplicationContext()).getUsername());
                     ((TextView) findViewById(R.id.drawer_eggs_raised)).setText("x " + eggsRaised);
 
                     ImageView eggWiggle = (ImageView) findViewById(R.id.egg_menu);
@@ -177,8 +173,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void parseIntent(Intent intent) {
-        token = intent.getStringExtra(Utils.TOKEN);
-        username = intent.getStringExtra(Utils.USERNAME);
         petname = intent.getStringExtra(Utils.PETNAME);
         goalTotal = intent.getIntExtra(Utils.GOAL, 100) * 100;
         goalProgress = intent.getIntExtra(Utils.PROGRESS, 0);
@@ -207,14 +201,14 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.payment_history) {
             intent = new Intent(this, FullPaymentActivity.class);
-            intent.putExtras(userData.getExtras());
+            intent.putExtras(userData);
             startActivity(intent);
         } else if (id == R.id.user_settings_option) {
             intent = new Intent(this, UserSettingsActivity.class);
-            intent.putExtras(userData.getExtras());
+            intent.putExtras(userData);
             startActivity(intent);
         } else if (id == R.id.logout_option) {
-            new Logout(userData.getStringExtra(Utils.TOKEN), this);
+            new Logout(this);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -227,5 +221,7 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         String usernameString = states[0].getTitle().replace("%u", PreferenceManager.getDefaultSharedPreferences(this).getString("username", "username"));
         ((TextView) findViewById(R.id.pet_state_title)).setText(usernameString);
+
+        NestEgg app = (NestEgg) getApplicationContext();
     }
 }

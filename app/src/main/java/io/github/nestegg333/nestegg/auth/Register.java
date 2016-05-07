@@ -13,6 +13,7 @@ import java.util.Date;
 
 import io.github.nestegg333.nestegg.HttpRequest;
 import io.github.nestegg333.nestegg.LogInActivity;
+import io.github.nestegg333.nestegg.NestEgg;
 import io.github.nestegg333.nestegg.Utils;
 import io.github.nestegg333.nestegg.post.NewOwnerPost;
 
@@ -34,9 +35,9 @@ public class Register extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        Log.d(TAG, "Do in background - Attempting to register new use");
+        Log.d(TAG, "Do in background - Attempting to register new user");
         try {
-            JSONObject json = makeLoginJSON();
+            JSONObject json = makeRegisterJSON();
             if (json == null) activity.finish(); // TODO: crash...
 
             ByteArrayOutputStream result = new ByteArrayOutputStream();
@@ -66,17 +67,18 @@ public class Register extends AsyncTask<String, Void, String> {
         }
     }
 
-    private JSONObject makeLoginJSON() {
-        JSONObject paymentJSON = new JSONObject();
+    private JSONObject makeRegisterJSON() {
+        JSONObject registerJSON = new JSONObject();
 
         try {
-            paymentJSON.put("username", userData.get(Utils.USERNAME));
-            paymentJSON.put("password", userData.get(Utils.PASSWORD));
-            paymentJSON.put("email", "");
+            NestEgg app = (NestEgg) activity.getApplicationContext();
+            registerJSON.put("username", app.getUsername());
+            registerJSON.put("password", app.getPassword());
+            registerJSON.put("email", "");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return paymentJSON;
+        return registerJSON;
     }
 }
