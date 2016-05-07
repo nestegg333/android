@@ -11,6 +11,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
@@ -58,6 +59,7 @@ public class NotificationService extends IntentService {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         boolean notifs = sharedPreferences.getBoolean("notifications", true);
         boolean vibrates = sharedPreferences.getBoolean("vibrations", true);
+        Uri ringtone = Uri.parse(sharedPreferences.getString("ringtone", "content://media/internal/audio/media/22"));
         if (!notifs) return;
 
         NotificationCompat.Builder mBuilder =
@@ -70,6 +72,8 @@ public class NotificationService extends IntentService {
             long[] vibPattern = {100, 100, 100, 100, 100, 100, 100};
             mBuilder.setVibrate(vibPattern);
         }
+
+        mBuilder.setSound(ringtone);
 
         if (difference < 1 * Utils.DAYS) {
             mBuilder.setContentText("See how they're doing!");

@@ -57,57 +57,30 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
             String key = preference.getKey();
             if (key.equals("username")) {
                 new AccountUpdate(context, userData, stringValue, -1, -1);
-                return true;
             } else if (key.equals("password")) {
                 // TODO fire off API call for updating passwordg
-                return true;
             } else if (key.equals("checking")) {
                 new AccountUpdate(context, userData, null, Integer.parseInt(value.toString()), -1);
-                return true;
             } else if (key.equals("savings")) {
                 new AccountUpdate(context, userData, null, -1, Integer.parseInt(value.toString()));
-                return true;
-            }
+            }  else if (preference instanceof RingtonePreference) {
+                SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(context).edit();
 
-            if (preference instanceof ListPreference) {
-                // For list preferences, look up the correct display value in
-                // the preference's 'entries' list.
-                ListPreference listPreference = (ListPreference) preference;
-                int index = listPreference.findIndexOfValue(stringValue);
-
-
-                // Set the summary to reflect the new value.
-                preference.setSummary(
-                        index >= 0
-                                ? listPreference.getEntries()[index]
-                                : null);
-
-            } else if (preference instanceof RingtonePreference) {
-                // For ringtone preferences, look up the correct display value
-                // using RingtoneManager.
                 if (TextUtils.isEmpty(stringValue)) {
                     // Empty values correspond to 'silent' (no ringtone).
-                    preference.setSummary(R.string.pref_ringtone_silent);
+                    e.putString("ringtone", "");
 
                 } else {
                     Ringtone ringtone = RingtoneManager.getRingtone(
                             preference.getContext(), Uri.parse(stringValue));
 
-                    if (ringtone == null) {
-                        // Clear the summary if there was a lookup error.
-                        preference.setSummary(null);
-                    } else {
-                        // Set the summary to reflect the new ringtone display
-                        // name.
+                    if (ringtone != null) {
                         String name = ringtone.getTitle(preference.getContext());
-                        preference.setSummary(name);
+                        e.putString("ringtone", stringValue);
                     }
                 }
+                e.apply();
 
-            } else {
-                // For all other preferences, set the summary to the value's
-                // simple string representation.
-                preference.setSummary(stringValue);
             }
 
             return true;
@@ -156,7 +129,7 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
                 SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(context).edit();
                 e.putBoolean(value, switched);
                 e.apply();
-                
+
                 return true;
             }
 
@@ -252,7 +225,7 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            // TODO maybe bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
+            bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
             bindSwtich(findPreference("notifications_new_message"), "notifications");
             bindSwtich(findPreference("notifications_new_message_vibrate"), "vibrations");
         }
