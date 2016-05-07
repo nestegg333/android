@@ -301,16 +301,34 @@ public class LogInActivity extends AppCompatActivity {
 
     private void validate() {
         // FetchUser fetcher = new FetchUser(username, password, this);
-        Bundle userInfo = new Bundle();
-        userInfo.putString(Utils.USERNAME, username);
-        userInfo.putString(Utils.PASSWORD, password);
-        new Login(userInfo, this);
+        Bundle fakeBundle = fakeBundle();
+        fakeBundle.putString(Utils.USERNAME, username);
+        fakeBundle.putString(Utils.PASSWORD, password);
+        launchMainActivity(fakeBundle);
+
+        // TODO new Login(userInfo, this);
     }
 
     public void launchMainActivity(Bundle bundle) {
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
+        this.finish();
+    }
+
+    private Bundle fakeBundle() {
+        Bundle bundle = new Bundle();
+        bundle.putString(Utils.TOKEN, "1a2b3c");
+        bundle.putString(Utils.USERNAME, "username");
+        bundle.putString(Utils.PETNAME, "petname");
+        bundle.putString(Utils.INTERACTIONS, "RTVRFFFFFFFFFFTFFTFFFFFFFFTFFFFF");
+        bundle.putInt(Utils.COST, (int) (goal * 100 / 47.169811321));
+        bundle.putInt(Utils.TRANSACTIONS, 0);
+        bundle.putString(Utils.LAST_PAYMENT, "");
+        bundle.putInt(Utils.PROGRESS, 0);
+        bundle.putInt(Utils.GOAL, goal * 100);
+        bundle.putInt(Utils.PETS, 0);
+        return bundle;
     }
 
     private Bundle makeBundle() {

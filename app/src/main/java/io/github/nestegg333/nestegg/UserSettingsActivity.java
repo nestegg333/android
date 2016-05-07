@@ -16,11 +16,15 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.preference.SwitchPreference;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 
 import java.util.List;
+
+import io.github.nestegg333.nestegg.put.AccountUpdate;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -34,6 +38,10 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class UserSettingsActivity extends AppCompatPreferenceActivity {
+    private final static String TAG = "NestEgg";
+    private static Bundle userData;
+    private static Context context;
+
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -43,11 +51,29 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
 
+            Log.d(TAG, "Preference: " + preference.toString() + " val: " + stringValue);
+
+            String key = preference.getKey();
+            if (key.equals("username")) {
+                new AccountUpdate(context, userData, stringValue, -1, -1);
+                return true;
+            } else if (key.equals("password")) {
+                // TODO fire off API call for updating passwordg
+                return true;
+            } else if (key.equals("checking")) {
+                new AccountUpdate(context, userData, null, Integer.parseInt(value.toString()), -1);
+                return true;
+            } else if (key.equals("savings")) {
+                new AccountUpdate(context, userData, null, -1, Integer.parseInt(value.toString()));
+                return true;
+            }
+
             if (preference instanceof ListPreference) {
                 // For list preferences, look up the correct display value in
                 // the preference's 'entries' list.
                 ListPreference listPreference = (ListPreference) preference;
                 int index = listPreference.findIndexOfValue(stringValue);
+
 
                 // Set the summary to reflect the new value.
                 preference.setSummary(
@@ -82,6 +108,7 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
                 // simple string representation.
                 preference.setSummary(stringValue);
             }
+
             return true;
         }
     };
@@ -116,10 +143,32 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
                         .getString(preference.getKey(), ""));
     }
 
+    private static void bindSwtich(Preference preference, final String value) {
+        preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+
+            @Override
+            public boolean onPreferenceChange(Preference preference,
+                                              Object newValue) {
+                boolean switched = !((SwitchPreference) preference)
+                        .isChecked();
+
+                PreferenceManager.getDefaultSharedPreferences(preference.getContext()).edit()
+                        .putBoolean(value, switched);
+                PreferenceManager.getDefaultSharedPreferences(preference.getContext()).edit().commit();
+
+                return true;
+            }
+
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupActionBar();
+        Intent intent = getIntent();
+        userData = intent.getExtras();
+        context = this;
     }
 
     /**
@@ -156,7 +205,7 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
      */
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
-                || GeneralPreferenceFragment.class.getName().equals(fragmentName)
+                || AccountPreferenceFragment.class.getName().equals(fragmentName)
                 || NotificationPreferenceFragment.class.getName().equals(fragmentName);
     }
 
@@ -165,12 +214,14 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
      * activity is showing a two-pane settings UI.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class GeneralPreferenceFragment extends PreferenceFragment {
+    public static class AccountPreferenceFragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_general);
+            addPreferencesFromResource(R.xml.pref_account);
             setHasOptionsMenu(true);
+
+            bindPreferenceSummaryToValue(findPreference("username"));
         }
 
         @Override
@@ -201,6 +252,8 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
+            bindSwtich(findPreference("notifications_new_message"), "notifications");
+            bindSwtich(findPreference("notifications_new_message_vibrate"), "vibrations");
         }
 
         @Override

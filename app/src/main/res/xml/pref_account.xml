@@ -27,7 +27,7 @@
 
     <EditTextPreference
         android:inputType="numberPassword"
-        android:key="checking"
+        android:key="savings"
         android:maxLines="1"
         android:selectAllOnFocus="true"
         android:singleLine="true"

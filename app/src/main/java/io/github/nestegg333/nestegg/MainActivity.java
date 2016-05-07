@@ -2,8 +2,10 @@ package io.github.nestegg333.nestegg;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -41,19 +43,22 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Utils.hideActionBar(this);
         CONTEXT = this;
+        // Receive the account information:
+        userData = getIntent();
+        parseIntent(userData);
+
+        SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(this).edit();
+        e.putString("username", username);
+        e.commit();
 
         Alarm.scheduleAlarms(this);
 
         // Setup navigation drawer
         initNavigationDrawer();
 
-        // Receive the account information:
-        userData = getIntent();
-        parseIntent(userData);
-
         // Initialize the pet states:
         states = new PetState[] {
-                new PetState("Hi " + username + "!", "Neato!", R.drawable.restinganimate, "Resting"),
+                new PetState("Hi %u!", "Neato!", R.drawable.restinganimate, "Resting"),
                 new PetState("Oh no! " + petname + " is hungry!",
                         "Feed " + petname + "! - $%m", R.drawable.hungryanimate, "Hungry"),
                 new PetState("Uh oh, " + petname + " looks bored...",
@@ -110,27 +115,25 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.no_action).setVisibility(View.GONE);
                 findViewById(R.id.action_container).setVisibility(View.VISIBLE);
                 newState = states[1];
-                Utils.makeNotification(1, this); // TODO demo
                 break;
             case 'T':
                 findViewById(R.id.no_action).setVisibility(View.GONE);
                 findViewById(R.id.action_container).setVisibility(View.VISIBLE);
                 newState = states[2];
                 costFactor = 3;
-                Utils.makeNotification(2, this); // TODO demo
                 break;
             case 'V':
                 findViewById(R.id.no_action).setVisibility(View.GONE);
                 findViewById(R.id.action_container).setVisibility(View.VISIBLE);
                 newState = states[3];
                 costFactor = 10;
-                Utils.makeNotification(3, this); // TODO demo
                 break;
             default:
                 findViewById(R.id.no_action).setVisibility(View.VISIBLE);
                 findViewById(R.id.action_container).setVisibility(View.GONE);
                 newState = states[0];
-                ((TextView) findViewById(R.id.pet_state_title)).setText(newState.getTitle());
+                String usernameString = newState.getTitle().replace("%u", PreferenceManager.getDefaultSharedPreferences(this).getString("username", "username"));
+                ((TextView) findViewById(R.id.pet_state_title)).setText(usernameString);
                 ImageView dragon = (ImageView) findViewById(R.id.pet_state_image);
                 dragon.setBackground(getDrawable(newState.getImageId()));
                 ((AnimationDrawable) dragon.getBackground()).start();
@@ -217,5 +220,12 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String usernameString = states[0].getTitle().replace("%u", PreferenceManager.getDefaultSharedPreferences(this).getString("username", "username"));
+        ((TextView) findViewById(R.id.pet_state_title)).setText(usernameString);
     }
 }
