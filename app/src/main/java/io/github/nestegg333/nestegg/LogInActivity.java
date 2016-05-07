@@ -120,8 +120,11 @@ public class LogInActivity extends AppCompatActivity {
                     Toast.makeText(context, "Your username must be shorter", Toast.LENGTH_LONG).show();
                 else if (!username.matches("^[a-zA-Z0-9]*$"))
                     Toast.makeText(context, "Your username should only contain alphanumeric characters", Toast.LENGTH_LONG).show();
-                else
+                else {
+                    findViewById(R.id.login_buttons).setVisibility(View.GONE);
+                    findViewById(R.id.login_spinner).setVisibility(View.VISIBLE);
                     validate();
+                }
             }
         });
     }
@@ -206,6 +209,8 @@ public class LogInActivity extends AppCompatActivity {
                 else {
                     goal = Integer.parseInt(goalEntry.getText().toString());
                     petName = petNameEntry.getText().toString();
+                    findViewById(R.id.register_button_layout).setVisibility(View.GONE);
+                    findViewById(R.id.register_spinner).setVisibility(View.VISIBLE);
                     registerUser();
                 }
             }
@@ -238,6 +243,8 @@ public class LogInActivity extends AppCompatActivity {
                 else {
                     goal = Integer.parseInt(goalField);
                     petName = petNameField;
+                    findViewById(R.id.register_button_layout).setVisibility(View.GONE);
+                    findViewById(R.id.register_spinner).setVisibility(View.VISIBLE);
                     updateUser(bundle);
                 }
             }

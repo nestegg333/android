@@ -92,17 +92,6 @@
 
     </RelativeLayout>
 
-    <!--<EditText-->
-        <!--android:id="@+id/new_username_address_input"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="0.1"-->
-        <!--android:textSize="15sp"-->
-        <!--android:background="#22000000"-->
-        <!--android:padding="10dp"-->
-        <!--android:hint="Username"-->
-        <!--android:inputType="textEmailAddress"/>-->
-
     <View
         android:layout_width="fill_parent"
         android:layout_height="0dp"
@@ -134,23 +123,13 @@
 
     </RelativeLayout>
 
-    <!--<EditText-->
-        <!--android:id="@+id/new_password_input"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="0.1"-->
-        <!--android:textSize="15sp"-->
-        <!--android:background="#22000000"-->
-        <!--android:padding="10dp"-->
-        <!--android:hint="Password"-->
-        <!--android:inputType="textPassword"/>-->
-
     <View
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
     <LinearLayout
+        android:id="@+id/login_buttons"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -186,21 +165,6 @@
 
         </FrameLayout>
 
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:text="login"-->
-            <!--android:id="@+id/account_login"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:background="@android:color/transparent"-->
-            <!--style="?android:attr/borderlessButtonStyle"/>-->
-        <!---->
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content" -->
-            <!--android:src="@drawable/shortgreenbutton"/>-->
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -231,48 +195,19 @@
 
         </FrameLayout>
 
-
-
-        <!--<ImageButton-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:text="login"-->
-            <!--android:id="@+id/account_login"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:src="@drawable/shortgreenbutton"-->
-            <!--android:scaleType = "centerInside"/>-->
-
-        <!--<ImageButton-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:text="register"-->
-            <!--android:id="@+id/account_register"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:src="@drawable/shortgreenbutton"-->
-            <!--android:scaleType = "centerInside"/>-->
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/login_spinner"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="20dp"
         android:layout_weight="1"/>
-
-    <!--<Button-->
-        <!--android:id="@+id/account_login"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="0.1"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:text="login"/>-->
-
-    <!--<Button-->
-        <!--android:id="@+id/account_register"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="0.1"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:text="register"/>-->
 
 </LinearLayout>
