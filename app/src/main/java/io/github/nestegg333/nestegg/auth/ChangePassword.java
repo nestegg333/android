@@ -14,6 +14,7 @@ import java.util.Date;
 
 import io.github.nestegg333.nestegg.HttpRequest;
 import io.github.nestegg333.nestegg.LogInActivity;
+import io.github.nestegg333.nestegg.NestEgg;
 import io.github.nestegg333.nestegg.Utils;
 
 /**
@@ -22,13 +23,13 @@ import io.github.nestegg333.nestegg.Utils;
 public class ChangePassword extends AsyncTask<String, Void, String> {
     private final static String TAG = "NestEgg";
     private Context context;
-    private Bundle userData;
     private String newPassword;
+    private NestEgg app;
 
-    public ChangePassword(Bundle b, Context c, String n) {
+    public ChangePassword(Context c, String n) {
         Log.d(TAG, "Updating password");
         context = c;
-        userData = b;
+        app = (NestEgg) context.getApplicationContext();
         newPassword = n;
 
         this.execute("http://nestegg.herokuapp.com/auth/password/");
@@ -40,12 +41,10 @@ public class ChangePassword extends AsyncTask<String, Void, String> {
         try {
             JSONObject json = makeNewPassJSON();
 
-            Log.d(TAG, userData.getString(Utils.TOKEN));
-
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             HttpRequest.post(params[0])
                     .contentType(HttpRequest.CONTENT_TYPE_JSON)
-                    .header("Authorization", "Token " + userData.getString(Utils.TOKEN))
+                    .header("Authorization", "Token " + app.getToken())
                     .send(json.toString())
                     .receive(result);
 
@@ -57,14 +56,15 @@ public class ChangePassword extends AsyncTask<String, Void, String> {
     }
 
     protected void onPostExecute(String data) {
-        Log.d(TAG, "Response: " + data);
+        if (data.equals(""))
+            app.setPassword(newPassword);
     }
 
     private JSONObject makeNewPassJSON() {
         JSONObject paymentJSON = new JSONObject();
 
         try {
-            paymentJSON.put("current_password", userData.get(Utils.PASSWORD));
+            paymentJSON.put("current_password", app.getPassword());
             paymentJSON.put("new_password", newPassword);
         } catch (JSONException e) {
             e.printStackTrace();
