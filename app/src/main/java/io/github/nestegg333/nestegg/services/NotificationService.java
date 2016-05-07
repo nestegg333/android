@@ -10,6 +10,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
@@ -34,6 +36,7 @@ public class NotificationService extends IntentService {
         if (context == null) return;
 
         try {
+            makeNotification(0);
             byte[] buffer = new byte[28];
             FileInputStream inputStream = context.openFileInput("lastPayment");
             inputStream.read(buffer);
@@ -52,11 +55,21 @@ public class NotificationService extends IntentService {
     public static void makeNotification(int difference) {
         Log.d(TAG, "NotificationService - Making notification");
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean notifs = sharedPreferences.getBoolean("notifications", true);
+        boolean vibrates = sharedPreferences.getBoolean("vibrations", true);
+        if (!notifs) return;
+
         NotificationCompat.Builder mBuilder =
                 (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.eggicon)
                         .setContentTitle("Your pet misses you!")
                         .setColor(Utils.GREEN);
+
+        if (vibrates) {
+            long[] vibPattern = {100, 100, 100, 100, 100, 100, 100};
+            mBuilder.setVibrate(vibPattern);
+        }
 
         if (difference < 1 * Utils.DAYS) {
             mBuilder.setContentText("See how they're doing!");

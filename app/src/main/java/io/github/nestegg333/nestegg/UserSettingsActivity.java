@@ -4,6 +4,7 @@ package io.github.nestegg333.nestegg;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -152,10 +153,10 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
                 boolean switched = !((SwitchPreference) preference)
                         .isChecked();
 
-                PreferenceManager.getDefaultSharedPreferences(preference.getContext()).edit()
-                        .putBoolean(value, switched);
-                PreferenceManager.getDefaultSharedPreferences(preference.getContext()).edit().commit();
-
+                SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(context).edit();
+                e.putBoolean(value, switched);
+                e.apply();
+                
                 return true;
             }
 
@@ -251,7 +252,7 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
+            // TODO maybe bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
             bindSwtich(findPreference("notifications_new_message"), "notifications");
             bindSwtich(findPreference("notifications_new_message_vibrate"), "vibrations");
         }
