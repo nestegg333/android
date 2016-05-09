@@ -15,7 +15,6 @@ import io.github.nestegg333.nestegg.HttpRequest;
 import io.github.nestegg333.nestegg.LogInActivity;
 import io.github.nestegg333.nestegg.NestEgg;
 import io.github.nestegg333.nestegg.Utils;
-import io.github.nestegg333.nestegg.post.NewOwnerPost;
 
 /**
  * Created by aqeelp on 4/18/16.
@@ -51,6 +50,7 @@ public class Register extends AsyncTask<String, Void, String> {
                     .send(json.toString())
                     .receive(result);
 
+            Log.d(TAG, "Reponse from registering user: " + result);
             JSONObject resultJSON = new JSONObject(result.toString());
             int userID = resultJSON.getInt("id");
             userData.putInt(Utils.USER_ID, userID);
@@ -61,6 +61,7 @@ public class Register extends AsyncTask<String, Void, String> {
                     .contentType(HttpRequest.CONTENT_TYPE_JSON)
                     .send(makeLoginJSON().toString())
                     .receive(result);
+            Log.d(TAG, "Reponse from logging in: " + result);
             JSONObject loginJSON = new JSONObject(result.toString());
             NestEgg app = (NestEgg) activity.getApplicationContext();
             app.setToken(loginJSON.getString("auth_token"));
@@ -71,6 +72,7 @@ public class Register extends AsyncTask<String, Void, String> {
                     .contentType(HttpRequest.CONTENT_TYPE_JSON)
                     .send(makePetJSON().toString())
                     .receive(result);
+            Log.d(TAG, "Reponse from creating pet: " + result);
             JSONObject petJSON = new JSONObject(result.toString());
             int petID = petJSON.getInt("id");
             userData.putInt(Utils.PET_ID, petID);
@@ -79,6 +81,7 @@ public class Register extends AsyncTask<String, Void, String> {
             result = new ByteArrayOutputStream();
             HttpRequest.get("http://nestegg.herokuapp.com/api/users/" + userID + "/")
                     .receive(result);
+            Log.d(TAG, "Reponse from getting user: " + result);
             JSONObject userJSON = new JSONObject(result.toString());
             String ownerURL = userJSON.getString("owner");
 
@@ -88,10 +91,12 @@ public class Register extends AsyncTask<String, Void, String> {
                     .contentType(HttpRequest.CONTENT_TYPE_JSON)
                     .send(makeOwnerJSON().toString())
                     .receive(result);
+            Log.d(TAG, "Reponse from updating user: " + result);
 
             return result.toString();
         } catch (Exception e) {
-            Log.d(TAG, "Do in background - Failed to register properly" + e.toString());
+            Log.d(TAG, "Do in background - Failed to register properly " + e.toString());
+            e.printStackTrace();
             return null;
         }
     }
@@ -111,6 +116,8 @@ public class Register extends AsyncTask<String, Void, String> {
             userData.putString(Utils.INTERACTIONS, received.getString("interactionOrder"));
             userData.putInt(Utils.COST, received.getInt("baseCost"));
             userData.putString(Utils.LAST_PAYMENT, received.getString("lastPay"));
+
+            activity.launchMainActivity(userData);
         } catch (JSONException e) {
             Toast.makeText(activity, "Register Failed", Toast.LENGTH_LONG).show();
             activity.killSpinner(false, true);
@@ -122,11 +129,11 @@ public class Register extends AsyncTask<String, Void, String> {
         JSONObject ownerJSON = new JSONObject();
 
         try {
+            ownerJSON.put("user", "http://nestegg.herokuapp.com/api/users/" + userData.getInt(Utils.USER_ID) + "/");
             ownerJSON.put("pet", "http://nestegg.herokuapp.com/api/pets/" + userData.getInt(Utils.PET_ID) + "/");
             ownerJSON.put("goal", userData.getInt(Utils.GOAL));
             ownerJSON.put("checkNum", userData.getInt(Utils.CHECKING_ACCT));
             ownerJSON.put("saveNum", userData.getInt(Utils.SAVINGS_ACCT));
-            ownerJSON.put("lastPay", (new Date()).toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -152,7 +159,7 @@ public class Register extends AsyncTask<String, Void, String> {
         JSONObject json = new JSONObject();
 
         try {
-            json.put("username", userData.getString(Utils.PETNAME));
+            json.put("name", userData.getString(Utils.PETNAME));
             json.put("active", true);
         } catch (JSONException e) {
             e.printStackTrace();

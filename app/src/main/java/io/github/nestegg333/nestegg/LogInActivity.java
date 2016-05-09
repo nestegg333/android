@@ -341,8 +341,8 @@ public class LogInActivity extends AppCompatActivity {
         userInfo.putInt(Utils.SAVINGS_ACCT, savingsAcctNum);
         userInfo.putInt(Utils.GOAL, goal);
 
-        ((NestEgg) getApplicationContext()).setUsername(username);
-        ((NestEgg) getApplicationContext()).setPassword(password);
+        ((NestEgg) getApplication()).setUsername(username);
+        ((NestEgg) getApplication()).setPassword(password);
 
         return userInfo;
     }

@@ -88,11 +88,13 @@ public class Login extends AsyncTask<String, Void, String> {
                 return null;
             }
 
+            // Log in
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             HttpRequest.post(params[0])
                     .contentType(HttpRequest.CONTENT_TYPE_JSON)
                     .send(json.toString())
                     .receive(result);
+            Log.d(TAG, "Reponse from logging in: " + result);
 
             JSONObject resultJSON = new JSONObject(result.toString());
             if (!resultJSON.has("user"))
@@ -102,19 +104,23 @@ public class Login extends AsyncTask<String, Void, String> {
             JSONObject user = resultJSON.getJSONObject("user");
             String ownerURL = user.getString("owner");
 
+            // Get full owner data
             result = new ByteArrayOutputStream();;
             HttpRequest.get(ownerURL)
                     .receive(result);
-
-            result = new ByteArrayOutputStream();;
+            Log.d(TAG, "Reponse from getting owner: " + result);
             ownerJSON = new JSONObject(result.toString());
+
+            // Get pet data
+            result = new ByteArrayOutputStream();
             HttpRequest.get(ownerJSON.getString("pet"))
                     .receive(result);
+            Log.d(TAG, "Reponse from getting pet: " + result);
 
             petJSON = new JSONObject(result.toString());
             return "y";
         } catch (Exception e) {
-            Log.d(TAG, "Do in background - Failed to retrieve properly" + e.toString());
+            Log.d(TAG, "Do in background - Failed to retrieve properly " + e.toString());
             Toast.makeText(activity, "Error with logging in", Toast.LENGTH_LONG).show();
             activity.killSpinner(true, false);
             return null;
@@ -139,9 +145,13 @@ public class Login extends AsyncTask<String, Void, String> {
             userData.putInt(Utils.GOAL, ownerJSON.getInt("goal"));
             userData.putInt(Utils.PETS, ownerJSON.getInt("numPets"));
 
-            long lastPayment = Date.parse(userData.getString(Utils.LAST_PAYMENT));
-            // to trigger neglect: lastPayment -= 4 * Utils.DAYS;
+            if (userData.getString(Utils.LAST_PAYMENT).equals("null")) {
+                activity.launchMainActivity(userData);
+                return;
+            }
 
+            Log.d(TAG, "wtf.. " + userData.getString(Utils.LAST_PAYMENT));
+            long lastPayment = Date.parse(userData.getString(Utils.LAST_PAYMENT));
             long now = (new Date()).getTime();
             if (now - lastPayment > 3 * Utils.DAYS) {
                 activity.petFailure(userData);
