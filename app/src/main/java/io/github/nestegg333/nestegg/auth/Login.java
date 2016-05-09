@@ -46,10 +46,10 @@ public class Login extends AsyncTask<String, Void, String> {
     private NestEgg app;
     private JSONObject ownerJSON, petJSON;
 
-    public Login(Bundle b, LogInActivity l) {
+    public Login(LogInActivity l) {
         Log.d(TAG, "Fetching user using username and password");
         activity = l;
-        userData = b;
+        userData = new Bundle();
         app = (NestEgg) activity.getApplicationContext();
 
         // TODO demo stuff:
@@ -115,6 +115,8 @@ public class Login extends AsyncTask<String, Void, String> {
             return "y";
         } catch (Exception e) {
             Log.d(TAG, "Do in background - Failed to retrieve properly" + e.toString());
+            Toast.makeText(activity, "Error with logging in", Toast.LENGTH_LONG).show();
+            activity.killSpinner(true, false);
             return null;
         }
     }
@@ -124,6 +126,7 @@ public class Login extends AsyncTask<String, Void, String> {
         try {
             if (!data.equals("y")) {
                 Toast.makeText(activity, "Log-in Failed.", Toast.LENGTH_LONG).show();
+                activity.killSpinner(true, false);
                 return;
             }
 
@@ -147,6 +150,7 @@ public class Login extends AsyncTask<String, Void, String> {
             }
         } catch (JSONException e) {
             Toast.makeText(activity, "Log-in Failed", Toast.LENGTH_LONG).show();
+            activity.killSpinner(true, false);
             e.printStackTrace();
         }
     }

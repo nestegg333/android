@@ -40,8 +40,8 @@ public class Register extends AsyncTask<String, Void, String> {
             JSONObject json = makeRegisterJSON();
             if (json == null) {
                 Toast.makeText(activity, "Error with registration", Toast.LENGTH_LONG).show();
+                activity.killSpinner(false, true);
                 return null;
-                // TODO: this will cause an infinite spinner
             }
 
             // Register user
@@ -101,8 +101,8 @@ public class Register extends AsyncTask<String, Void, String> {
 
         if (data == null) {
             Toast.makeText(activity, "Register Failed", Toast.LENGTH_LONG).show();
+            activity.killSpinner(false, true);
             return;
-            // TODO cancel spinner
         }
 
         try {
@@ -113,8 +113,8 @@ public class Register extends AsyncTask<String, Void, String> {
             userData.putString(Utils.LAST_PAYMENT, received.getString("lastPay"));
         } catch (JSONException e) {
             Toast.makeText(activity, "Register Failed", Toast.LENGTH_LONG).show();
+            activity.killSpinner(false, true);
             e.printStackTrace();
-            // TODO cancel spinner
         }
     }
 

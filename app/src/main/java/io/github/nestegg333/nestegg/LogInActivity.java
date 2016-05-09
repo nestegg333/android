@@ -311,9 +311,7 @@ public class LogInActivity extends AppCompatActivity {
         ((NestEgg) getApplicationContext()).setPassword(password);
         ((NestEgg) getApplicationContext()).setToken("1a2b3c");
 
-        launchMainActivity(fakeBundle);
-
-        // TODO new Login(userInfo, this);
+        new Login(this);
     }
 
     public void launchMainActivity(Bundle bundle) {
@@ -347,6 +345,18 @@ public class LogInActivity extends AppCompatActivity {
         ((NestEgg) getApplicationContext()).setPassword(password);
 
         return userInfo;
+    }
+
+    public void killSpinner(boolean onLoginScreen, boolean onRegisterScreen) {
+        if (onLoginScreen) {
+            findViewById(R.id.login_buttons).setVisibility(View.VISIBLE);
+            findViewById(R.id.login_spinner).setVisibility(View.GONE);
+        }
+
+        if (onRegisterScreen) {
+            findViewById(R.id.register_button_layout).setVisibility(View.VISIBLE);
+            findViewById(R.id.register_spinner).setVisibility(View.GONE);
+        }
     }
 
     @Override
