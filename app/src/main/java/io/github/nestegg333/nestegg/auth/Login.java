@@ -44,6 +44,7 @@ public class Login extends AsyncTask<String, Void, String> {
     private LogInActivity activity;
     private Bundle userData;
     private NestEgg app;
+    private JSONObject ownerJSON, petJSON;
 
     public Login(Bundle b, LogInActivity l) {
         Log.d(TAG, "Fetching user using username and password");
@@ -82,7 +83,10 @@ public class Login extends AsyncTask<String, Void, String> {
         Log.d(TAG, "Do in background - Attempting to log in");
         try {
             JSONObject json = makeLoginJSON();
-            if (json == null) activity.finish(); // TODO: crash...
+            if (json == null) {
+                Toast.makeText(activity, "Error with log-in", Toast.LENGTH_LONG).show();
+                return null;
+            }
 
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             HttpRequest.post(params[0])
@@ -90,7 +94,25 @@ public class Login extends AsyncTask<String, Void, String> {
                     .send(json.toString())
                     .receive(result);
 
-            return result.toString();
+            JSONObject resultJSON = new JSONObject(result.toString());
+            if (!resultJSON.has("user"))
+                return null;
+
+            app.setToken(resultJSON.getString("auth_token"));
+            JSONObject user = resultJSON.getJSONObject("user");
+            String ownerURL = user.getString("owner");
+
+            result = new ByteArrayOutputStream();;
+            HttpRequest.get(ownerURL)
+                    .receive(result);
+
+            result = new ByteArrayOutputStream();;
+            ownerJSON = new JSONObject(result.toString());
+            HttpRequest.get(ownerJSON.getString("pet"))
+                    .receive(result);
+
+            petJSON = new JSONObject(result.toString());
+            return "y";
         } catch (Exception e) {
             Log.d(TAG, "Do in background - Failed to retrieve properly" + e.toString());
             return null;
@@ -98,29 +120,24 @@ public class Login extends AsyncTask<String, Void, String> {
     }
 
     protected void onPostExecute(String data) {
-        Log.d(TAG, "On Post Execute - Attempting to get token");
-        Log.d(TAG, data);
+        Log.d(TAG, "On Post Execute - Parsing all data");
         try {
-            JSONObject loginReceived = new JSONObject(data);
-            app.setToken(loginReceived.getString("auth_token"));
-            // TODO: get/parse owner and pet object
-
-            if (userData.containsKey(Utils.OWNER_ID)) {
-                activity.launchMainActivity(userData);
+            if (!data.equals("y")) {
+                Toast.makeText(activity, "Log-in Failed.", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            userData.putString(Utils.PETNAME, "Foo");
-            userData.putString(Utils.INTERACTIONS, "FFFTVRTFFFFFTFFFFFFFFFFFTFFFFF");
-            userData.putInt(Utils.COST, 212);
-            userData.putInt(Utils.TRANSACTIONS, 2);
-            userData.putString(Utils.LAST_PAYMENT, (new Date()).toString());
-            userData.putInt(Utils.PROGRESS, 424);
-            userData.putInt(Utils.GOAL, 10000);
-            userData.putInt(Utils.PETS, 2);
+            userData.putString(Utils.PETNAME, petJSON.getString("name"));
+            userData.putString(Utils.INTERACTIONS, ownerJSON.getString("interactionOrder"));
+            userData.putInt(Utils.COST, ownerJSON.getInt("baseCost"));
+            userData.putInt(Utils.TRANSACTIONS, ownerJSON.getInt("numTrans"));
+            userData.putString(Utils.LAST_PAYMENT, ownerJSON.getString("lastPay"));
+            userData.putInt(Utils.PROGRESS, ownerJSON.getInt("progress"));
+            userData.putInt(Utils.GOAL, ownerJSON.getInt("goal"));
+            userData.putInt(Utils.PETS, ownerJSON.getInt("numPets"));
 
             long lastPayment = Date.parse(userData.getString(Utils.LAST_PAYMENT));
-            // TODO to trigger neglect: lastPayment -= 4 * Utils.DAYS;
+            // to trigger neglect: lastPayment -= 4 * Utils.DAYS;
 
             long now = (new Date()).getTime();
             if (now - lastPayment > 3 * Utils.DAYS) {

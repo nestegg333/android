@@ -67,7 +67,7 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
                 // TODO programmatically ensure that the edit text is not filled in with bullshit values
                 // TODO I think this might be due to the bind() method?
             } else if (key.equals("password")) {
-                new ChangePassword(userData, context, stringValue);
+                new ChangePassword(context, stringValue);
             } else if (key.equals("checking")) {
                 new AccountUpdate(context, userData, null, Integer.parseInt(value.toString()), -1);
             } else if (key.equals("savings")) {

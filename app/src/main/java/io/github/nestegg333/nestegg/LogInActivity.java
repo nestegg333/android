@@ -44,8 +44,6 @@ public class LogInActivity extends AppCompatActivity {
                                 FAIL = 5;
     private int currentScreen;
 
-    // TODO input validation throughout
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -294,7 +292,6 @@ public class LogInActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // TODO: PUT request update new user
         String oldPetName = b.getString(Utils.PETNAME);
         b.putInt(Utils.PROGRESS, 0);
         b.putInt(Utils.GOAL, goal);

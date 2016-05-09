@@ -22,7 +22,6 @@ import io.github.nestegg333.nestegg.Utils;
  * Created by aqeelp on 12/28/15.
  */
 public class AccountUpdate extends AsyncTask<String, Void, String> {
-    // TODO: don't see reason for this class right now
     private final static String TAG = "NestEgg";
     private JSONObject json;
     private Bundle data;

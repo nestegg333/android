@@ -32,8 +32,6 @@ public class NewPet extends AppCompatActivity {
     private NewPet context;
     private Intent intent;
 
-    // TODO input validation throughout
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +105,6 @@ public class NewPet extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // TODO: PUT request update new user
         Bundle b = intent.getExtras();
         String oldPetName = b.getString(Utils.PETNAME);
         b.putInt(Utils.PROGRESS, 0);
