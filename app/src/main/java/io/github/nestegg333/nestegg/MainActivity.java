@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
@@ -20,6 +21,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.util.Date;
 
 import io.github.nestegg333.nestegg.auth.Logout;
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout drawer;
     private Bundle data;
     private Context CONTEXT;
+    private char currentState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,19 +59,21 @@ public class MainActivity extends AppCompatActivity
         initNavigationDrawer();
 
         // Initialize the pet states:
-        states = new PetState[] {
-                new PetState("Hi %u!", "Neato!", R.drawable.restinganimate, "Resting"),
-                new PetState("Oh no! " + data.getInt(Utils.PETNAME) + " is hungry!",
-                        "Feed " + data.getInt(Utils.PETNAME) + "! - $%m", R.drawable.hungryanimate, "Hungry"),
-                new PetState("Uh oh, " + data.getInt(Utils.PETNAME) + " looks bored...",
-                        "Give " + data.getInt(Utils.PETNAME) + " a toy! - $%m", R.drawable.boredanimate, "Bored"),
-                new PetState("Ahh! " + data.getInt(Utils.PETNAME) + " is sick!",
-                        "Take " + data.getInt(Utils.PETNAME) + " to the vet! - $%m", R.drawable.sickanimate, "Sick"),
+        // TODO displaying the "HI!" no matter what
+        NestEgg app = (NestEgg) getApplicationContext();
+        states = new PetState[]{
+                new PetState("Hi " + app.getUsername() + "!", "Neato!", R.drawable.restinganimate, "Resting"),
+                new PetState("Oh no! " + data.getString(Utils.PETNAME) + " is hungry!",
+                        "Feed " + data.getString(Utils.PETNAME) + "! - $%m", R.drawable.hungryanimate, "Hungry"),
+                new PetState("Uh oh, " + data.getString(Utils.PETNAME) + " looks bored...",
+                        "Give " + data.getString(Utils.PETNAME) + " a toy! - $%m", R.drawable.boredanimate, "Bored"),
+                new PetState("Ahh! " + data.getString(Utils.PETNAME) + " is sick!",
+                        "Take " + data.getString(Utils.PETNAME) + " to the vet! - $%m", R.drawable.sickanimate, "Sick"),
         };
 
         // Check if its time for an update:
         String lastPaymentString = data.getString(Utils.LAST_PAYMENT);
-        if (lastPaymentString == null) {
+        if (lastPaymentString == null || lastPaymentString.equals("null")) {
             stateChange(data.getString(Utils.INTERACTIONS).charAt(0));
         } else {
             long lastPay = Date.parse(lastPaymentString);
@@ -110,6 +118,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void stateChange(char c) {
+        currentState = c;
         PetState newState;
         int costFactor = 1;
         switch (c) {
@@ -134,13 +143,14 @@ public class MainActivity extends AppCompatActivity
                 findViewById(R.id.no_action).setVisibility(View.VISIBLE);
                 findViewById(R.id.action_container).setVisibility(View.GONE);
                 newState = states[0];
-                String usernameString = newState.getTitle().replace("%u", PreferenceManager.getDefaultSharedPreferences(this).getString("username", "username"));
+                String usernameString = newState.getTitle().replace("%u", ((NestEgg) getApplicationContext()).getUsername());
                 ((TextView) findViewById(R.id.pet_state_title)).setText(usernameString);
                 ImageView dragon = (ImageView) findViewById(R.id.pet_state_image);
                 dragon.setBackground(getDrawable(newState.getImageId()));
                 ((AnimationDrawable) dragon.getBackground()).start();
                 return;
         }
+
         int cost = costFactor * data.getInt(Utils.COST);
         if (data.getInt(Utils.TRANSACTIONS) == 29)
             cost = data.getInt(Utils.GOAL) * 100 - data.getInt(Utils.PROGRESS);
@@ -156,10 +166,10 @@ public class MainActivity extends AppCompatActivity
         String actionString = newState.getAction().replace("%m", Utils.amountToString(COST));
         actionButton.setText(actionString);
         actionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    issuePayment(COST);
-                }
+            @Override
+            public void onClick(View v) {
+                issuePayment(COST);
+            }
         });
     }
 
@@ -216,9 +226,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        String usernameString = states[0].getTitle().replace("%u", PreferenceManager.getDefaultSharedPreferences(this).getString("username", "username"));
-        ((TextView) findViewById(R.id.pet_state_title)).setText(usernameString);
-
-        NestEgg app = (NestEgg) getApplicationContext();
+        NestEgg app = (NestEgg) getApplication();
+        String usernameString = "Hi " + app.getUsername() + "!";
+        if (currentState == 'R')
+            ((TextView) findViewById(R.id.pet_state_title)).setText(usernameString);
     }
+
 }
