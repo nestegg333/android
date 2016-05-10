@@ -134,7 +134,6 @@ public class Register extends AsyncTask<String, Void, String> {
             ownerJSON.put("goal", userData.getInt(Utils.GOAL));
             ownerJSON.put("checkNum", userData.getString(Utils.CHECKING_ACCT));
             ownerJSON.put("saveNum", userData.getString(Utils.SAVINGS_ACCT));
-            ownerJSON.put("lastPay", (new Date()).toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
