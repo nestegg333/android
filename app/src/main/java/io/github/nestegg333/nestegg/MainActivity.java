@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     drawer.openDrawer(GravityCompat.START);
                     ((TextView) findViewById(R.id.drawer_username)).setText(((NestEgg) getApplicationContext()).getUsername());
-                    ((TextView) findViewById(R.id.drawer_eggs_raised)).setText("x " + (data.getInt(Utils.PETS) - 1));
+                    ((TextView) findViewById(R.id.drawer_eggs_raised)).setText("x " + data.getInt(Utils.PETS));
 
                     ImageView eggWiggle = (ImageView) findViewById(R.id.egg_menu);
                     AnimationDrawable egg = ((AnimationDrawable) eggWiggle.getBackground());

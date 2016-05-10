@@ -1,11 +1,14 @@
 package io.github.nestegg333.nestegg.put;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,27 +28,28 @@ public class AccountUpdate extends AsyncTask<String, Void, String> {
     private final static String TAG = "NestEgg";
     private JSONObject json;
     private Bundle data;
-    private Context context;
+    private Activity context;
     private String username;
     private int checkingNo, savingsNo;
     private String updating;
 
-    public AccountUpdate(Context c, Bundle b, String u, int cn, int sn) {
+    public AccountUpdate(Activity c, Bundle b, String u, int cn, int sn) {
         Log.d(TAG, "Updating owner");
         data = b;
         context = c;
 
-        if (cn == -1 && sn == -1) {
+        if (cn == -1 && sn == -1 && u != null) {
             updating = "username";
+            if (u == null) return;
             username = u;
             json = makeUserJSON();
             this.execute("http://nestegg.herokuapp.com/api/users/" + data.getInt(Utils.USER_ID) + "/");
-        } else if (u == null && sn == -1) {
+        } else if (u == null && sn == -1 && cn != -1) {
             updating = "checkingNo";
             checkingNo = cn;
             json = makeOwnerJSON();
             this.execute("http://nestegg.herokuapp.com/api/owners/" + data.getInt(Utils.OWNER_ID) + "/");
-        } else if (cn == -1 && u == null) {
+        } else if (cn == -1 && u == null && sn != -1) {
             updating = "savingsNo";
             savingsNo = sn;
             json = makeOwnerJSON();
@@ -84,9 +88,19 @@ public class AccountUpdate extends AsyncTask<String, Void, String> {
         Log.d(TAG, "Response received: " + response);
 
         if (updating.equals("username")) {
-            SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(context).edit();
-            e.putString("username", username);
-            e.apply();
+            try {
+                JSONObject responseJSON = new JSONObject(response);
+                if (responseJSON.has("email")) {
+                    NestEgg app = (NestEgg) context.getApplicationContext();
+                    Log.d(TAG, "username: " + username);
+                    Toast.makeText(context, "Username updated to " + username, Toast.LENGTH_SHORT).show();
+                    app.setUsername(username);
+                } else {
+                    Toast.makeText(context, "Username change failed: " + responseJSON.get("username"), Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -96,6 +110,7 @@ public class AccountUpdate extends AsyncTask<String, Void, String> {
         try {
             NestEgg app = (NestEgg) context.getApplicationContext();
             userJSON.put("username", username);
+            userJSON.put("email", username + "@gmail.com");
             userJSON.put("password", app.getPassword());
             userJSON.put("owner", "http://nestegg.herokuapp.com/api/owners/" + data.getInt(Utils.OWNER_ID) + "/");
 

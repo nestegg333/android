@@ -2,6 +2,7 @@ package io.github.nestegg333.nestegg;
 
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,7 +44,7 @@ import io.github.nestegg333.nestegg.put.AccountUpdate;
 public class UserSettingsActivity extends AppCompatPreferenceActivity {
     private final static String TAG = "NestEgg";
     private static Bundle userData;
-    private static Context context;
+    private static Activity context;
 
     /**
      * A preference value change listener that updates the preference's summary
@@ -57,17 +58,7 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
             Log.d(TAG, "Preference: " + preference.toString() + " val: " + stringValue);
 
             String key = preference.getKey();
-            if (key.equals("username")) {
-                NestEgg app = (NestEgg) context.getApplicationContext();
-                preference.setSummary(app.getUsername());
-
-                if (stringValue.length() > 30)
-                    Toast.makeText(context, "Your username must be shorter", Toast.LENGTH_LONG).show();
-                else if (!stringValue.matches("^[a-zA-Z0-9]*$"))
-                    Toast.makeText(context, "Your username should only contain alphanumeric characters", Toast.LENGTH_LONG).show();
-                else
-                    new AccountUpdate(context, userData, stringValue, -1, -1);
-            } else if (key.equals("password")) {
+            if (key.equals("password")) {
                 new ChangePassword(context, stringValue);
             } else if (key.equals("checking")) {
                 new AccountUpdate(context, userData, null, Integer.parseInt(value.toString()), -1);
