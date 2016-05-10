@@ -32,8 +32,8 @@ public class LogInActivity extends AppCompatActivity {
     private final static String TAG = "NestEgg";
     private EditText usernameAddressEntry, passwordEntry, checkingAccountEntry,
             savingsAccountEntry, goalEntry, petNameEntry;
-    private String username, password, petName;
-    private int goal, checkingAcctNum, savingsAcctNum;
+    private String username, password, petName, checkingAcctNum, savingsAcctNum;
+    private int goal;
     private LogInActivity context;
 
     private final static int LOGIN = 0,
@@ -144,8 +144,8 @@ public class LogInActivity extends AppCompatActivity {
                 else if (!checkingAcctField.matches("^[0-9]*$") || !savingsAcctField.matches("^[0-9]*$"))
                     Toast.makeText(context, "Please enter a valid bank account number", Toast.LENGTH_LONG).show();
                 else {
-                    checkingAcctNum = Integer.parseInt(checkingAcctField);
-                    savingsAcctNum = Integer.parseInt(savingsAcctField);
+                    checkingAcctNum = checkingAcctField;
+                    savingsAcctNum = savingsAcctField;
                     hatchNewEgg();
                 }
             }
@@ -196,8 +196,8 @@ public class LogInActivity extends AppCompatActivity {
                 String petNameField = petNameEntry.getText().toString();
                 if (goalField.equals(""))
                     Toast.makeText(context, "Please enter a goal value", Toast.LENGTH_LONG).show();
-                else if (!goalField.matches("^[0-9.]*$"))
-                    Toast.makeText(context, "Please enter a valid goal value", Toast.LENGTH_LONG).show();
+                else if (!goalField.matches("^[0-9]*$"))
+                    Toast.makeText(context, "Please enter a valid goal value (in whole dollars)", Toast.LENGTH_LONG).show();
                 else if (petNameField.equals(""))
                     Toast.makeText(context, "Please enter a pet name", Toast.LENGTH_LONG).show();
                 else if (petNameField.length() > 30)
@@ -304,7 +304,6 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void validate() {
-        // FetchUser fetcher = new FetchUser(username, password, this);
         Bundle fakeBundle = fakeBundle();
 
         ((NestEgg) getApplicationContext()).setUsername(username);
@@ -337,8 +336,8 @@ public class LogInActivity extends AppCompatActivity {
     private Bundle makeBundle() {
         Bundle userInfo = new Bundle();
         userInfo.putString(Utils.PETNAME, petName);
-        userInfo.putInt(Utils.CHECKING_ACCT, checkingAcctNum);
-        userInfo.putInt(Utils.SAVINGS_ACCT, savingsAcctNum);
+        userInfo.putString(Utils.CHECKING_ACCT, checkingAcctNum);
+        userInfo.putString(Utils.SAVINGS_ACCT, savingsAcctNum);
         userInfo.putInt(Utils.GOAL, goal);
 
         ((NestEgg) getApplication()).setUsername(username);

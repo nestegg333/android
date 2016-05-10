@@ -148,12 +148,11 @@ public class Login extends AsyncTask<String, Void, String> {
             userData.putInt(Utils.GOAL, ownerJSON.getInt("goal"));
             userData.putInt(Utils.PETS, ownerJSON.getInt("numPets"));
 
-            if (userData.getString(Utils.LAST_PAYMENT).equals("null")) {
+            if (userData.getString(Utils.LAST_PAYMENT).equals("null") || userData.getString(Utils.LAST_PAYMENT) == null) {
                 activity.launchMainActivity(userData);
                 return;
             }
 
-            Log.d(TAG, "wtf.. " + userData.getString(Utils.LAST_PAYMENT));
             long lastPayment = Date.parse(userData.getString(Utils.LAST_PAYMENT));
             long now = (new Date()).getTime();
             if (now - lastPayment > 3 * Utils.DAYS) {

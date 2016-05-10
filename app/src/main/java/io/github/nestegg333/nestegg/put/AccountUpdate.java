@@ -114,9 +114,9 @@ public class AccountUpdate extends AsyncTask<String, Void, String> {
             ownerJSON.put("user", "http://nestegg.herokuapp.com/api/users/" + data.getInt(Utils.USER_ID) + "/");
             ownerJSON.put("pet", "http://nestegg.herokuapp.com/api/pets/" + data.getInt(Utils.PET_ID) + "/");
             if (updating.equals("checkingNo")) {
-                ownerJSON.put("checkNum", checkingNo);
+                ownerJSON.put("checkNum", "" + checkingNo);
             } else if (updating.equals("savingsNo")) {
-                ownerJSON.put("saveNum", savingsNo);
+                ownerJSON.put("saveNum", "" + savingsNo);
             }
 
             return ownerJSON;

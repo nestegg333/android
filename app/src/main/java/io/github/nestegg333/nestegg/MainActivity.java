@@ -77,8 +77,10 @@ public class MainActivity extends AppCompatActivity
         } else {
             long lastPay = Date.parse(lastPaymentString);
             long now = (new Date()).getTime();
-            if (now - lastPay > 8.28e7) // triggers if haven't made a payment in 23 hours
+            if (now - lastPay > Utils.DAYS * 23/24) // triggers if haven't made a payment in 23 hours
                 stateChange(data.getString(Utils.INTERACTIONS).charAt(data.getInt(Utils.TRANSACTIONS)));
+            else
+                stateChange('R');
         }
     }
 
@@ -225,10 +227,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        NestEgg app = (NestEgg) getApplication();
-        String usernameString = "Hi " + app.getUsername() + "!";
-        if (currentState == 'R')
+        if (currentState == 'R') {
+            NestEgg app = (NestEgg) getApplication();
+            String usernameString = "Hi " + app.getUsername() + "!";
             ((TextView) findViewById(R.id.pet_state_title)).setText(usernameString);
+        }
     }
 
 }

@@ -91,7 +91,7 @@ public class Register extends AsyncTask<String, Void, String> {
                     .contentType(HttpRequest.CONTENT_TYPE_JSON)
                     .send(makeOwnerJSON().toString())
                     .receive(result);
-            Log.d(TAG, "Reponse from updating user: " + result);
+            Log.d(TAG, "Reponse from updating owner: " + result);
 
             return result.toString();
         } catch (Exception e) {
@@ -132,8 +132,9 @@ public class Register extends AsyncTask<String, Void, String> {
             ownerJSON.put("user", "http://nestegg.herokuapp.com/api/users/" + userData.getInt(Utils.USER_ID) + "/");
             ownerJSON.put("pet", "http://nestegg.herokuapp.com/api/pets/" + userData.getInt(Utils.PET_ID) + "/");
             ownerJSON.put("goal", userData.getInt(Utils.GOAL));
-            ownerJSON.put("checkNum", userData.getInt(Utils.CHECKING_ACCT));
-            ownerJSON.put("saveNum", userData.getInt(Utils.SAVINGS_ACCT));
+            ownerJSON.put("checkNum", userData.getString(Utils.CHECKING_ACCT));
+            ownerJSON.put("saveNum", userData.getString(Utils.SAVINGS_ACCT));
+            ownerJSON.put("lastPay", (new Date()).toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -175,7 +176,7 @@ public class Register extends AsyncTask<String, Void, String> {
             NestEgg app = (NestEgg) activity.getApplicationContext();
             registerJSON.put("username", app.getUsername());
             registerJSON.put("password", app.getPassword());
-            registerJSON.put("email", "");
+            registerJSON.put("email", app.getUsername() + "@gmail.com");
         } catch (JSONException e) {
             e.printStackTrace();
         }
