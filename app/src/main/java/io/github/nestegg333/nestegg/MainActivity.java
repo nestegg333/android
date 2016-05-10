@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.Date;
+
 import io.github.nestegg333.nestegg.auth.Logout;
 import io.github.nestegg333.nestegg.post.NewPaymentPost;
 import io.github.nestegg333.nestegg.services.Alarm;
@@ -30,9 +32,7 @@ public class MainActivity extends AppCompatActivity
     private final static String TAG = "NestEgg";
     private PetState[] states;
     private DrawerLayout drawer;
-    private int goalTotal, goalProgress, eggsRaised, baselineCost, transactionsMade, ownerID;
-    private String petname, interactionSequence, lastPaymentDate;
-    private Intent userData;
+    private Bundle data;
     private Context CONTEXT;
 
     @Override
@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity
         Utils.hideActionBar(this);
         CONTEXT = this;
         // Receive the account information:
-        userData = getIntent();
-        parseIntent(userData);
+        Intent intent = getIntent();
+        data = intent.getExtras();
 
         Alarm.scheduleAlarms(this);
 
@@ -55,18 +55,24 @@ public class MainActivity extends AppCompatActivity
         // Initialize the pet states:
         states = new PetState[] {
                 new PetState("Hi %u!", "Neato!", R.drawable.restinganimate, "Resting"),
-                new PetState("Oh no! " + petname + " is hungry!",
-                        "Feed " + petname + "! - $%m", R.drawable.hungryanimate, "Hungry"),
-                new PetState("Uh oh, " + petname + " looks bored...",
-                        "Give " + petname + " a toy! - $%m", R.drawable.boredanimate, "Bored"),
-                new PetState("Ahh! " + petname + " is sick!",
-                        "Take " + petname + " to the vet! - $%m", R.drawable.sickanimate, "Sick"),
+                new PetState("Oh no! " + data.getInt(Utils.PETNAME) + " is hungry!",
+                        "Feed " + data.getInt(Utils.PETNAME) + "! - $%m", R.drawable.hungryanimate, "Hungry"),
+                new PetState("Uh oh, " + data.getInt(Utils.PETNAME) + " looks bored...",
+                        "Give " + data.getInt(Utils.PETNAME) + " a toy! - $%m", R.drawable.boredanimate, "Bored"),
+                new PetState("Ahh! " + data.getInt(Utils.PETNAME) + " is sick!",
+                        "Take " + data.getInt(Utils.PETNAME) + " to the vet! - $%m", R.drawable.sickanimate, "Sick"),
         };
 
-        // TODO: compare with lastPaymentDate to make sure its time for an update
-
-        stateChange(interactionSequence.charAt(transactionsMade));
-
+        // Check if its time for an update:
+        String lastPaymentString = data.getString(Utils.LAST_PAYMENT);
+        if (lastPaymentString == null) {
+            stateChange(data.getString(Utils.INTERACTIONS).charAt(0));
+        } else {
+            long lastPay = Date.parse(lastPaymentString);
+            long now = (new Date()).getTime();
+            if (now - lastPay > 8.28e7) // triggers if haven't made a payment in 23 hours
+                stateChange(data.getString(Utils.INTERACTIONS).charAt(data.getInt(Utils.TRANSACTIONS)));
+        }
     }
 
     // Setup navigation drawer
@@ -86,25 +92,24 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     drawer.openDrawer(GravityCompat.START);
                     ((TextView) findViewById(R.id.drawer_username)).setText(((NestEgg) getApplicationContext()).getUsername());
-                    ((TextView) findViewById(R.id.drawer_eggs_raised)).setText("x " + (eggsRaised - 1));
+                    ((TextView) findViewById(R.id.drawer_eggs_raised)).setText("x " + (data.getInt(Utils.PETS) - 1));
 
                     ImageView eggWiggle = (ImageView) findViewById(R.id.egg_menu);
                     AnimationDrawable egg = ((AnimationDrawable) eggWiggle.getBackground());
                     egg.start();
 
                     ((TextView) findViewById(R.id.drawer_progress_status)).setText("$"
-                            + Utils.amountToString(goalProgress) + " saved");
+                            + Utils.amountToString(data.getInt(Utils.PROGRESS)) + " saved");
                     ((TextView) findViewById(R.id.drawer_goal_status)).setText("$"
-                            + Utils.amountToString(goalTotal) + " goal");
-                    ((ProgressBar) findViewById(R.id.drawer_progress_bar)).setMax(goalTotal);
-                    ((ProgressBar) findViewById(R.id.drawer_progress_bar)).setProgress(goalProgress);
+                            + Utils.amountToString(data.getInt(Utils.GOAL) * 100) + " goal");
+                    ((ProgressBar) findViewById(R.id.drawer_progress_bar)).setMax(data.getInt(Utils.GOAL) * 100);
+                    ((ProgressBar) findViewById(R.id.drawer_progress_bar)).setProgress(data.getInt(Utils.PROGRESS));
                 }
             }
         });
     }
 
     private void stateChange(char c) {
-        Log.d(TAG, "Current state: " + c + " at index " + transactionsMade);
         PetState newState;
         int costFactor = 1;
         switch (c) {
@@ -136,8 +141,9 @@ public class MainActivity extends AppCompatActivity
                 ((AnimationDrawable) dragon.getBackground()).start();
                 return;
         }
-        int cost = costFactor * baselineCost;
-        if (transactionsMade == 29) cost = goalTotal - goalProgress;
+        int cost = costFactor * data.getInt(Utils.COST);
+        if (data.getInt(Utils.TRANSACTIONS) == 29)
+            cost = data.getInt(Utils.GOAL) * 100 - data.getInt(Utils.PROGRESS);
         final int COST = cost;
 
         ((TextView) findViewById(R.id.pet_state_title)).setText(newState.getTitle());
@@ -153,35 +159,25 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onClick(View v) {
                     issuePayment(COST);
-                    goalProgress += COST;
-                    // stateChange('R');
-                    if (++transactionsMade >= 30) {
-                        stateChange('R');
-
-                        Intent intent = new Intent(CONTEXT, NewPet.class);
-                        intent.putExtras(userData.getExtras());
-                        CONTEXT.startActivity(intent);
-                    } else
-                        // TODO demo hack
-                        stateChange(interactionSequence.charAt(transactionsMade));
                 }
         });
     }
 
     private void issuePayment(int amount) {
-        new NewPaymentPost(amount, userData.getIntExtra(Utils.OWNER_ID, 0), this);
+        new NewPaymentPost(amount, data, this);
     }
 
-    private void parseIntent(Intent intent) {
-        petname = intent.getStringExtra(Utils.PETNAME);
-        goalTotal = intent.getIntExtra(Utils.GOAL, 100) * 100;
-        goalProgress = intent.getIntExtra(Utils.PROGRESS, 0);
-        eggsRaised = intent.getIntExtra(Utils.PETS, 0);
-        interactionSequence = intent.getStringExtra(Utils.INTERACTIONS);
-        baselineCost = intent.getIntExtra(Utils.COST, 0);
-        transactionsMade = intent.getIntExtra(Utils.TRANSACTIONS, 0);
-        lastPaymentDate = intent.getStringExtra(Utils.LAST_PAYMENT);
-        ownerID = intent.getIntExtra(Utils.OWNER_ID, 0);
+    public void paymentSuccess(Bundle newData) {
+        data.putInt(Utils.TRANSACTIONS, newData.getInt(Utils.TRANSACTIONS));
+        data.putInt(Utils.PROGRESS, newData.getInt(Utils.PROGRESS));
+        data.putString(Utils.LAST_PAYMENT, newData.getString(Utils.LAST_PAYMENT));
+
+        if (data.getInt(Utils.TRANSACTIONS) >= 30) {
+            Intent intent = new Intent(CONTEXT, NewPet.class);
+            intent.putExtras(data);
+            CONTEXT.startActivity(intent);
+        } else
+            stateChange('R');
     }
 
     @Override
@@ -202,11 +198,11 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.payment_history) {
             intent = new Intent(this, FullPaymentActivity.class);
-            intent.putExtras(userData);
+            intent.putExtras(data);
             startActivity(intent);
         } else if (id == R.id.user_settings_option) {
             intent = new Intent(this, UserSettingsActivity.class);
-            intent.putExtras(userData);
+            intent.putExtras(data);
             startActivity(intent);
         } else if (id == R.id.logout_option) {
             new Logout(this);
