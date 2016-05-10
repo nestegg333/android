@@ -58,14 +58,15 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
 
             String key = preference.getKey();
             if (key.equals("username")) {
+                NestEgg app = (NestEgg) context.getApplicationContext();
+                preference.setSummary(app.getUsername());
+
                 if (stringValue.length() > 30)
                     Toast.makeText(context, "Your username must be shorter", Toast.LENGTH_LONG).show();
                 else if (!stringValue.matches("^[a-zA-Z0-9]*$"))
                     Toast.makeText(context, "Your username should only contain alphanumeric characters", Toast.LENGTH_LONG).show();
                 else
                     new AccountUpdate(context, userData, stringValue, -1, -1);
-                // TODO programmatically ensure that the edit text is not filled in with bullshit values
-                // TODO I think this might be due to the bind() method?
             } else if (key.equals("password")) {
                 new ChangePassword(context, stringValue);
             } else if (key.equals("checking")) {

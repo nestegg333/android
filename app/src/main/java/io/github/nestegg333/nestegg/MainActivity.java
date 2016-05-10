@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity
         initNavigationDrawer();
 
         // Initialize the pet states:
-        // TODO displaying the "HI!" no matter what
         NestEgg app = (NestEgg) getApplicationContext();
         states = new PetState[]{
                 new PetState("Hi " + app.getUsername() + "!", "Neato!", R.drawable.restinganimate, "Resting"),

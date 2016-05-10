@@ -75,7 +75,6 @@ public class NewPaymentPost extends AsyncTask<String, Void, String> {
         } catch (Exception e) {
             Log.d(TAG, "Exception: " + e.toString());
             Toast.makeText(context, "Error with making payment", Toast.LENGTH_LONG).show();
-            // TODO: main activity shouldn't update in this case. Maybe check that transactions++
         }
         return null;
     }
