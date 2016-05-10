@@ -30,26 +30,25 @@ public class AccountUpdate extends AsyncTask<String, Void, String> {
     private Bundle data;
     private Activity context;
     private String username;
-    private int checkingNo, savingsNo;
-    private String updating;
+    private String updating, checkingNo, savingsNo;
 
-    public AccountUpdate(Activity c, Bundle b, String u, int cn, int sn) {
+    public AccountUpdate(Activity c, Bundle b, String u, String cn, String sn) {
         Log.d(TAG, "Updating owner");
         data = b;
         context = c;
 
-        if (cn == -1 && sn == -1 && u != null) {
+        if (cn == null && sn == null && u != null) {
             updating = "username";
             if (u == null) return;
             username = u;
             json = makeUserJSON();
             this.execute("http://nestegg.herokuapp.com/api/users/" + data.getInt(Utils.USER_ID) + "/");
-        } else if (u == null && sn == -1 && cn != -1) {
+        } else if (u == null && sn == null && cn != null) {
             updating = "checkingNo";
             checkingNo = cn;
             json = makeOwnerJSON();
             this.execute("http://nestegg.herokuapp.com/api/owners/" + data.getInt(Utils.OWNER_ID) + "/");
-        } else if (cn == -1 && u == null && sn != -1) {
+        } else if (cn == null && u == null && sn != null) {
             updating = "savingsNo";
             savingsNo = sn;
             json = makeOwnerJSON();
@@ -101,6 +100,16 @@ public class AccountUpdate extends AsyncTask<String, Void, String> {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        } else {
+            try {
+                JSONObject responseJSON = new JSONObject(response);
+                if (responseJSON.has("id"))
+                    Toast.makeText(context, "Successfully updated", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(context, "Update failed", Toast.LENGTH_SHORT).show();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -129,9 +138,9 @@ public class AccountUpdate extends AsyncTask<String, Void, String> {
             ownerJSON.put("user", "http://nestegg.herokuapp.com/api/users/" + data.getInt(Utils.USER_ID) + "/");
             ownerJSON.put("pet", "http://nestegg.herokuapp.com/api/pets/" + data.getInt(Utils.PET_ID) + "/");
             if (updating.equals("checkingNo")) {
-                ownerJSON.put("checkNum", "" + checkingNo);
+                ownerJSON.put("checkNum", checkingNo);
             } else if (updating.equals("savingsNo")) {
-                ownerJSON.put("saveNum", "" + savingsNo);
+                ownerJSON.put("saveNum", savingsNo);
             }
 
             return ownerJSON;

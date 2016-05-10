@@ -61,9 +61,9 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
             if (key.equals("password")) {
                 new ChangePassword(context, stringValue);
             } else if (key.equals("checking")) {
-                new AccountUpdate(context, userData, null, Integer.parseInt(value.toString()), -1);
+                new AccountUpdate(context, userData, null, value.toString(), null);
             } else if (key.equals("savings")) {
-                new AccountUpdate(context, userData, null, -1, Integer.parseInt(value.toString()));
+                new AccountUpdate(context, userData, null, null, value.toString());
             }  else if (preference instanceof RingtonePreference) {
                 SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(context).edit();
 
@@ -199,7 +199,6 @@ public class UserSettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_account);
             setHasOptionsMenu(true);
 
-            bindPreferenceSummaryToValue(findPreference("username"));
             bindPreferenceSummaryToValue(findPreference("password"));
             bindPreferenceSummaryToValue(findPreference("checking"));
             bindPreferenceSummaryToValue(findPreference("savings"));

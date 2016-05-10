@@ -35,11 +35,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a2a3d9c1-9acc-4877-9145-1d3c41c595c7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/UserSettingsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/UserSettingsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/auth/ChangePassword.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/auth/ChangePassword.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/put/AccountUpdate.java" afterPath="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/put/AccountUpdate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/xml/pref_account.xml" afterPath="$PROJECT_DIR$/app/src/main/res/xml/pref_account.xml" />
     </list>
     <ignored path="Nest Egg.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -122,34 +119,34 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/UserSettingsActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="60" column="12" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
+              <caret line="65" column="63" selection-start-line="65" selection-start-column="63" selection-end-line="65" selection-end-column="63" />
               <folding>
-                <element signature="e#1977#3546#0" expanded="true" />
-                <element signature="e#3545#3546#0" expanded="true" />
-                <element signature="e#5065#5611#0" expanded="true" />
-                <element signature="e#5610#5611#0" expanded="true" />
-                <element signature="e#6387#6388#0" expanded="true" />
-                <element signature="e#6430#6431#0" expanded="true" />
+                <element signature="e#1977#3514#0" expanded="true" />
+                <element signature="e#3513#3514#0" expanded="true" />
+                <element signature="e#5033#5579#0" expanded="true" />
+                <element signature="e#5578#5579#0" expanded="true" />
+                <element signature="e#6355#6356#0" expanded="true" />
+                <element signature="e#6398#6399#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pref_account.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pref_account.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_account.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="-0.0">
               <caret line="0" column="77" selection-start-line="0" selection-start-column="77" selection-end-line="0" selection-end-column="77" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AccountUpdate.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AccountUpdate.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/put/AccountUpdate.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="9.740741">
-              <caret line="93" column="76" selection-start-line="93" selection-start-column="76" selection-end-line="93" selection-end-column="76" />
+            <state vertical-scroll-proportion="0.5465995">
+              <caret line="105" column="43" selection-start-line="105" selection-start-column="43" selection-end-line="105" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -1775,9 +1772,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/LogInActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/auth/ChangePassword.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/put/AccountUpdate.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/UserSettingsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/xml/pref_account.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/UserSettingsActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/put/AccountUpdate.java" />
       </list>
     </option>
   </component>
@@ -2689,10 +2686,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/put/AccountUpdate.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_account.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="9.740741">
-          <caret line="93" column="76" selection-start-line="93" selection-start-column="76" selection-end-line="93" selection-end-column="76" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="77" selection-start-line="0" selection-start-column="77" selection-end-line="0" selection-end-column="77" />
           <folding />
         </state>
       </provider>
@@ -2700,22 +2697,22 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/UserSettingsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="60" column="12" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
+          <caret line="65" column="63" selection-start-line="65" selection-start-column="63" selection-end-line="65" selection-end-column="63" />
           <folding>
-            <element signature="e#1977#3546#0" expanded="true" />
-            <element signature="e#3545#3546#0" expanded="true" />
-            <element signature="e#5065#5611#0" expanded="true" />
-            <element signature="e#5610#5611#0" expanded="true" />
-            <element signature="e#6387#6388#0" expanded="true" />
-            <element signature="e#6430#6431#0" expanded="true" />
+            <element signature="e#1977#3514#0" expanded="true" />
+            <element signature="e#3513#3514#0" expanded="true" />
+            <element signature="e#5033#5579#0" expanded="true" />
+            <element signature="e#5578#5579#0" expanded="true" />
+            <element signature="e#6355#6356#0" expanded="true" />
+            <element signature="e#6398#6399#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_account.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/github/nestegg333/nestegg/put/AccountUpdate.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="77" selection-start-line="0" selection-start-column="77" selection-end-line="0" selection-end-column="77" />
+        <state vertical-scroll-proportion="0.5465995">
+          <caret line="105" column="43" selection-start-line="105" selection-start-column="43" selection-end-line="105" selection-end-column="43" />
           <folding />
         </state>
       </provider>
