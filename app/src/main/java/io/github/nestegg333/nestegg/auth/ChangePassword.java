@@ -56,8 +56,13 @@ public class ChangePassword extends AsyncTask<String, Void, String> {
     }
 
     protected void onPostExecute(String data) {
-        if (data.equals(""))
+        if (data.equals("")) {
             app.setPassword(newPassword);
+            Log.d(TAG, "Password update success");
+        } else {
+            Log.d(TAG, "Password update failed - " + data);
+            Toast.makeText(context, "Password update failed", Toast.LENGTH_LONG).show();
+        }
     }
 
     private JSONObject makeNewPassJSON() {

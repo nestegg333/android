@@ -47,7 +47,7 @@ public class AccountUpdate extends AsyncTask<String, Void, String> {
             this.execute("http://nestegg.herokuapp.com/api/owners/" + data.getInt(Utils.OWNER_ID) + "/");
         } else if (cn == -1 && u == null) {
             updating = "savingsNo";
-            checkingNo = sn;
+            savingsNo = sn;
             json = makeOwnerJSON();
             this.execute("http://nestegg.herokuapp.com/api/owners/" + data.getInt(Utils.OWNER_ID) + "/");
         }
@@ -56,8 +56,14 @@ public class AccountUpdate extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         // Issue post request
         try {
-            JSONObject json = makeOwnerJSON();
-            Log.d(TAG, "Issuing owner put request...");
+
+            JSONObject json;
+            if (params[0].contains("users")) {
+                json = makeUserJSON();
+            } else {
+                json = makeOwnerJSON();
+            }
+            Log.d(TAG, "Issuing put request...");
 
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             HttpRequest.put(params[0])
@@ -91,6 +97,7 @@ public class AccountUpdate extends AsyncTask<String, Void, String> {
             NestEgg app = (NestEgg) context.getApplicationContext();
             userJSON.put("username", username);
             userJSON.put("password", app.getPassword());
+            userJSON.put("owner", "http://nestegg.herokuapp.com/api/owners/" + data.getInt(Utils.OWNER_ID) + "/");
 
             return userJSON;
         } catch (JSONException e) {

@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity
     private final static String TAG = "NestEgg";
     private PetState[] states;
     private DrawerLayout drawer;
-    private int goalTotal, goalProgress, eggsRaised, baselineCost, transactionsMade;
+    private int goalTotal, goalProgress, eggsRaised, baselineCost, transactionsMade, ownerID;
     private String petname, interactionSequence, lastPaymentDate;
     private Intent userData;
     private Context CONTEXT;
@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity
         };
 
         // TODO: compare with lastPaymentDate to make sure its time for an update
+
         stateChange(interactionSequence.charAt(transactionsMade));
 
     }
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     drawer.openDrawer(GravityCompat.START);
                     ((TextView) findViewById(R.id.drawer_username)).setText(((NestEgg) getApplicationContext()).getUsername());
-                    ((TextView) findViewById(R.id.drawer_eggs_raised)).setText("x " + eggsRaised);
+                    ((TextView) findViewById(R.id.drawer_eggs_raised)).setText("x " + (eggsRaised - 1));
 
                     ImageView eggWiggle = (ImageView) findViewById(R.id.egg_menu);
                     AnimationDrawable egg = ((AnimationDrawable) eggWiggle.getBackground());
@@ -180,6 +181,7 @@ public class MainActivity extends AppCompatActivity
         baselineCost = intent.getIntExtra(Utils.COST, 0);
         transactionsMade = intent.getIntExtra(Utils.TRANSACTIONS, 0);
         lastPaymentDate = intent.getStringExtra(Utils.LAST_PAYMENT);
+        ownerID = intent.getIntExtra(Utils.OWNER_ID, 0);
     }
 
     @Override

@@ -102,6 +102,7 @@ public class Login extends AsyncTask<String, Void, String> {
 
             app.setToken(resultJSON.getString("auth_token"));
             JSONObject user = resultJSON.getJSONObject("user");
+            userData.putInt(Utils.USER_ID, user.getInt("id"));
             String ownerURL = user.getString("owner");
 
             // Get full owner data
@@ -110,14 +111,16 @@ public class Login extends AsyncTask<String, Void, String> {
                     .receive(result);
             Log.d(TAG, "Reponse from getting owner: " + result);
             ownerJSON = new JSONObject(result.toString());
+            userData.putInt(Utils.OWNER_ID, ownerJSON.getInt("id"));
 
             // Get pet data
             result = new ByteArrayOutputStream();
             HttpRequest.get(ownerJSON.getString("pet"))
                     .receive(result);
             Log.d(TAG, "Reponse from getting pet: " + result);
-
             petJSON = new JSONObject(result.toString());
+            userData.putInt(Utils.PET_ID, petJSON.getInt("id"));
+
             return "y";
         } catch (Exception e) {
             Log.d(TAG, "Do in background - Failed to retrieve properly " + e.toString());
@@ -130,7 +133,7 @@ public class Login extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String data) {
         Log.d(TAG, "On Post Execute - Parsing all data");
         try {
-            if (!data.equals("y")) {
+            if (data == null) {
                 Toast.makeText(activity, "Log-in Failed.", Toast.LENGTH_LONG).show();
                 activity.killSpinner(true, false);
                 return;
